@@ -1,0 +1,27 @@
+[
+  {
+    "name": "Espresso",
+    "description": "A strong and rich coffee made by forcing hot water through finely-ground coffee beans.",
+    "instructions": "Use 18g of coffee and extract 36g in 25-30 seconds."
+  },
+  {
+    "name": "Cappuccino",
+    "description": "A classic Italian coffee drink with equal parts espresso, steamed milk, and foam.",
+    "instructions": "1 shot of espresso + 60ml steamed milk + milk foam."
+  },
+  {
+    "name": "Latte",
+    "description": "Smooth and milky with a shot of espresso and steamed milk.",
+    "instructions": "1 shot of espresso + 200ml steamed milk."
+  },
+  {
+    "name": "Americano",
+    "description": "Espresso diluted with hot water for a lighter taste.",
+    "instructions": "1 shot of espresso + 100ml hot water."
+  },
+  {
+    "name": "Mocha",
+    "description": "A sweet combination of espresso, chocolate, and milk.",
+    "instructions": "1 shot espresso + 20g chocolate syrup + 150ml steamed milk."
+  }
+]
