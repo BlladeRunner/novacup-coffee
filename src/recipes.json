@@ -2,26 +2,73 @@
   {
     "name": "Espresso",
     "description": "A strong and rich coffee made by forcing hot water through finely-ground coffee beans.",
-    "instructions": "Use 18g of coffee and extract 36g in 25-30 seconds."
+    "instructions": "Use 18g of coffee and extract 36g in 25-30 seconds.",
+    "image": "https://images.unsplash.com/photo-1511920170033-f8396924c348?auto=format&fit=crop&w=400&q=80"
   },
   {
     "name": "Cappuccino",
     "description": "A classic Italian coffee drink with equal parts espresso, steamed milk, and foam.",
-    "instructions": "1 shot of espresso + 60ml steamed milk + milk foam."
+    "instructions": "1 shot of espresso + 60ml steamed milk + milk foam.",
+    "image": "https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=400&q=80"
   },
   {
     "name": "Latte",
     "description": "Smooth and milky with a shot of espresso and steamed milk.",
-    "instructions": "1 shot of espresso + 200ml steamed milk."
+    "instructions": "1 shot of espresso + 200ml steamed milk.",
+    "image": "https://images.unsplash.com/photo-1464983953574-0892a716854b?auto=format&fit=crop&w=400&q=80"
   },
   {
     "name": "Americano",
     "description": "Espresso diluted with hot water for a lighter taste.",
-    "instructions": "1 shot of espresso + 100ml hot water."
+    "instructions": "1 shot of espresso + 100ml hot water.",
+    "image": "https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&fit=crop&w=400&q=80"
   },
   {
     "name": "Mocha",
     "description": "A sweet combination of espresso, chocolate, and milk.",
-    "instructions": "1 shot espresso + 20g chocolate syrup + 150ml steamed milk."
+    "instructions": "1 shot espresso + 20g chocolate syrup + 150ml steamed milk.",
+    "image": "https://images.unsplash.com/photo-1519125323398-675f0ddb6308?auto=format&fit=crop&w=400&q=80"
+  },
+  {
+    "name": "Flat White",
+    "description": "A strong coffee with velvety microfoam milk.",
+    "instructions": "1 shot espresso + 150ml steamed milk with microfoam.",
+    "image": "https://images.unsplash.com/photo-1503602642458-232111445657?auto=format&fit=crop&w=400&q=80"
+  },
+  {
+    "name": "Macchiato",
+    "description": "Espresso topped with a small amount of steamed milk or foam.",
+    "instructions": "1 shot espresso + a dollop of steamed milk.",
+    "image": "https://images.unsplash.com/photo-1528825871115-3581a5387919?auto=format&fit=crop&w=400&q=80"
+  },
+  {
+    "name": "Affogato",
+    "description": "A dessert-style coffee with a scoop of vanilla ice cream topped with hot espresso.",
+    "instructions": "1 shot espresso poured over a scoop of vanilla ice cream.",
+    "image": "https://images.unsplash.com/photo-1519864600265-abb23847ef2c?auto=format&fit=crop&w=400&q=80"
+  },
+  {
+    "name": "Cold Brew",
+    "description": "Coffee brewed with cold water over an extended period for a smooth, less acidic flavor.",
+    "instructions": "Steep coarsely ground coffee in cold water for 12-24 hours.",
+    "image": "https://images.unsplash.com/photo-1465101046530-73398c7f28ca?auto=format&fit=crop&w=400&q=80"
+  },
+  {
+    "name": "Irish Coffee",
+    "description": "A cocktail of hot coffee, Irish whiskey, and sugar, topped with cream.",
+    "instructions": "1 shot espresso + 30ml Irish whiskey + sugar to taste + whipped cream on top.",
+    "image": "https://images.unsplash.com/photo-1504674900247-ec6b0b1b798e?auto=format&fit=crop&w=400&q=80"
+  },
+  {
+    "name": "Affogato al Caffè",
+    "description": "A variation of affogato with a shot of espresso poured over gelato.",
+    "instructions": "1 shot espresso poured over a scoop of gelato.",
+    "image": "https://images.unsplash.com/photo-1519864600265-abb23847ef2c?auto=format&fit=crop&w=400&q=80"
+  },
+  {
+    "name": "Ristretto",
+    "description": "A short shot of espresso made with the same amount of coffee but less water.",
+    "instructions": "Use 18g of coffee and extract 20g in 15-20 seconds.",
+    "image": "https://images.unsplash.com/photo-1511920170033-f8396924c348?auto=format&fit=crop&w=400&q=80"
   }
 ]
