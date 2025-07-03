@@ -3,72 +3,108 @@
     "name": "Espresso",
     "description": "A strong and rich coffee made by forcing hot water through finely-ground coffee beans.",
     "instructions": "Use 18g of coffee and extract 36g in 25-30 seconds.",
-    "image": "/images/espresso.jpg"
+    "image": "/images/espresso.jpg",
+    "type": "Espresso",
+    "tags": ["strong", "quick", "bold"],
+    "time": "2 min"
   },
   {
     "name": "Ristretto",
     "description": "A short shot of espresso made with the same amount of coffee but less water.",
     "instructions": "Use 18g of coffee and extract 20g in 15-20 seconds.",
-    "image": "/images/ristretto.jpg"
+    "image": "/images/ristretto.jpg",
+    "type": "Espresso",
+    "tags": ["intense", "short", "bold"],
+    "time": "1.5 min"
   },
   {
     "name": "Lungo",
     "description": "A long espresso shot made with the same amount of coffee but more water, resulting in a milder and more diluted flavor.",
     "instructions": "Use 18g of coffee and extract 50-60g in 35-40 seconds.",
-    "image": "/images/lungo.jpg"
+    "image": "/images/lungo.jpg",
+    "type": "Espresso",
+    "tags": ["mild", "smooth", "long"],
+    "time": "3 min"
   },
   {
     "name": "Americano",
     "description": "Espresso diluted with hot water for a lighter taste.",
     "instructions": "1 shot of espresso + 100ml hot water.",
-    "image": "/images/americano.jpg"
+    "image": "/images/americano.jpg",
+    "type": "Espresso",
+    "tags": ["light", "smooth", "hot"],
+    "time": "3 min"
   },
   {
     "name": "Cappuccino",
     "description": "A classic Italian coffee drink with equal parts espresso, steamed milk, and foam.",
     "instructions": "1 shot of espresso + 60ml steamed milk + milk foam.",
-    "image": "/images/cappuccino.jpg"
+    "image": "/images/cappuccino.jpg",
+    "type": "Milk",
+    "tags": ["milk", "foam", "classic"],
+    "time": "4 min"
   },
   {
     "name": "Latte",
     "description": "Smooth and milky with a shot of espresso and steamed milk.",
     "instructions": "1 shot of espresso + 200ml steamed milk.",
-    "image": "/images/latte.jpg"
+    "image": "/images/latte.jpg",
+    "type": "Milk",
+    "tags": ["milk", "smooth", "creamy"],
+    "time": "4 min"
   },
   {
     "name": "Mocha",
     "description": "A sweet combination of espresso, chocolate, and milk.",
     "instructions": "1 shot espresso + 20g chocolate syrup + 150ml steamed milk.",
-    "image": "/images/mocha.jpg"
+    "image": "/images/mocha.jpg",
+    "type": "Milk",
+    "tags": ["chocolate", "sweet", "milk"],
+    "time": "5 min"
   },
   {
     "name": "Flat White",
     "description": "A strong coffee with velvety microfoam milk.",
     "instructions": "1 shot espresso + 150ml steamed milk with microfoam.",
-    "image": "/images/flat-white.jpg"
+    "image": "/images/flat-white.jpg",
+    "type": "Milk",
+    "tags": ["milk", "microfoam", "smooth"],
+    "time": "4 min"
   },
   {
     "name": "Macchiato",
     "description": "Espresso topped with a small amount of steamed milk or foam.",
     "instructions": "1 shot espresso + a dollop of steamed milk.",
-    "image": "/images/macchiato.jpg"
+    "image": "/images/macchiato.jpg",
+    "type": "Milk",
+    "tags": ["strong", "light milk", "bold"],
+    "time": "2.5 min"
   },
   {
     "name": "Affogato",
     "description": "A dessert-style coffee with a scoop of vanilla ice cream topped with hot espresso.",
     "instructions": "1 shot espresso poured over a scoop of vanilla ice cream.",
-    "image": "/images/affogato.jpg"
+    "image": "/images/affogato.jpg",
+    "type": "Dessert",
+    "tags": ["dessert", "ice cream", "sweet"],
+    "time": "2 min"
   },
   {
     "name": "Cold Brew",
     "description": "Coffee brewed with cold water over an extended period for a smooth, less acidic flavor.",
     "instructions": "Steep coarsely ground coffee in cold water for 12-24 hours.",
-    "image": "/images/cold-brew.jpg"
+    "image": "/images/cold-brew.jpg",
+    "type": "Cold",
+    "tags": ["cold", "smooth", "low acid"],
+    "time": "12+ hrs"
   },
   {
     "name": "Irish Coffee",
     "description": "A cocktail of hot coffee, Irish whiskey, and sugar, topped with cream.",
     "instructions": "1 shot espresso + 30ml Irish whiskey + sugar to taste + whipped cream on top.",
-    "image": "/images/irish-coffee.jpg"
+    "image": "/images/irish-coffee.jpg",
+    "type": "Alcoholic",
+    "tags": ["alcohol", "sweet", "creamy"],
+    "time": "5 min"
   }
 ]
