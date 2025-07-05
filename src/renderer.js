@@ -20,9 +20,9 @@ function render() {
   });
 
   app.innerHTML = `
-    <div class="min-h-screen bg-gray-50 px-4 py-8">
+    <div class="min-h-screen bg-gray-300 px-4 py-8">
       <div class="max-w-6xl mx-auto">
-        <h1 class="text-orange-800 text-4xl font-bold text-center mb-6">NovaCup Coffee</h1>
+        <h1 class="text-orange-800 text-4xl font-bold text-center mb-6 drop-shadow-[0_2px_8px_rgba(0,0,0,0.5)]">NovaCup Coffee</h1>
 
         <!-- Search and Filter -->
         <div class="flex flex-col sm:flex-row justify-between items-center mb-6 gap-4">
@@ -61,21 +61,23 @@ function render() {
               </button>
               <h2 class="text-xl font-semibold mb-2">${recipe.name}</h2>
               <p class="text-gray-600 mb-4">${recipe.description}</p>
-              <div class="flex gap-2 text-sm text-gray-500 mb-4">
-                ${
-                  recipe.tags
-                    ?.map(
-                      (tag) =>
-                        `<span class="bg-gray-200 rounded px-2 py-1">${tag}</span>`
-                    )
-                    .join("") || ""
-                }
+              <div class="flex gap-2 text-sm text-gray-500 mb-4 items-center justify-between">
+                <div class="flex gap-2">
+                  ${
+                    recipe.tags
+                      ?.map(
+                        (tag) =>
+                          `<span class="bg-gray-200 rounded px-2 py-1">${tag}</span>`
+                      )
+                      .join("") || ""
+                  }
+                </div>
+                <button 
+                  class="bg-amber-500 hover:bg-amber-600 text-white px-4 py-2 rounded whitespace-nowrap ml-auto" 
+                  onclick="viewRecipe(${i})">
+                  View Recipe
+                </button>
               </div>
-              <button 
-                class="bg-amber-500 hover:bg-amber-600 text-white px-4 py-2 rounded w-full" 
-                onclick="viewRecipe(${i})">
-                View Recipe
-              </button>
             </div>
           `
             )
@@ -92,7 +94,7 @@ function render() {
             <button class="absolute top-2 right-4 text-xl text-gray-400 hover:text-gray-700" onclick="closeRecipe()">×</button>
             <img src="${selectedRecipe.image}" alt="${
               selectedRecipe.name
-            }" class="w-40 h-40 object-cover rounded-full mx-auto border-4 border-amber-500 shadow mb-4">
+            }" class="w-64 h-64 object-cover rounded-full mx-auto border-4 border-amber-500 shadow mb-4">
             <h2 class="text-2xl font-bold mb-2">${selectedRecipe.name}</h2>
             <p class="text-gray-600 mb-3">${
               selectedRecipe.instructions ||
