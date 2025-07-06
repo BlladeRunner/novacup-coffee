@@ -1,1 +1,41 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@700;400&display=swap");
+
+body {
+  font-family: "Montserrat", sans-serif;
+  background-image: url("https://www.transparenttextures.com/patterns/wood-pattern.png");
+  background-color: #e5e7eb;
+  transition: background 0.3s, color 0.3s;
+}
+
+body.night {
+  background-color: #18181b;
+  color: #f3f4f6;
+}
+
+.night .bg-white,
+.night .bg-white\/80,
+.night .bg-gray-300,
+.night .bg-gray-200,
+.night .bg-gray-50 {
+  background-color: #23232a !important;
+  color: #f3f4f6 !important;
+}
+
+.night .text-orange-800 {
+  color: #fbbf24 !important;
+}
+
+.night .border-amber-500,
+.night .border-amber-400 {
+  border-color: #fbbf24 !important;
+}
+
+.night .shadow,
+.night .shadow-md,
+.night .shadow-lg,
+.night .shadow-xl,
+.night .shadow-2xl,
+.night .shadow-inner {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.7) !important;
+}
 @import "tailwindcss";
