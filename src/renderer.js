@@ -24,6 +24,8 @@ window.toggleNightMode = function () {
         ? "☀️"
         : "🌙")
   );
+  // Force re-render to update <p> text color
+  render();
 };
 
 // On load, restore night mode if set
@@ -43,10 +45,20 @@ function render() {
   });
 
   app.innerHTML = `
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Pacifico&display=swap" rel="stylesheet">
+    <style>
+      body, input, select, button, h1, h2, h3, h4, h5, h6, p, span, label, .font-main {
+        font-family: 'Roboto', Arial, sans-serif !important;
+      }
+      .font-logo {
+        font-family: 'Pacifico', cursive !important;
+        letter-spacing: 0.04em;
+      }
+    </style>
     <header class="sticky top-0 z-40 bg-white/90 backdrop-blur shadow flex items-center justify-between px-6 py-3 mb-8">
       <div class="flex items-center gap-3">
         <img src="/images/espresso.jpg" alt="NovaCup Logo" class="w-10 h-10 rounded-full border-2 border-amber-500 shadow" />
-        <span class="text-2xl font-bold tracking-wide drop-shadow-[0_2px_8px_rgba(0,0,0,0.5)]" style="color: #c2410c !important;">NovaCup Coffee</span>
+        <span class="text-2xl font-bold tracking-wide drop-shadow-[0_2px_8px_rgba(0,0,0,0.5)] font-logo" style="color: #c2410c !important;">NovaCup Coffee</span>
       </div>
       <button id="toggle-dark" class="text-gray-600 hover:text-black px-3 py-1 rounded transition" onclick="toggleNightMode()">${
         document.body.classList.contains("night") ? "☀️" : "🌙"
@@ -62,11 +74,25 @@ function render() {
             class="px-4 py-2 w-full sm:w-1/2 border rounded shadow-sm focus:outline-none focus:ring"
             value="${searchQuery}"
             oninput="updateSearch(this.value)"
+            style="color: ${
+              document.body.classList.contains("night") ? "#fff" : "#000"
+            }; background-color: ${
+    document.body.classList.contains("night") ? "#222" : "#fff"
+  };"
           />
           <select 
             class="px-4 py-2 border rounded shadow-sm"
-            onchange="updateFilter(this.value)">
-            <option value="All">All Types</option>
+            onchange="updateFilter(this.value)"
+            style="color: ${
+              document.body.classList.contains("night") ? "#fff" : "#000"
+            }; background-color: ${
+    document.body.classList.contains("night") ? "#222" : "#fff"
+  };">
+            <option value="All" style="color: ${
+              document.body.classList.contains("night") ? "#fff" : "#000"
+            }; background-color: ${
+    document.body.classList.contains("night") ? "#222" : "#fff"
+  };">All Types</option>
             <option value="Espresso">Espresso</option>
             <option value="Milk">Milk</option>
             <option value="Cold">Cold</option>
@@ -88,9 +114,10 @@ function render() {
               (recipe, i) => `
             <div class="bg-white border rounded-lg shadow-lg hover:scale-105 hover:shadow-2xl transition-all duration-200 p-6 relative flex flex-col">
               <button 
-                class="absolute top-2 right-2 text-xl ${
+                class="absolute top-2 right-2 text-3xl ${
                   favorites.has(i) ? "text-red-500" : "text-gray-400"
                 }"
+                style="line-height: 1;"
                 onclick="toggleFavorite(${i})"
                 aria-label="Toggle Favorite"
               >
@@ -102,9 +129,9 @@ function render() {
               <h2 class="text-xl font-semibold mb-2 text-center">${
                 recipe.name
               }</h2>
-              <p class="text-gray-600 mb-2 text-center">${
-                recipe.description
-              }</p>
+              <p class="mb-2 text-center" style="color: ${
+                document.body.classList.contains("night") ? "#fff" : "#000"
+              };">${recipe.description}</p>
               <div class="flex gap-2 text-xs text-gray-500 mb-4 items-center justify-center flex-wrap">
                 <span class="px-2 py-1 rounded bg-amber-100 text-amber-800 font-semibold">${
                   recipe.type || ""
@@ -145,7 +172,9 @@ function render() {
               selectedRecipe.name
             }" class="w-64 h-64 object-cover rounded-full mx-auto border-4 border-amber-500 shadow mb-4">
             <h2 class="text-2xl font-bold mb-2">${selectedRecipe.name}</h2>
-            <p class="text-gray-600 mb-3">${
+            <p class="mb-3" style="color: ${
+              document.body.classList.contains("night") ? "#fff" : "#000"
+            };">${
               selectedRecipe.instructions ||
               selectedRecipe.details ||
               "No instructions provided."
@@ -232,9 +261,9 @@ function renderFavoritesView(favRecipes) {
               <h2 class="text-xl font-semibold mb-2 text-center">${
                 recipe.name
               }</h2>
-              <p class="text-gray-600 mb-2 text-center">${
-                recipe.description
-              }</p>
+              <p class="mb-2 text-center" style="color: ${
+                document.body.classList.contains("night") ? "#fff" : "#000"
+              };">${recipe.description}</p>
               <div class="flex gap-2 text-xs text-gray-500 mb-4 items-center justify-center flex-wrap">
                 <span class="px-2 py-1 rounded bg-amber-100 text-amber-800 font-semibold">${
                   recipe.type || ""
