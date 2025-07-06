@@ -158,7 +158,7 @@ function render() {
       </div>
     </main>
     <footer class="mt-12 py-6 text-center text-gray-500 text-sm bg-white/80 backdrop-blur shadow-inner">
-      &copy; ${new Date().getFullYear()} NovaCup Coffee. Made with ☕ by a great web designer.
+      &copy; 2025 NovaCup Coffee. Made with ☕ by Bladerunner
     </footer>
 
       <!-- Modal -->
@@ -285,7 +285,7 @@ function renderFavoritesView(favRecipes) {
       </div>
     </main>
     <footer class="mt-12 py-6 text-center text-gray-500 text-sm bg-white/80 backdrop-blur shadow-inner">
-      &copy; ${new Date().getFullYear()} NovaCup Coffee. Made with ☕ by a great web designer.
+      &copy; 2025 NovaCup Coffee. Made with ☕ by Bladerunner
     </footer>
   `;
   // Re-apply night mode if needed
