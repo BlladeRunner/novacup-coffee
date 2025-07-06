@@ -298,12 +298,10 @@ function renderFavoritesView(favRecipes) {
 
 // Implement Show All to restore main view
 window.showAll = function () {
-  // Optionally restore previous search/filter state
-  if (window._prevState) {
-    searchQuery = window._prevState.searchQuery;
-    selectedType = window._prevState.selectedType;
-    window._prevState = null;
-  }
+  // Reset to show all types and clear search
+  searchQuery = "";
+  selectedType = "All";
+  window._prevState = null;
   render();
 };
 
