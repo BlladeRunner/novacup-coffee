@@ -137,7 +137,7 @@ function render() {
               </button>
               <img src="${recipe.image}" alt="${
                 recipe.name
-              }" class="w-20 h-20 object-cover rounded-full mx-auto border-2 border-amber-400 shadow mb-3" />
+              }" class="w-28 h-28 object-cover rounded-full mx-auto border-2 border-amber-400 shadow mb-4" />
               <h2 class="text-xl font-semibold mb-2 text-center">${
                 recipe.name
               }</h2>
