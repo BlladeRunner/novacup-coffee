@@ -7,6 +7,7 @@ let selectedRecipe = null;
 let favorites = new Set();
 let searchQuery = "";
 let selectedType = "All"; // default is All
+let currentPage = "main"; // "main" or "second"
 
 // Night mode toggle
 window.toggleNightMode = function () {
@@ -34,13 +35,21 @@ if (localStorage.getItem("night")) {
 }
 
 function render() {
+  if (currentPage === "second") {
+    app.innerHTML = `
+      <div class="min-h-screen flex flex-col items-center justify-center bg-white/90">
+        <h1 class="text-3xl font-bold mb-4 font-logo" style="color:#c2410c">Welcome to the Desserts Page!</h1>
+        <p class="mb-6 text-lg">This is a demo desserts page. You can add any dessert-related content here.</p>
+        <button class="px-6 py-2 rounded bg-amber-500 text-white font-bold shadow hover:bg-amber-600 transition" onclick="goToMainPage()">Back to Main Page</button>
+      </div>
+    `;
+    return;
+  }
   const filteredRecipes = recipes.filter((recipe) => {
     const matchesSearch = recipe.name
       .toLowerCase()
       .includes(searchQuery.toLowerCase());
-
     const matchesType = selectedType === "All" || recipe.type === selectedType;
-
     return matchesSearch && matchesType;
   });
 
@@ -60,9 +69,12 @@ function render() {
         <img src="/images/espresso.jpg" alt="NovaCup Logo" class="w-10 h-10 rounded-full border-2 border-amber-500 shadow" />
         <span class="text-2xl font-bold tracking-wide drop-shadow-[0_2px_8px_rgba(0,0,0,0.5)] font-logo" style="color: #c2410c !important;">NovaCup Coffee</span>
       </div>
-      <button id="toggle-dark" class="text-gray-600 hover:text-black px-3 py-1 rounded transition" onclick="toggleNightMode()">${
-        document.body.classList.contains("night") ? "☀️" : "🌙"
-      }</button>
+      <div class="flex gap-4 items-center">
+        <button class="px-4 py-2 rounded bg-amber-500 text-white font-bold shadow hover:bg-amber-600 transition" onclick="goToSecondPage()">Desserts</button>
+        <button id="toggle-dark" class="text-gray-600 hover:text-black px-3 py-1 rounded transition" onclick="toggleNightMode()">${
+          document.body.classList.contains("night") ? "☀️" : "🌙"
+        }</button>
+      </div>
     </header>
     <main class="min-h-screen px-4 py-8">
       <div class="max-w-6xl mx-auto">
@@ -131,7 +143,7 @@ function render() {
               }</h2>
               <p class="mb-2 text-center" style="color: ${
                 document.body.classList.contains("night") ? "#fff" : "#000"
-              };">${recipe.description}</p>
+              };"></p>
               <div class="flex gap-2 text-xs text-gray-500 mb-4 items-center justify-center flex-wrap">
                 <span class="px-2 py-1 rounded bg-amber-100 text-amber-800 font-semibold">${
                   recipe.type || ""
@@ -195,6 +207,15 @@ function render() {
     </div>
   `;
 }
+// Navigation for second page
+window.goToSecondPage = function () {
+  currentPage = "second";
+  render();
+};
+window.goToMainPage = function () {
+  currentPage = "main";
+  render();
+};
 
 // Functions
 window.viewRecipe = function (index) {
