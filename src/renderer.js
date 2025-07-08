@@ -8,6 +8,243 @@ let favorites = new Set();
 let searchQuery = "";
 let selectedType = "All"; // default is All
 let currentPage = "main"; // "main" or "second"
+// Show dessert recipe modal
+let selectedDessert = null;
+window.closeDessertRecipe = function () {
+  selectedDessert = null;
+  render();
+};
+window.viewDessertRecipe = function (dessertName) {
+  // Try to find the dessert in the realDesserts or dessertRecipes list
+  // We'll search both the realDesserts and the current dessertRecipes
+  let dessert = null;
+  // Search in the realDesserts array (rebuild it here for lookup)
+  const realDesserts = [
+    {
+      name: "Tiramisu",
+      image: "/images/tiramisu.jpg",
+      description:
+        "Classic Italian dessert with coffee-soaked ladyfingers, mascarpone, and cocoa.",
+      tags: ["Italian", "Creamy", "Coffee-flavored"],
+    },
+    {
+      name: "Biscotti",
+      image: "/images/biscotti.jpg",
+      description: "Crunchy almond biscuits, perfect for dipping in coffee.",
+      tags: ["Italian", "Crunchy", "Nutty"],
+    },
+    {
+      name: "Chocolate Cake",
+      image: "/images/chocolate-cake.jpg",
+      description: "Rich chocolate cake, a classic treat with coffee.",
+      tags: ["Chocolate", "Cake", "Classic"],
+    },
+    {
+      name: "Croissant",
+      image: "/images/croissant.jpg",
+      description: "Flaky, buttery French pastry, a perfect coffee companion.",
+      tags: ["French", "Pastry", "Buttery"],
+    },
+    {
+      name: "Cheesecake",
+      image: "/images/cheesecake.jpg",
+      description: "Creamy cheesecake, delicious with a cup of coffee.",
+      tags: ["Creamy", "Cake", "Classic"],
+    },
+    {
+      name: "Cannoli",
+      image: "/images/cannoli.jpg",
+      description:
+        "Crispy pastry tubes filled with sweet ricotta cream, a Sicilian favorite.",
+      tags: ["Italian", "Ricotta", "Crunchy"],
+    },
+    {
+      name: "Madeleine",
+      image: "/images/madeleine.jpg",
+      description:
+        "Soft, shell-shaped French sponge cakes, lightly sweet and perfect for dipping.",
+      tags: ["French", "Sponge", "Classic"],
+    },
+    {
+      name: "Pecan Pie",
+      image: "/images/pecan-pie.jpg",
+      description: "Sweet, nutty pie with a gooey filling and crisp pecans.",
+      tags: ["American", "Nutty", "Pie"],
+    },
+    {
+      name: "Baklava",
+      image: "/images/baklava.jpg",
+      description:
+        "Layers of flaky pastry, honey, and nuts. Sweet and rich, pairs well with coffee.",
+      tags: ["Middle Eastern", "Nutty", "Honey"],
+    },
+    {
+      name: "Apple Strudel",
+      image: "/images/apple-strudel.jpg",
+      description:
+        "Austrian pastry with spiced apples and raisins wrapped in thin dough.",
+      tags: ["Austrian", "Apple", "Pastry"],
+    },
+    {
+      name: "Opera Cake",
+      image: "/images/opera-cake.jpg",
+      description:
+        "Elegant French cake with layers of almond sponge, coffee buttercream, and chocolate ganache.",
+      tags: ["French", "Coffee", "Chocolate"],
+    },
+    {
+      name: "Macaron",
+      image: "/images/macaron.jpg",
+      description:
+        "Delicate French meringue sandwich cookies in assorted flavors.",
+      tags: ["French", "Meringue", "Colorful"],
+    },
+    {
+      name: "Lemon Tart",
+      image: "/images/lemon-tart.jpg",
+      description:
+        "Tangy lemon curd in a crisp pastry shell, a refreshing treat.",
+      tags: ["French", "Citrus", "Tart"],
+    },
+    {
+      name: "Coffee Cake",
+      image: "/images/coffee-cake.jpg",
+      description:
+        "Moist cake with a cinnamon streusel topping, made to enjoy with coffee.",
+      tags: ["American", "Cinnamon", "Crumb"],
+    },
+    {
+      name: "Pavlova",
+      image: "/images/pavlova.jpg",
+      description:
+        "Crisp meringue shell with a soft center, topped with whipped cream and fruit.",
+      tags: ["Australian", "Meringue", "Fruity"],
+    },
+    {
+      name: "Profiterole",
+      image: "/images/profiterole.jpg",
+      description:
+        "Choux pastry balls filled with cream and topped with chocolate sauce.",
+      tags: ["French", "Choux", "Cream"],
+    },
+    {
+      name: "Sachertorte",
+      image: "/images/sachertorte.jpg",
+      description:
+        "Austrian chocolate cake with apricot jam and a dark chocolate glaze.",
+      tags: ["Austrian", "Chocolate", "Classic"],
+    },
+    {
+      name: "Rum Baba",
+      image: "/images/rum-baba.jpg",
+      description:
+        "Small yeast cake soaked in rum syrup, sometimes filled with cream.",
+      tags: ["French", "Yeast", "Rum"],
+    },
+    {
+      name: "Financier",
+      image: "/images/financier.jpg",
+      description: "Almond-flavored French tea cake, moist and buttery.",
+      tags: ["French", "Almond", "Tea Cake"],
+    },
+    {
+      name: "Ricciarelli",
+      image: "/images/ricciarelli.jpg",
+      description:
+        "Soft almond cookies from Siena, Italy, dusted with powdered sugar.",
+      tags: ["Italian", "Almond", "Cookie"],
+    },
+    {
+      name: "Sfogliatella",
+      image: "/images/sfogliatella.jpg",
+      description:
+        "Shell-shaped Italian pastry with crisp layers and a sweet ricotta filling.",
+      tags: ["Italian", "Pastry", "Ricotta"],
+    },
+    {
+      name: "Churros",
+      image: "/images/churros.jpg",
+      description:
+        "Fried dough pastry, crispy outside and soft inside, often served with chocolate.",
+      tags: ["Spanish", "Fried", "Chocolate"],
+    },
+    {
+      name: "Galette des Rois",
+      image: "/images/galette-des-rois.jpg",
+      description:
+        "French puff pastry cake with almond cream, traditionally served in January.",
+      tags: ["French", "Almond", "Pastry"],
+    },
+    {
+      name: "Pastel de Nata",
+      image: "/images/pastel-de-nata.jpg",
+      description:
+        "Portuguese custard tart with a crisp, flaky crust and creamy filling.",
+      tags: ["Portuguese", "Custard", "Tart"],
+    },
+    {
+      name: "Dobos Torte",
+      image: "/images/dobos-torte.jpg",
+      description:
+        "Hungarian sponge cake layered with chocolate buttercream and topped with caramel.",
+      tags: ["Hungarian", "Chocolate", "Caramel"],
+    },
+    {
+      name: "Kardinalschnitte",
+      image: "/images/kardinalschnitte.jpg",
+      description:
+        "Austrian dessert with layers of meringue, sponge cake, and whipped cream.",
+      tags: ["Austrian", "Meringue", "Cream"],
+    },
+    {
+      name: "Florentine",
+      image: "/images/florentine.jpg",
+      description:
+        "Thin, crisp cookies with nuts, candied fruit, and chocolate.",
+      tags: ["Italian", "Nutty", "Chocolate"],
+    },
+    {
+      name: "Sablé",
+      image: "/images/sable.jpg",
+      description: "French shortbread cookie, buttery and crumbly.",
+      tags: ["French", "Shortbread", "Cookie"],
+    },
+    {
+      name: "Amaretti",
+      image: "/images/amaretti.jpg",
+      description:
+        "Italian almond-flavored macaron-like cookies, crisp outside and chewy inside.",
+      tags: ["Italian", "Almond", "Cookie"],
+    },
+    {
+      name: "Eclair",
+      image: "/images/eclair.jpg",
+      description:
+        "Choux pastry filled with cream and topped with chocolate icing.",
+      tags: ["French", "Choux", "Chocolate"],
+    },
+    {
+      name: "Zeppole",
+      image: "/images/zeppole.jpg",
+      description:
+        "Italian fried dough balls, sometimes filled with custard or cream.",
+      tags: ["Italian", "Fried", "Custard"],
+    },
+  ];
+  dessert = realDesserts.find((d) => d.name === dessertName);
+  if (!dessert) {
+    // fallback: search in recipes.json desserts
+    dessert = recipes.find(
+      (r) => r.type === "Dessert" && r.name === dessertName
+    );
+  }
+  if (dessert) {
+    selectedDessert = dessert;
+    render();
+  } else {
+    alert("No detailed recipe for " + dessertName + ".");
+  }
+};
 
 // Night mode toggle
 window.toggleNightMode = function () {
@@ -342,6 +579,14 @@ function render() {
                       .join("") || ""
                   }
                 </div>
+                <button 
+                  class="bg-amber-500 hover:bg-amber-600 text-white px-4 py-2 rounded whitespace-nowrap mx-auto mt-auto w-full max-w-xs" 
+                  onclick="viewDessertRecipe('${recipe.name.replace(
+                    /'/g,
+                    "\\'"
+                  )}')">
+                  View Recipe
+                </button>
               </div>
             `
                   )
@@ -350,7 +595,48 @@ function render() {
         </div>
       </div>
     `;
+    // Show dessert modal if selectedDessert is set
+    if (selectedDessert) {
+      app.innerHTML += `
+        <div class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-60">
+          <div class="${
+            document.body.classList.contains("night")
+              ? "bg-gray-900 text-white"
+              : "bg-white"
+          } rounded-xl shadow-xl p-6 max-w-md w-full text-center animate-fade-in relative">
+            <button class="absolute top-2 right-4 text-xl text-gray-400 hover:text-gray-700" onclick="closeDessertRecipe()">×</button>
+            <img src="${selectedDessert.image}" alt="${
+        selectedDessert.name
+      }" class="w-64 h-64 object-cover rounded-full mx-auto border-4 border-amber-500 shadow mb-4">
+            <h2 class="text-2xl font-bold mb-2">${selectedDessert.name}</h2>
+            <p class="mb-3" style="color: ${
+              document.body.classList.contains("night") ? "#fff" : "#000"
+            };">${selectedDessert.description || "No description provided."}</p>
+            <div class="flex gap-2 text-xs mb-4 items-center justify-center flex-wrap">
+              ${
+                selectedDessert.tags
+                  ?.map(
+                    (tag) =>
+                      `<span class='${
+                        document.body.classList.contains("night")
+                          ? "bg-green-900 text-green-200"
+                          : "bg-green-100 text-green-800"
+                      } rounded px-2 py-1 font-semibold'>${tag}</span>`
+                  )
+                  .join("") || ""
+              }
+            </div>
+            <button class="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded w-full" onclick="closeDessertRecipe()">Close</button>
+          </div>
+        </div>
+      `;
+    }
     return;
+    // Close dessert modal
+    window.closeDessertRecipe = function () {
+      selectedDessert = null;
+      render();
+    };
   }
   const filteredRecipes = recipes.filter((recipe) => {
     const matchesSearch = recipe.name
