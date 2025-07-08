@@ -361,7 +361,11 @@ function render() {
         letter-spacing: 0.04em;
       }
     </style>
-    <header class="sticky top-0 z-40 bg-white/90 backdrop-blur shadow flex items-center justify-between px-6 py-3 mb-8">
+    <header class="sticky top-0 z-40 ${
+      document.body.classList.contains("night")
+        ? "bg-gray-900/90"
+        : "bg-white/90"
+    } backdrop-blur shadow flex items-center justify-between px-6 py-3 mb-8">
       <div class="flex items-center gap-3">
         <img src="/images/cupidoncoffee.png" alt="NovaCup Cherub Logo" class="w-14 h-14 object-contain" style="background:transparent; border:none; box-shadow:none;" />
         <span class="text-2xl font-bold tracking-wide drop-shadow-[0_2px_8px_rgba(0,0,0,0.5)] font-logo" style="color: #c2410c !important;">NovaCup Coffee</span>
