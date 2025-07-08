@@ -267,6 +267,16 @@ function render() {
       }
     });
     app.innerHTML = `
+      <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Pacifico&display=swap" rel="stylesheet">
+      <style>
+        body, input, select, button, h1, h2, h3, h4, h5, h6, p, span, label, .font-main {
+          font-family: 'Roboto', Arial, sans-serif !important;
+        }
+        .font-logo {
+          font-family: 'Pacifico', cursive !important;
+          letter-spacing: 0.04em;
+        }
+      </style>
       <header class="sticky top-0 z-40 ${
         document.body.classList.contains("night")
           ? "bg-gray-900/90"
