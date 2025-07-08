@@ -558,9 +558,7 @@ function render() {
                 <h2 class="text-xl font-semibold mb-2 text-center ${
                   document.body.classList.contains("night") ? "text-white" : ""
                 }">${recipe.name}</h2>
-                <p class="mb-2 text-center" style="color: ${
-                  document.body.classList.contains("night") ? "#fff" : "#000"
-                };">${recipe.description || ""}</p>
+                <!-- Description removed from card, only shown in modal -->
                 <div class="flex gap-2 text-xs ${
                   document.body.classList.contains("night")
                     ? "text-gray-300"
