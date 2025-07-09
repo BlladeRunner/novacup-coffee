@@ -21,7 +21,10 @@ module.exports = {
   },
   plugins: [
     new CopyWebpackPlugin({
-      patterns: [{ from: "public", to: "." }],
+      patterns: [
+        { from: "public", to: "." },
+        { from: "src/desserts.json", to: "desserts.json" },
+      ],
     }),
   ],
 };

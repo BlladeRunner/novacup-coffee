@@ -6,234 +6,36 @@ const app = document.getElementById("app");
 let selectedRecipe = null;
 let favorites = new Set();
 let searchQuery = "";
-let selectedType = "All"; // default is All
-let currentPage = "main"; // "main" or "second"
-// Show dessert recipe modal
+let selectedType = "All";
+let currentPage = "main";
 let selectedDessert = null;
 window.closeDessertRecipe = function () {
   selectedDessert = null;
   render();
 };
+let desserts = [];
+fetch("desserts.json")
+  .then((res) => res.json())
+  .then((data) => {
+    desserts = data;
+    render();
+  })
+  .catch((err) => {
+    fetch("src/desserts.json")
+      .then((res) => res.json())
+      .then((data) => {
+        desserts = data;
+        render();
+      })
+      .catch(() => {
+        desserts = [];
+        render();
+      });
+  });
+
 window.viewDessertRecipe = function (dessertName) {
-  // Try to find the dessert in the realDesserts or dessertRecipes list
-  // We'll search both the realDesserts and the current dessertRecipes
-  let dessert = null;
-  // Search in the realDesserts array (rebuild it here for lookup)
-  const realDesserts = [
-    {
-      name: "Tiramisu",
-      image: "/images/tiramisu.jpg",
-      description:
-        "Classic Italian dessert with coffee-soaked ladyfingers, mascarpone, and cocoa.",
-      tags: ["Italian", "Creamy", "Coffee-flavored"],
-    },
-    {
-      name: "Biscotti",
-      image: "/images/biscotti.jpg",
-      description: "Crunchy almond biscuits, perfect for dipping in coffee.",
-      tags: ["Italian", "Crunchy", "Nutty"],
-    },
-    {
-      name: "Chocolate Cake",
-      image: "/images/chocolate-cake.jpg",
-      description: "Rich chocolate cake, a classic treat with coffee.",
-      tags: ["Chocolate", "Cake", "Classic"],
-    },
-    {
-      name: "Croissant",
-      image: "/images/croissant.jpg",
-      description: "Flaky, buttery French pastry, a perfect coffee companion.",
-      tags: ["French", "Pastry", "Buttery"],
-    },
-    {
-      name: "Cheesecake",
-      image: "/images/cheesecake.jpg",
-      description: "Creamy cheesecake, delicious with a cup of coffee.",
-      tags: ["Creamy", "Cake", "Classic"],
-    },
-    {
-      name: "Cannoli",
-      image: "/images/cannoli.jpg",
-      description:
-        "Crispy pastry tubes filled with sweet ricotta cream, a Sicilian favorite.",
-      tags: ["Italian", "Ricotta", "Crunchy"],
-    },
-    {
-      name: "Madeleine",
-      image: "/images/madeleine.jpg",
-      description:
-        "Soft, shell-shaped French sponge cakes, lightly sweet and perfect for dipping.",
-      tags: ["French", "Sponge", "Classic"],
-    },
-    {
-      name: "Pecan Pie",
-      image: "/images/pecan-pie.jpg",
-      description: "Sweet, nutty pie with a gooey filling and crisp pecans.",
-      tags: ["American", "Nutty", "Pie"],
-    },
-    {
-      name: "Baklava",
-      image: "/images/baklava.jpg",
-      description:
-        "Layers of flaky pastry, honey, and nuts. Sweet and rich, pairs well with coffee.",
-      tags: ["Middle Eastern", "Nutty", "Honey"],
-    },
-    {
-      name: "Apple Strudel",
-      image: "/images/apple-strudel.jpg",
-      description:
-        "Austrian pastry with spiced apples and raisins wrapped in thin dough.",
-      tags: ["Austrian", "Apple", "Pastry"],
-    },
-    {
-      name: "Opera Cake",
-      image: "/images/opera-cake.jpg",
-      description:
-        "Elegant French cake with layers of almond sponge, coffee buttercream, and chocolate ganache.",
-      tags: ["French", "Coffee", "Chocolate"],
-    },
-    {
-      name: "Macaron",
-      image: "/images/macaron.jpg",
-      description:
-        "Delicate French meringue sandwich cookies in assorted flavors.",
-      tags: ["French", "Meringue", "Colorful"],
-    },
-    {
-      name: "Lemon Tart",
-      image: "/images/lemon-tart.jpg",
-      description:
-        "Tangy lemon curd in a crisp pastry shell, a refreshing treat.",
-      tags: ["French", "Citrus", "Tart"],
-    },
-    {
-      name: "Coffee Cake",
-      image: "/images/coffee-cake.jpg",
-      description:
-        "Moist cake with a cinnamon streusel topping, made to enjoy with coffee.",
-      tags: ["American", "Cinnamon", "Crumb"],
-    },
-    {
-      name: "Pavlova",
-      image: "/images/pavlova.jpg",
-      description:
-        "Crisp meringue shell with a soft center, topped with whipped cream and fruit.",
-      tags: ["Australian", "Meringue", "Fruity"],
-    },
-    {
-      name: "Profiterole",
-      image: "/images/profiterole.jpg",
-      description:
-        "Choux pastry balls filled with cream and topped with chocolate sauce.",
-      tags: ["French", "Choux", "Cream"],
-    },
-    {
-      name: "Sachertorte",
-      image: "/images/sachertorte.jpg",
-      description:
-        "Austrian chocolate cake with apricot jam and a dark chocolate glaze.",
-      tags: ["Austrian", "Chocolate", "Classic"],
-    },
-    {
-      name: "Rum Baba",
-      image: "/images/rum-baba.jpg",
-      description:
-        "Small yeast cake soaked in rum syrup, sometimes filled with cream.",
-      tags: ["French", "Yeast", "Rum"],
-    },
-    {
-      name: "Financier",
-      image: "/images/financier.jpg",
-      description: "Almond-flavored French tea cake, moist and buttery.",
-      tags: ["French", "Almond", "Tea Cake"],
-    },
-    {
-      name: "Ricciarelli",
-      image: "/images/ricciarelli.jpg",
-      description:
-        "Soft almond cookies from Siena, Italy, dusted with powdered sugar.",
-      tags: ["Italian", "Almond", "Cookie"],
-    },
-    {
-      name: "Sfogliatella",
-      image: "/images/sfogliatella.jpg",
-      description:
-        "Shell-shaped Italian pastry with crisp layers and a sweet ricotta filling.",
-      tags: ["Italian", "Pastry", "Ricotta"],
-    },
-    {
-      name: "Churros",
-      image: "/images/churros.jpg",
-      description:
-        "Fried dough pastry, crispy outside and soft inside, often served with chocolate.",
-      tags: ["Spanish", "Fried", "Chocolate"],
-    },
-    {
-      name: "Galette des Rois",
-      image: "/images/galette-des-rois.jpg",
-      description:
-        "French puff pastry cake with almond cream, traditionally served in January.",
-      tags: ["French", "Almond", "Pastry"],
-    },
-    {
-      name: "Pastel de Nata",
-      image: "/images/pastel-de-nata.jpg",
-      description:
-        "Portuguese custard tart with a crisp, flaky crust and creamy filling.",
-      tags: ["Portuguese", "Custard", "Tart"],
-    },
-    {
-      name: "Dobos Torte",
-      image: "/images/dobos-torte.jpg",
-      description:
-        "Hungarian sponge cake layered with chocolate buttercream and topped with caramel.",
-      tags: ["Hungarian", "Chocolate", "Caramel"],
-    },
-    {
-      name: "Kardinalschnitte",
-      image: "/images/kardinalschnitte.jpg",
-      description:
-        "Austrian dessert with layers of meringue, sponge cake, and whipped cream.",
-      tags: ["Austrian", "Meringue", "Cream"],
-    },
-    {
-      name: "Florentine",
-      image: "/images/florentine.jpg",
-      description:
-        "Thin, crisp cookies with nuts, candied fruit, and chocolate.",
-      tags: ["Italian", "Nutty", "Chocolate"],
-    },
-    {
-      name: "Sablé",
-      image: "/images/sable.jpg",
-      description: "French shortbread cookie, buttery and crumbly.",
-      tags: ["French", "Shortbread", "Cookie"],
-    },
-    {
-      name: "Amaretti",
-      image: "/images/amaretti.jpg",
-      description:
-        "Italian almond-flavored macaron-like cookies, crisp outside and chewy inside.",
-      tags: ["Italian", "Almond", "Cookie"],
-    },
-    {
-      name: "Eclair",
-      image: "/images/eclair.jpg",
-      description:
-        "Choux pastry filled with cream and topped with chocolate icing.",
-      tags: ["French", "Choux", "Chocolate"],
-    },
-    {
-      name: "Zeppole",
-      image: "/images/zeppole.jpg",
-      description:
-        "Italian fried dough balls, sometimes filled with custard or cream.",
-      tags: ["Italian", "Fried", "Custard"],
-    },
-  ];
-  dessert = realDesserts.find((d) => d.name === dessertName);
+  let dessert = desserts.find((d) => d.name === dessertName);
   if (!dessert) {
-    // fallback: search in recipes.json desserts
     dessert = recipes.find(
       (r) => r.type === "Dessert" && r.name === dessertName
     );
@@ -254,7 +56,6 @@ window.toggleNightMode = function () {
   } else {
     localStorage.removeItem("night");
   }
-  // Update icon in all headers
   const btns = document.querySelectorAll("#toggle-dark");
   btns.forEach(
     (btn) =>
@@ -262,239 +63,23 @@ window.toggleNightMode = function () {
         ? "☀️"
         : "🌙")
   );
-  // Force re-render to update <p> text color
   render();
 };
 
-// On load, restore night mode if set
 if (localStorage.getItem("night")) {
   document.body.classList.add("night");
 }
 
 function render() {
   if (currentPage === "second") {
-    // Filter only desserts
-    // Remove Affogato and add real desserts commonly served with coffee
     let dessertRecipes = recipes.filter(
       (r) => r.type === "Dessert" && r.name.toLowerCase() !== "affogato"
     );
-    // Add real desserts if not present
-    const realDesserts = [
-      {
-        name: "Tiramisu",
-        image: "/images/tiramisu.jpg",
-        description:
-          "Classic Italian dessert with coffee-soaked ladyfingers, mascarpone, and cocoa.",
-        tags: ["Italian", "Creamy", "Coffee-flavored"],
-      },
-      {
-        name: "Biscotti",
-        image: "/images/biscotti.jpg",
-        description: "Crunchy almond biscuits, perfect for dipping in coffee.",
-        tags: ["Italian", "Crunchy", "Nutty"],
-      },
-      {
-        name: "Chocolate Cake",
-        image: "/images/chocolate-cake.jpg",
-        description: "Rich chocolate cake, a classic treat with coffee.",
-        tags: ["Chocolate", "Cake", "Classic"],
-      },
-      {
-        name: "Croissant",
-        image: "/images/croissant.jpg",
-        description:
-          "Flaky, buttery French pastry, a perfect coffee companion.",
-        tags: ["French", "Pastry", "Buttery"],
-      },
-      {
-        name: "Cheesecake",
-        image: "/images/cheesecake.jpg",
-        description: "Creamy cheesecake, delicious with a cup of coffee.",
-        tags: ["Creamy", "Cake", "Classic"],
-      },
-      {
-        name: "Cannoli",
-        image: "/images/cannoli.jpg",
-        description:
-          "Crispy pastry tubes filled with sweet ricotta cream, a Sicilian favorite.",
-        tags: ["Italian", "Ricotta", "Crunchy"],
-      },
-      {
-        name: "Madeleine",
-        image: "/images/madeleine.jpg",
-        description:
-          "Soft, shell-shaped French sponge cakes, lightly sweet and perfect for dipping.",
-        tags: ["French", "Sponge", "Classic"],
-      },
-      {
-        name: "Pecan Pie",
-        image: "/images/pecan-pie.jpg",
-        description: "Sweet, nutty pie with a gooey filling and crisp pecans.",
-        tags: ["American", "Nutty", "Pie"],
-      },
-      {
-        name: "Baklava",
-        image: "/images/baklava.jpg",
-        description:
-          "Layers of flaky pastry, honey, and nuts. Sweet and rich, pairs well with coffee.",
-        tags: ["Middle Eastern", "Nutty", "Honey"],
-      },
-      {
-        name: "Apple Strudel",
-        image: "/images/apple-strudel.jpg",
-        description:
-          "Austrian pastry with spiced apples and raisins wrapped in thin dough.",
-        tags: ["Austrian", "Apple", "Pastry"],
-      },
-      {
-        name: "Opera Cake",
-        image: "/images/opera-cake.jpg",
-        description:
-          "Elegant French cake with layers of almond sponge, coffee buttercream, and chocolate ganache.",
-        tags: ["French", "Coffee", "Chocolate"],
-      },
-      {
-        name: "Macaron",
-        image: "/images/macaron.jpg",
-        description:
-          "Delicate French meringue sandwich cookies in assorted flavors.",
-        tags: ["French", "Meringue", "Colorful"],
-      },
-      {
-        name: "Lemon Tart",
-        image: "/images/lemon-tart.jpg",
-        description:
-          "Tangy lemon curd in a crisp pastry shell, a refreshing treat.",
-        tags: ["French", "Citrus", "Tart"],
-      },
-      {
-        name: "Coffee Cake",
-        image: "/images/coffee-cake.jpg",
-        description:
-          "Moist cake with a cinnamon streusel topping, made to enjoy with coffee.",
-        tags: ["American", "Cinnamon", "Crumb"],
-      },
-      {
-        name: "Pavlova",
-        image: "/images/pavlova.jpg",
-        description:
-          "Crisp meringue shell with a soft center, topped with whipped cream and fruit.",
-        tags: ["Australian", "Meringue", "Fruity"],
-      },
-      // More variations
-      {
-        name: "Profiterole",
-        image: "/images/profiterole.jpg",
-        description:
-          "Choux pastry balls filled with cream and topped with chocolate sauce.",
-        tags: ["French", "Choux", "Cream"],
-      },
-      {
-        name: "Sachertorte",
-        image: "/images/sachertorte.jpg",
-        description:
-          "Austrian chocolate cake with apricot jam and a dark chocolate glaze.",
-        tags: ["Austrian", "Chocolate", "Classic"],
-      },
-      {
-        name: "Rum Baba",
-        image: "/images/rum-baba.jpg",
-        description:
-          "Small yeast cake soaked in rum syrup, sometimes filled with cream.",
-        tags: ["French", "Yeast", "Rum"],
-      },
-      {
-        name: "Financier",
-        image: "/images/financier.jpg",
-        description: "Almond-flavored French tea cake, moist and buttery.",
-        tags: ["French", "Almond", "Tea Cake"],
-      },
-      {
-        name: "Ricciarelli",
-        image: "/images/ricciarelli.jpg",
-        description:
-          "Soft almond cookies from Siena, Italy, dusted with powdered sugar.",
-        tags: ["Italian", "Almond", "Cookie"],
-      },
-      {
-        name: "Sfogliatella",
-        image: "/images/sfogliatella.jpg",
-        description:
-          "Shell-shaped Italian pastry with crisp layers and a sweet ricotta filling.",
-        tags: ["Italian", "Pastry", "Ricotta"],
-      },
-      {
-        name: "Churros",
-        image: "/images/churros.jpg",
-        description:
-          "Fried dough pastry, crispy outside and soft inside, often served with chocolate.",
-        tags: ["Spanish", "Fried", "Chocolate"],
-      },
-      {
-        name: "Galette des Rois",
-        image: "/images/galette-des-rois.jpg",
-        description:
-          "French puff pastry cake with almond cream, traditionally served in January.",
-        tags: ["French", "Almond", "Pastry"],
-      },
-      {
-        name: "Pastel de Nata",
-        image: "/images/pastel-de-nata.jpg",
-        description:
-          "Portuguese custard tart with a crisp, flaky crust and creamy filling.",
-        tags: ["Portuguese", "Custard", "Tart"],
-      },
-      {
-        name: "Dobos Torte",
-        image: "/images/dobos-torte.jpg",
-        description:
-          "Hungarian sponge cake layered with chocolate buttercream and topped with caramel.",
-        tags: ["Hungarian", "Chocolate", "Caramel"],
-      },
-      {
-        name: "Kardinalschnitte",
-        image: "/images/kardinalschnitte.jpg",
-        description:
-          "Austrian dessert with layers of meringue, sponge cake, and whipped cream.",
-        tags: ["Austrian", "Meringue", "Cream"],
-      },
-      {
-        name: "Florentine",
-        image: "/images/florentine.jpg",
-        description:
-          "Thin, crisp cookies with nuts, candied fruit, and chocolate.",
-        tags: ["Italian", "Nutty", "Chocolate"],
-      },
-      {
-        name: "Sablé",
-        image: "/images/sable.jpg",
-        description: "French shortbread cookie, buttery and crumbly.",
-        tags: ["French", "Shortbread", "Cookie"],
-      },
-      {
-        name: "Amaretti",
-        image: "/images/amaretti.jpg",
-        description:
-          "Italian almond-flavored macaron-like cookies, crisp outside and chewy inside.",
-        tags: ["Italian", "Almond", "Cookie"],
-      },
-      {
-        name: "Eclair",
-        image: "/images/eclair.jpg",
-        description:
-          "Choux pastry filled with cream and topped with chocolate icing.",
-        tags: ["French", "Choux", "Chocolate"],
-      },
-      {
-        name: "Zeppole",
-        image: "/images/zeppole.jpg",
-        description:
-          "Italian fried dough balls, sometimes filled with custard or cream.",
-        tags: ["Italian", "Fried", "Custard"],
-      },
-    ];
-    // Only add if not already present
-    realDesserts.forEach((dessert) => {
+    if (!desserts || desserts.length === 0) {
+      app.innerHTML = `<div class='text-center text-lg text-gray-500 py-12'>Loading desserts...</div>`;
+      return;
+    }
+    desserts.forEach((dessert) => {
       if (
         !dessertRecipes.some(
           (r) => r.name.toLowerCase() === dessert.name.toLowerCase()
@@ -593,7 +178,6 @@ function render() {
         </div>
       </div>
     `;
-    // Show dessert modal if selectedDessert is set
     if (selectedDessert) {
       app.innerHTML += `
         <div class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-60">
@@ -630,7 +214,6 @@ function render() {
       `;
     }
     return;
-    // Close dessert modal
     window.closeDessertRecipe = function () {
       selectedDessert = null;
       render();
@@ -802,7 +385,6 @@ function render() {
     </div>
   `;
 }
-// Navigation for second page
 window.goToSecondPage = function () {
   currentPage = "second";
   render();
@@ -812,7 +394,6 @@ window.goToMainPage = function () {
   render();
 };
 
-// Functions
 window.viewRecipe = function (index) {
   selectedRecipe = recipes[index];
   render();
@@ -849,7 +430,6 @@ window.showFavorites = function () {
 };
 
 function renderFavoritesView(favRecipes) {
-  // Save current filter/search state
   window._prevState = { searchQuery, selectedType };
   app.innerHTML = `
     <header class="sticky top-0 z-40 bg-white/90 backdrop-blur shadow flex items-center justify-between px-6 py-3 mb-8">
@@ -904,7 +484,6 @@ function renderFavoritesView(favRecipes) {
       &copy; 2025 NovaCup Coffee. Made with ☕ by Bladerunner
     </footer>
   `;
-  // Re-apply night mode if needed
   if (localStorage.getItem("night")) {
     document.body.classList.add("night");
   } else {
@@ -912,14 +491,11 @@ function renderFavoritesView(favRecipes) {
   }
 }
 
-// Implement Show All to restore main view
 window.showAll = function () {
-  // Reset to show all types and clear search
   searchQuery = "";
   selectedType = "All";
   window._prevState = null;
   render();
 };
 
-// Initial render
 render();
