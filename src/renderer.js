@@ -13,24 +13,19 @@ window.closeDessertRecipe = function () {
   selectedDessert = null;
   render();
 };
-let desserts = [];
-fetch("desserts.json")
-  .then((res) => res.json())
+let desserts = null;
+fetch("../desserts.json")
+  .then((res) => {
+    if (!res.ok) throw new Error("Not found");
+    return res.json();
+  })
   .then((data) => {
     desserts = data;
     render();
   })
-  .catch((err) => {
-    fetch("src/desserts.json")
-      .then((res) => res.json())
-      .then((data) => {
-        desserts = data;
-        render();
-      })
-      .catch(() => {
-        desserts = [];
-        render();
-      });
+  .catch(() => {
+    desserts = [];
+    render();
   });
 
 window.viewDessertRecipe = function (dessertName) {
@@ -75,8 +70,12 @@ function render() {
     let dessertRecipes = recipes.filter(
       (r) => r.type === "Dessert" && r.name.toLowerCase() !== "affogato"
     );
-    if (!desserts || desserts.length === 0) {
+    if (desserts === null) {
       app.innerHTML = `<div class='text-center text-lg text-gray-500 py-12'>Loading desserts...</div>`;
+      return;
+    }
+    if (!Array.isArray(desserts) || desserts.length === 0) {
+      app.innerHTML = `<div class='text-center text-lg text-gray-500 py-12'>No desserts found.</div>`;
       return;
     }
     desserts.forEach((dessert) => {
@@ -115,68 +114,68 @@ function render() {
           }</button>
         </div>
       </header>
-      <div class="min-h-screen flex flex-col items-center ${
-        document.body.classList.contains("night")
-          ? "bg-gray-900/90"
-          : "bg-white/90"
-      } px-4 py-8">
-        <h1 class="text-3xl font-bold mb-6 font-logo" style="color:#c2410c">Desserts</h1>
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 w-full max-w-6xl mb-8">
-          ${
-            dessertRecipes.length === 0
-              ? `<p class='col-span-full text-center ${
+      <main class="min-h-screen px-4 py-8">
+        <div class="max-w-6xl mx-auto">
+          <h1 class="text-3xl font-bold mb-6 font-logo" style="color:#c2410c">Desserts</h1>
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 w-full max-w-6xl mb-8">
+            ${
+              dessertRecipes.length === 0
+                ? `<p class='col-span-full text-center ${
+                    document.body.classList.contains("night")
+                      ? "text-gray-300"
+                      : "text-gray-500"
+                  }'>No desserts found.</p>`
+                : dessertRecipes
+                    .map(
+                      (recipe) => `
+                <div class="${
                   document.body.classList.contains("night")
-                    ? "text-gray-300"
-                    : "text-gray-500"
-                }'>No desserts found.</p>`
-              : dessertRecipes
-                  .map(
-                    (recipe) => `
-              <div class="${
-                document.body.classList.contains("night")
-                  ? "bg-gray-800 border-gray-700"
-                  : "bg-white border"
-              } border rounded-lg shadow-lg hover:scale-105 hover:shadow-2xl transition-all duration-200 p-6 flex flex-col items-center">
-                <img src="${recipe.image}" alt="${
-                      recipe.name
-                    }" class="w-32 h-32 object-cover rounded-full border-2 border-amber-400 shadow mb-4" />
-                <h2 class="text-xl font-semibold mb-2 text-center ${
-                  document.body.classList.contains("night") ? "text-white" : ""
-                }">${recipe.name}</h2>
-                <!-- Description removed from card, only shown in modal -->
-                <div class="flex gap-2 text-xs ${
-                  document.body.classList.contains("night")
-                    ? "text-gray-300"
-                    : "text-gray-500"
-                } mb-4 items-center justify-center flex-wrap">
-                  ${
-                    recipe.tags
-                      ?.map(
-                        (tag) =>
-                          `<span class='${
-                            document.body.classList.contains("night")
-                              ? "bg-green-900 text-green-200"
-                              : "bg-green-100 text-green-800"
-                          } rounded px-2 py-1 font-semibold'>${tag}</span>`
-                      )
-                      .join("") || ""
-                  }
+                    ? "bg-gray-800 border-gray-700"
+                    : "bg-white border"
+                } border rounded-lg shadow-lg hover:scale-105 hover:shadow-2xl transition-all duration-200 p-6 flex flex-col items-center">
+                  <img src="${recipe.image}" alt="${
+                        recipe.name
+                      }" class="w-32 h-32 object-cover rounded-full border-2 border-amber-400 shadow mb-4" />
+                  <h2 class="text-xl font-semibold mb-2 text-center ${
+                    document.body.classList.contains("night")
+                      ? "text-white"
+                      : ""
+                  }">${recipe.name}</h2>
+                  <!-- Description removed from card, only shown in modal -->
+                  <div class="flex gap-2 text-xs ${
+                    document.body.classList.contains("night")
+                      ? "text-gray-300"
+                      : "text-gray-500"
+                  } mb-4 items-center justify-center flex-wrap">
+                    ${
+                      recipe.tags
+                        ?.map(
+                          (tag) =>
+                            `<span class='${
+                              document.body.classList.contains("night")
+                                ? "bg-green-900 text-green-200"
+                                : "bg-green-100 text-green-800"
+                            } rounded px-2 py-1 font-semibold'>${tag}</span>`
+                        )
+                        .join("") || ""
+                    }
+                  </div>
+                  <button 
+                    class="bg-amber-500 hover:bg-amber-600 text-white px-4 py-2 rounded whitespace-nowrap mx-auto mt-auto w-full max-w-xs" 
+                    onclick="viewDessertRecipe('${recipe.name.replace(
+                      /'/g,
+                      "\\'"
+                    )}')">
+                    View Recipe
+                  </button>
                 </div>
-                <button 
-                  class="bg-amber-500 hover:bg-amber-600 text-white px-4 py-2 rounded whitespace-nowrap mx-auto mt-auto w-full max-w-xs" 
-                  onclick="viewDessertRecipe('${recipe.name.replace(
-                    /'/g,
-                    "\\'"
-                  )}')">
-                  View Recipe
-                </button>
-              </div>
-            `
-                  )
-                  .join("")
-          }
+              `
+                    )
+                    .join("")
+            }
+          </div>
         </div>
-      </div>
+      </main>
     `;
     if (selectedDessert) {
       app.innerHTML += `
@@ -302,7 +301,11 @@ function render() {
           ${filteredRecipes
             .map(
               (recipe, i) => `
-            <div class="bg-white border rounded-lg shadow-lg hover:scale-105 hover:shadow-2xl transition-all duration-200 p-6 relative flex flex-col">
+            <div class="${
+                document.body.classList.contains("night")
+                  ? "bg-gray-800 border-gray-700"
+                  : "bg-white border"
+              } border rounded-lg shadow-lg hover:scale-105 hover:shadow-2xl transition-all duration-200 p-6 relative flex flex-col items-center">
               <button 
                 class="absolute top-2 right-2 text-3xl ${
                   favorites.has(i) ? "text-red-500" : "text-gray-400"
@@ -316,13 +319,19 @@ function render() {
               <img src="${recipe.image}" alt="${
                 recipe.name
               }" class="w-28 h-28 object-cover rounded-full mx-auto border-2 border-amber-400 shadow mb-4" />
-              <h2 class="text-xl font-semibold mb-2 text-center">${
+              <h2 class="text-xl font-semibold mb-2 text-center ${
+                  document.body.classList.contains("night") ? "text-white" : ""
+                }">${
                 recipe.name
               }</h2>
               <p class="mb-2 text-center" style="color: ${
                 document.body.classList.contains("night") ? "#fff" : "#000"
               };"></p>
-              <div class="flex gap-2 text-xs text-gray-500 mb-4 items-center justify-center flex-wrap">
+              <div class="flex gap-2 text-xs ${
+                  document.body.classList.contains("night")
+                    ? "text-gray-300"
+                    : "text-gray-500"
+                } mb-4 items-center justify-center flex-wrap">
                 <span class="px-2 py-1 rounded bg-amber-100 text-amber-800 font-semibold">${
                   recipe.type || ""
                 }</span>
@@ -330,7 +339,11 @@ function render() {
                   recipe.tags
                     ?.map(
                       (tag) =>
-                        `<span class="bg-green-100 text-green-800 rounded px-2 py-1 font-semibold">${tag}</span>`
+                        `<span class='${
+                          document.body.classList.contains("night")
+                            ? "bg-green-900 text-green-200"
+                            : "bg-green-100 text-green-800"
+                        } rounded px-2 py-1 font-semibold'>${tag}</span>`
                     )
                     .join("") || ""
                 }
