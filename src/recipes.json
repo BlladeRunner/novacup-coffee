@@ -106,5 +106,122 @@
     "type": "Alcoholic",
     "tags": ["alcohol", "sweet", "creamy"],
     "time": "5 min"
+  },
+  {
+    "name": "Cortado",
+    "description": "Equal parts espresso and steamed milk, for a balanced, smooth drink.",
+    "instructions": "1 shot espresso + 1 shot steamed milk.",
+    "image": "/images/cortado.jpg",
+    "type": "Milk",
+    "tags": ["balanced", "smooth", "small"],
+    "time": "3 min"
+  },
+  {
+    "name": "Red Eye",
+    "description": "A strong coffee drink made by adding a shot of espresso to a cup of drip coffee.",
+    "instructions": "1 cup drip coffee + 1 shot espresso.",
+    "image": "/images/red-eye.jpg",
+    "type": "Espresso",
+    "tags": ["strong", "caffeinated", "bold"],
+    "time": "4 min"
+  },
+  {
+    "name": "Doppio",
+    "description": "A double shot of espresso for extra strength and flavor.",
+    "instructions": "2 shots espresso.",
+    "image": "/images/doppio.jpg",
+    "type": "Espresso",
+    "tags": ["double", "strong", "classic"],
+    "time": "3 min"
+  },
+  {
+    "name": "Vienna Coffee",
+    "description": "Espresso topped with whipped cream instead of milk or sugar.",
+    "instructions": "2 shots espresso + whipped cream.",
+    "image": "/images/vienna-coffee.jpg",
+    "type": "Espresso",
+    "tags": ["whipped cream", "rich", "classic"],
+    "time": "4 min"
+  },
+  {
+    "name": "Mazagran",
+    "description": "A cold, sweetened coffee drink with lemon, originally from Algeria.",
+    "instructions": "1 shot espresso + ice + lemon + sugar (optional).",
+    "image": "/images/mazagran.jpg",
+    "type": "Cold",
+    "tags": ["cold", "lemon", "refreshing"],
+    "time": "5 min"
+  },
+  {
+    "name": "Bicerin",
+    "description": "A layered drink from Turin with espresso, hot chocolate, and milk or cream.",
+    "instructions": "Layer 1 shot espresso, 1 shot hot chocolate, and 1 shot milk/cream in a glass.",
+    "image": "/images/bicerin.jpg",
+    "type": "Milk",
+    "tags": ["layered", "chocolate", "Italian"],
+    "time": "6 min"
+  },
+  {
+    "name": "Turkish Coffee",
+    "description": "Traditional unfiltered coffee with a thick foam, brewed in a cezve.",
+    "instructions": "Finely ground coffee, water, and sugar (optional) are simmered in a cezve until foamy, then poured unfiltered into a cup.",
+    "image": "/images/turkish-coffee.jpg",
+    "type": "Classic",
+    "tags": ["unfiltered", "strong", "traditional"],
+    "time": "7 min"
+  },
+  {
+    "name": "Café au Lait",
+    "description": "French-style coffee with equal parts brewed coffee and steamed milk.",
+    "instructions": "Brewed coffee + equal part steamed milk.",
+    "image": "/images/cafe-au-lait.jpg",
+    "type": "Milk",
+    "tags": ["french", "milky", "smooth"],
+    "time": "5 min"
+  },
+  {
+    "name": "Kopi Tubruk",
+    "description": "Indonesian-style strong, sweet coffee made by boiling coarse grounds with sugar.",
+    "instructions": "Coarse coffee grounds and sugar are boiled together, then poured unfiltered into a glass.",
+    "image": "/images/kopi-tubruk.jpg",
+    "type": "Classic",
+    "tags": ["indonesian", "sweet", "unfiltered"],
+    "time": "6 min"
+  },
+  {
+    "name": "Café Bombón",
+    "description": "Spanish coffee drink made with espresso and sweetened condensed milk.",
+    "instructions": "1 shot espresso + 1 shot sweetened condensed milk, layered in a glass.",
+    "image": "/images/cafe-bombon.jpg",
+    "type": "Milk",
+    "tags": ["spanish", "sweet", "layered"],
+    "time": "4 min"
+  },
+  {
+    "name": "Yuanyang",
+    "description": "A popular Hong Kong drink blending coffee and Hong Kong-style milk tea.",
+    "instructions": "Mix 1 part coffee with 1 part Hong Kong-style milk tea.",
+    "image": "/images/yuanyang.jpg",
+    "type": "Milk",
+    "tags": ["hong kong", "tea", "coffee"],
+    "time": "5 min"
+  },
+  {
+    "name": "Egg Coffee",
+    "description": "Vietnamese coffee with a creamy, sweet egg yolk foam on top.",
+    "instructions": "Brew strong coffee, whip egg yolk with sweetened condensed milk, and pour the foam over the coffee.",
+    "image": "/images/egg-coffee.jpg",
+    "type": "Milk",
+    "tags": ["vietnamese", "creamy", "sweet"],
+    "time": "7 min"
+  },
+  {
+    "name": "Espresso Romano",
+    "description": "Espresso served with a slice of lemon to enhance its brightness.",
+    "instructions": "1 shot espresso, served with a lemon slice on the side.",
+    "image": "/images/espresso-romano.jpg",
+    "type": "Espresso",
+    "tags": ["lemon", "bright", "italian"],
+    "time": "2 min"
   }
 ]
