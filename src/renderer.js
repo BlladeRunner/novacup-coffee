@@ -182,7 +182,7 @@ function render() {
         <div class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-60">
           <div class="${
             document.body.classList.contains("night")
-              ? "bg-gray-900 text-white"
+              ? "bg-gray-800 text-white"
               : "bg-white"
           } rounded-xl shadow-xl p-6 max-w-md w-full text-center animate-fade-in relative">
             <button class="absolute top-2 right-4 text-xl text-gray-400 hover:text-gray-700" onclick="closeDessertRecipe()">×</button>
@@ -192,7 +192,7 @@ function render() {
             <h2 class="text-2xl font-bold mb-2">${selectedDessert.name}</h2>
             <p class="mb-3" style="color: ${
               document.body.classList.contains("night") ? "#fff" : "#000"
-            };">${selectedDessert.description || "No description provided."}</p>
+            }">${selectedDessert.description || "No description provided."}</p>
             <div class="flex gap-2 text-xs mb-4 items-center justify-center flex-wrap">
               ${
                 selectedDessert.tags
@@ -302,10 +302,10 @@ function render() {
             .map(
               (recipe, i) => `
             <div class="${
-                document.body.classList.contains("night")
-                  ? "bg-gray-800 border-gray-700"
-                  : "bg-white border"
-              } border rounded-lg shadow-lg hover:scale-105 hover:shadow-2xl transition-all duration-200 p-6 relative flex flex-col items-center">
+              document.body.classList.contains("night")
+                ? "bg-gray-800 border-gray-700"
+                : "bg-white border"
+            } border rounded-lg shadow-lg hover:scale-105 hover:shadow-2xl transition-all duration-200 p-6 relative flex flex-col items-center">
               <button 
                 class="absolute top-2 right-2 text-3xl ${
                   favorites.has(i) ? "text-red-500" : "text-gray-400"
@@ -320,18 +320,16 @@ function render() {
                 recipe.name
               }" class="w-28 h-28 object-cover rounded-full mx-auto border-2 border-amber-400 shadow mb-4" />
               <h2 class="text-xl font-semibold mb-2 text-center ${
-                  document.body.classList.contains("night") ? "text-white" : ""
-                }">${
-                recipe.name
-              }</h2>
+                document.body.classList.contains("night") ? "text-white" : ""
+              }">${recipe.name}</h2>
               <p class="mb-2 text-center" style="color: ${
                 document.body.classList.contains("night") ? "#fff" : "#000"
               };"></p>
               <div class="flex gap-2 text-xs ${
-                  document.body.classList.contains("night")
-                    ? "text-gray-300"
-                    : "text-gray-500"
-                } mb-4 items-center justify-center flex-wrap">
+                document.body.classList.contains("night")
+                  ? "text-gray-300"
+                  : "text-gray-500"
+              } mb-4 items-center justify-center flex-wrap">
                 <span class="px-2 py-1 rounded bg-amber-100 text-amber-800 font-semibold">${
                   recipe.type || ""
                 }</span>
@@ -369,8 +367,12 @@ function render() {
         selectedRecipe
           ? `
         <div class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-60">
-          <div class="bg-white rounded-xl shadow-xl p-6 max-w-md w-full text-center animate-fade-in relative">
-            <button class="absolute top-2 right-4 text-xl text-gray-400 hover:text-gray-700" onclick="closeRecipe()">×</button>
+          <div class="${
+            document.body.classList.contains("night")
+              ? "bg-gray-800"
+              : "bg-white"
+          } rounded-xl shadow-xl p-6 max-w-md w-full text-center animate-fade-in relative">
+            <button class="absolute top-2 right-4 text-xl text-gray-400 hover:text-gray-700" onclick="closeRecipe()">x</button>
             <img src="${selectedRecipe.image}" alt="${
               selectedRecipe.name
             }" class="w-64 h-64 object-cover rounded-full mx-auto border-4 border-amber-500 shadow mb-4">
