@@ -5,6 +5,13 @@ window.updateDessertFilter = function (type) {
   render();
 };
 
+// Dessert search bar state and handler (must be before render)
+window.dessertSearchQuery = "";
+window.updateDessertSearch = function (value) {
+  window.dessertSearchQuery = value;
+  render();
+};
+
 import "./index.css";
 import recipes from "./recipes.json";
 
@@ -124,27 +131,41 @@ function render() {
       <main class="min-h-screen px-4 py-8">
         <div class="max-w-6xl mx-auto">
           <h1 class="text-3xl font-bold mb-6 font-logo" style="color:#c2410c">Desserts</h1>
-          <!-- Dessert Type Tabs/Pills -->
-          <div class="flex gap-2 flex-wrap items-center mb-6">
-            ${["All", "Cake", "Cookie", "Pastry", "Frozen", "Fruit", "Other"]
-              .map(
-                (type) => `
-              <button 
-                class="px-4 py-1 rounded-full font-semibold shadow transition-all duration-150 border ${
-                  window.selectedDessertType === type
-                    ? document.body.classList.contains("night")
-                      ? "bg-amber-500 text-white border-amber-600"
-                      : "bg-amber-200 text-amber-900 border-amber-400"
-                    : document.body.classList.contains("night")
-                    ? "bg-gray-700 text-gray-300 border-gray-600 hover:bg-amber-700 hover:text-white"
-                    : "bg-gray-100 text-gray-700 border-gray-300 hover:bg-amber-100 hover:text-amber-900"
-                }" 
-                onclick="updateDessertFilter('${type}')"
-                style="min-width:80px;"
-              >${type}</button>
-            `
-              )
-              .join("")}
+          <!-- Search and Filter for Desserts -->
+          <div class="flex flex-col sm:flex-row justify-between items-center mb-6 gap-4">
+            <input 
+              type="text" 
+              placeholder="Search desserts..." 
+              class="px-4 py-2 w-full sm:w-1/2 border rounded shadow-sm focus:outline-none focus:ring"
+              value="${window.dessertSearchQuery || ""}"
+              oninput="updateDessertSearch(this.value)"
+              style="color: ${
+                document.body.classList.contains("night") ? "#fff" : "#000"
+              }; background-color: ${
+      document.body.classList.contains("night") ? "#222" : "#fff"
+    };"
+            />
+            <div class="flex gap-2 flex-wrap items-center">
+              ${["All", "Cake", "Cookie", "Pastry", "Frozen", "Fruit", "Other"]
+                .map(
+                  (type) => `
+                <button 
+                  class="px-4 py-1 rounded-full font-semibold shadow transition-all duration-150 border ${
+                    window.selectedDessertType === type
+                      ? document.body.classList.contains("night")
+                        ? "bg-amber-500 text-white border-amber-600"
+                        : "bg-amber-200 text-amber-900 border-amber-400"
+                      : document.body.classList.contains("night")
+                      ? "bg-gray-700 text-gray-300 border-gray-600 hover:bg-amber-700 hover:text-white"
+                      : "bg-gray-100 text-gray-700 border-gray-300 hover:bg-amber-100 hover:text-amber-900"
+                  }" 
+                  onclick="updateDessertFilter('${type}')"
+                  style="min-width:80px;"
+                >${type}</button>
+              `
+                )
+                .join("")}
+            </div>
           </div>
           <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 w-full max-w-6xl mb-8">
             ${
@@ -154,6 +175,12 @@ function render() {
                     (r) => r.tags && r.tags.includes(window.selectedDessertType)
                   )
                 : dessertRecipes
+              ).filter((r) =>
+                window.dessertSearchQuery
+                  ? r.name
+                      .toLowerCase()
+                      .includes(window.dessertSearchQuery.toLowerCase())
+                  : true
               ).length === 0
                 ? `<p class='col-span-full text-center ${
                     document.body.classList.contains("night")
@@ -168,50 +195,57 @@ function render() {
                       )
                     : dessertRecipes
                   )
+                    .filter((r) =>
+                      window.dessertSearchQuery
+                        ? r.name
+                            .toLowerCase()
+                            .includes(window.dessertSearchQuery.toLowerCase())
+                        : true
+                    )
                     .map(
                       (recipe) => `
-                <div class="${
-                  document.body.classList.contains("night")
-                    ? "bg-gray-800 border-gray-700"
-                    : "bg-white border"
-                } border rounded-lg shadow-lg transition-all duration-200 p-6 flex flex-col items-center group hover:scale-105 hover:shadow-2xl hover:border-amber-500" style="cursor:pointer;">
-                  <img src="${recipe.image}" alt="${
+                  <div class="${
+                    document.body.classList.contains("night")
+                      ? "bg-gray-800 border-gray-700"
+                      : "bg-white border"
+                  } border rounded-lg shadow-lg transition-all duration-200 p-6 flex flex-col items-center group hover:scale-105 hover:shadow-2xl hover:border-amber-500" style="cursor:pointer;">
+                    <img src="${recipe.image}" alt="${
                         recipe.name
                       }" class="w-32 h-32 object-cover rounded-full border-2 border-amber-400 shadow mb-4 group-hover:border-amber-600 group-hover:scale-110 transition-all duration-200" />
-                  <h2 class="text-xl font-semibold mb-2 text-center ${
-                    document.body.classList.contains("night")
-                      ? "text-white"
-                      : ""
-                  } group-hover:text-amber-700">${recipe.name}</h2>
-                  <!-- Description removed from card, only shown in modal -->
-                  <div class="flex gap-2 text-xs ${
-                    document.body.classList.contains("night")
-                      ? "text-gray-300"
-                      : "text-gray-500"
-                  } mb-4 items-center justify-center flex-wrap">
-                    ${
-                      recipe.tags
-                        ?.map(
-                          (tag) =>
-                            `<span class='${
-                              document.body.classList.contains("night")
-                                ? "bg-green-900 text-green-200"
-                                : "bg-green-100 text-green-800"
-                            } rounded px-2 py-1 font-semibold group-hover:bg-amber-200 group-hover:text-amber-900'>${tag}</span>`
-                        )
-                        .join("") || ""
-                    }
+                    <h2 class="text-xl font-semibold mb-2 text-center ${
+                      document.body.classList.contains("night")
+                        ? "text-white"
+                        : ""
+                    } group-hover:text-amber-700">${recipe.name}</h2>
+                    <!-- Description removed from card, only shown in modal -->
+                    <div class="flex gap-2 text-xs ${
+                      document.body.classList.contains("night")
+                        ? "text-gray-300"
+                        : "text-gray-500"
+                    } mb-4 items-center justify-center flex-wrap">
+                      ${
+                        recipe.tags
+                          ?.map(
+                            (tag) =>
+                              `<span class='${
+                                document.body.classList.contains("night")
+                                  ? "bg-green-900 text-green-200"
+                                  : "bg-green-100 text-green-800"
+                              } rounded px-2 py-1 font-semibold group-hover:bg-amber-200 group-hover:text-amber-900'>${tag}</span>`
+                          )
+                          .join("") || ""
+                      }
+                    </div>
+                    <button 
+                      class="bg-amber-500 hover:bg-amber-600 text-white px-4 py-2 rounded whitespace-nowrap mx-auto mt-auto w-full max-w-xs group-hover:bg-amber-700" 
+                      onclick="viewDessertRecipe('${recipe.name.replace(
+                        /'/g,
+                        "\\'"
+                      )}')">
+                      View Recipe
+                    </button>
                   </div>
-                  <button 
-                    class="bg-amber-500 hover:bg-amber-600 text-white px-4 py-2 rounded whitespace-nowrap mx-auto mt-auto w-full max-w-xs group-hover:bg-amber-700" 
-                    onclick="viewDessertRecipe('${recipe.name.replace(
-                      /'/g,
-                      "\\'"
-                    )}')">
-                    View Recipe
-                  </button>
-                </div>
-              `
+                `
                     )
                     .join("")
             }
