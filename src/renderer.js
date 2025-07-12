@@ -8,8 +8,28 @@ window.updateDessertFilter = function (type) {
 // Dessert search bar state and handler (must be before render)
 window.dessertSearchQuery = "";
 window.updateDessertSearch = function (value) {
-  window.dessertSearchQuery = value;
-  render();
+  // Only update and re-render if the value actually changed
+  if (window.dessertSearchQuery !== value) {
+    // Save caret position
+    const input = document.querySelector(
+      'input[placeholder="Search desserts..."]'
+    );
+    let caretPos = input ? input.selectionStart : null;
+    window.dessertSearchQuery = value;
+    render();
+    // Restore focus and caret position after render
+    setTimeout(() => {
+      const newInput = document.querySelector(
+        'input[placeholder="Search desserts..."]'
+      );
+      if (newInput) {
+        newInput.focus();
+        if (caretPos !== null) {
+          newInput.setSelectionRange(caretPos, caretPos);
+        }
+      }
+    }, 0);
+  }
 };
 
 import "./index.css";
@@ -111,6 +131,20 @@ function render() {
           font-family: 'Pacifico', cursive !important;
           letter-spacing: 0.04em;
         }
+        .animate-fade-in {
+          animation: fadeIn 0.7s cubic-bezier(0.4,0,0.2,1);
+        }
+        .animate-slide-in {
+          animation: slideIn 0.7s cubic-bezier(0.4,0,0.2,1);
+        }
+        @keyframes fadeIn {
+          from { opacity: 0; }
+          to { opacity: 1; }
+        }
+        @keyframes slideIn {
+          from { opacity: 0; transform: translateY(40px); }
+          to { opacity: 1; transform: translateY(0); }
+        }
       </style>
       <header class="sticky top-0 z-40 ${
         document.body.classList.contains("night")
@@ -119,7 +153,9 @@ function render() {
       } backdrop-blur shadow flex items-center justify-between px-6 py-3 mb-8">
         <div class="flex items-center gap-3">
           <img src="/images/cupidoncoffee.png" alt="NovaCup Cherub Logo" class="w-14 h-14 object-contain" style="background:transparent; border:none; box-shadow:none;" />
-          <span class="text-2xl font-bold tracking-wide drop-shadow-[0_2px_8px_rgba(0,0,0,0.5)] font-logo" style="color: #c2410c !important;">NovaCup Coffee</span>
+          <span class="text-2xl font-bold tracking-wide drop-shadow-[0_2px_8px_rgba(0,0,0,0.5)] font-logo flex items-center gap-2" style="color: #c2410c !important;">
+            NovaCup Coffee ☕
+          </span>
         </div>
         <div class="flex gap-4 items-center">
           <button class="px-4 py-2 rounded bg-amber-500 text-white font-bold shadow hover:bg-amber-600 transition" onclick="goToMainPage()">Main Page</button>
@@ -130,7 +166,9 @@ function render() {
       </header>
       <main class="min-h-screen px-4 py-8">
         <div class="max-w-6xl mx-auto">
-          <h1 class="text-3xl font-bold mb-6 font-logo" style="color:#c2410c">Desserts</h1>
+          <h1 class="text-3xl font-bold mb-6 font-logo flex items-center gap-2" style="color:#c2410c">
+            🍰 Desserts
+          </h1>
           <!-- Search and Filter for Desserts -->
           <div class="flex flex-col sm:flex-row justify-between items-center mb-6 gap-4">
             <input 
@@ -203,15 +241,19 @@ function render() {
                         : true
                     )
                     .map(
-                      (recipe) => `
+                      (recipe, idx) => `
                   <div class="${
                     document.body.classList.contains("night")
                       ? "bg-gray-800 border-gray-700"
                       : "bg-white border"
-                  } border rounded-lg shadow-lg transition-all duration-200 p-6 flex flex-col items-center group hover:scale-105 hover:shadow-2xl hover:border-amber-500" style="cursor:pointer;">
+                  } border rounded-lg shadow-lg transition-all duration-200 p-6 flex flex-col items-center group hover:scale-105 hover:shadow-2xl hover:border-amber-500 animate-fade-in" style="cursor:pointer; animation-delay:${
+                        idx * 60
+                      }ms;">
                     <img src="${recipe.image}" alt="${
                         recipe.name
-                      }" class="w-32 h-32 object-cover rounded-full border-2 border-amber-400 shadow mb-4 group-hover:border-amber-600 group-hover:scale-110 transition-all duration-200" />
+                      }" class="w-32 h-32 object-cover rounded-full border-2 border-amber-400 shadow mb-4 group-hover:border-amber-600 group-hover:scale-110 transition-all duration-200 animate-slide-in" style="animation-delay:${
+                        idx * 60
+                      }ms;" />
                     <h2 class="text-xl font-semibold mb-2 text-center ${
                       document.body.classList.contains("night")
                         ? "text-white"
@@ -225,19 +267,39 @@ function render() {
                     } mb-4 items-center justify-center flex-wrap">
                       ${
                         recipe.tags
-                          ?.map(
-                            (tag) =>
-                              `<span class='${
-                                document.body.classList.contains("night")
-                                  ? "bg-green-900 text-green-200"
-                                  : "bg-green-100 text-green-800"
-                              } rounded px-2 py-1 font-semibold group-hover:bg-amber-200 group-hover:text-amber-900'>${tag}</span>`
-                          )
+                          ?.map((tag) => {
+                            let icon = "";
+                            if (tag.toLowerCase().includes("coffee"))
+                              icon = "☕";
+                            else if (tag.toLowerCase().includes("bean"))
+                              icon = "🌱";
+                            else if (tag.toLowerCase().includes("cake"))
+                              icon = "🍰";
+                            else if (tag.toLowerCase().includes("cookie"))
+                              icon = "🍪";
+                            else if (tag.toLowerCase().includes("pastry"))
+                              icon = "🥐";
+                            else if (tag.toLowerCase().includes("frozen"))
+                              icon = "🍨";
+                            else if (tag.toLowerCase().includes("fruit"))
+                              icon = "🍓";
+                            else if (tag.toLowerCase().includes("milk"))
+                              icon = "🥛";
+                            else if (tag.toLowerCase().includes("alcohol"))
+                              icon = "🍸";
+                            return `<span class='${
+                              document.body.classList.contains("night")
+                                ? "bg-green-900 text-green-200"
+                                : "bg-green-100 text-green-800"
+                            } rounded px-2 py-1 font-semibold group-hover:bg-amber-200 group-hover:text-amber-900'>${icon} ${tag}</span>`;
+                          })
                           .join("") || ""
                       }
                     </div>
                     <button 
-                      class="bg-amber-500 hover:bg-amber-600 text-white px-4 py-2 rounded whitespace-nowrap mx-auto mt-auto w-full max-w-xs group-hover:bg-amber-700" 
+                      class="bg-amber-500 hover:bg-amber-600 text-white px-4 py-2 rounded whitespace-nowrap mx-auto mt-auto w-full max-w-xs group-hover:bg-amber-700 animate-slide-in" style="animation-delay:${
+                        idx * 60
+                      }ms;" 
                       onclick="viewDessertRecipe('${recipe.name.replace(
                         /'/g,
                         "\\'"
@@ -255,16 +317,16 @@ function render() {
     `;
     if (selectedDessert) {
       app.innerHTML += `
-        <div class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-60">
+        <div class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-60 animate-fade-in">
           <div class="${
             document.body.classList.contains("night")
               ? "bg-gray-800 text-white"
               : "bg-white"
-          } rounded-xl shadow-xl p-6 max-w-md w-full text-center animate-fade-in relative">
-            <button class="absolute top-2 right-4 text-xl text-gray-400 hover:text-gray-700" onclick="closeDessertRecipe()">×</button>
+          } rounded-xl shadow-xl p-6 max-w-md w-full text-center animate-slide-in relative">
+            <button class="absolute top-2 right-4 text-xl text-gray-400 hover:text-gray-700 animate-fade-in" onclick="closeDessertRecipe()">×</button>
             <img src="${selectedDessert.image}" alt="${
         selectedDessert.name
-      }" class="w-64 h-64 object-cover rounded-full mx-auto border-4 border-amber-500 shadow mb-4">
+      }" class="w-64 h-64 object-cover rounded-full mx-auto border-4 border-amber-500 shadow mb-4 animate-slide-in">
             <h2 class="text-2xl font-bold mb-2">${selectedDessert.name}</h2>
             <p class="mb-3" style="color: ${
               document.body.classList.contains("night") ? "#fff" : "#000"
@@ -278,12 +340,12 @@ function render() {
                         document.body.classList.contains("night")
                           ? "bg-green-900 text-green-200"
                           : "bg-green-100 text-green-800"
-                      } rounded px-2 py-1 font-semibold'>${tag}</span>`
+                      } rounded px-2 py-1 font-semibold animate-fade-in'>${tag}</span>`
                   )
                   .join("") || ""
               }
             </div>
-            <button class="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded w-full" onclick="closeDessertRecipe()">Close</button>
+            <button class="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded w-full animate-fade-in" onclick="closeDessertRecipe()">Close</button>
           </div>
         </div>
       `;
@@ -312,6 +374,20 @@ function render() {
         font-family: 'Pacifico', cursive !important;
         letter-spacing: 0.04em;
       }
+      .animate-fade-in {
+        animation: fadeIn 0.7s cubic-bezier(0.4,0,0.2,1);
+      }
+      .animate-slide-in {
+        animation: slideIn 0.7s cubic-bezier(0.4,0,0.2,1);
+      }
+      @keyframes fadeIn {
+        from { opacity: 0; }
+        to { opacity: 1; }
+      }
+      @keyframes slideIn {
+        from { opacity: 0; transform: translateY(40px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
     </style>
     <header class="sticky top-0 z-40 ${
       document.body.classList.contains("night")
@@ -320,7 +396,9 @@ function render() {
     } backdrop-blur shadow flex items-center justify-between px-6 py-3 mb-8">
       <div class="flex items-center gap-3">
         <img src="/images/cupidoncoffee.png" alt="NovaCup Cherub Logo" class="w-14 h-14 object-contain" style="background:transparent; border:none; box-shadow:none;" />
-        <span class="text-2xl font-bold tracking-wide drop-shadow-[0_2px_8px_rgba(0,0,0,0.5)] font-logo" style="color: #c2410c !important;">NovaCup Coffee</span>
+        <span class="text-2xl font-bold tracking-wide drop-shadow-[0_2px_8px_rgba(0,0,0,0.5)] font-logo flex items-center gap-2" style="color: #c2410c !important;">
+          NovaCup Coffee ☕
+        </span>
       </div>
       <div class="flex gap-4 items-center">
         <button class="px-4 py-2 rounded bg-amber-500 text-white font-bold shadow hover:bg-amber-600 transition" onclick="goToSecondPage()">Desserts</button>
@@ -383,12 +461,14 @@ function render() {
               document.body.classList.contains("night")
                 ? "bg-gray-800 border-gray-700"
                 : "bg-white border"
-            } border rounded-lg shadow-lg transition-all duration-200 p-6 relative flex flex-col items-center group hover:scale-105 hover:shadow-2xl hover:border-amber-500" style="cursor:pointer;">
+            } border rounded-lg shadow-lg transition-all duration-200 p-6 relative flex flex-col items-center group hover:scale-105 hover:shadow-2xl hover:border-amber-500 animate-fade-in" style="cursor:pointer; animation-delay:${
+                i * 60
+              }ms;">
               <button 
                 class="absolute top-2 right-2 text-3xl ${
                   favorites.has(i) ? "text-red-500" : "text-gray-400"
-                } group-hover:text-red-600"
-                style="line-height: 1;"
+                } group-hover:text-red-600 animate-fade-in"
+                style="line-height: 1; animation-delay:${i * 60}ms;"
                 onclick="toggleFavorite(${i})"
                 aria-label="Toggle Favorite"
               >
@@ -396,36 +476,53 @@ function render() {
               </button>
               <img src="${recipe.image}" alt="${
                 recipe.name
-              }" class="w-28 h-28 object-cover rounded-full mx-auto border-2 border-amber-400 shadow mb-4 group-hover:border-amber-600 group-hover:scale-110 transition-all duration-200" />
+              }" class="w-28 h-28 object-cover rounded-full mx-auto border-2 border-amber-400 shadow mb-4 group-hover:border-amber-600 group-hover:scale-110 transition-all duration-200 animate-slide-in" style="animation-delay:${
+                i * 60
+              }ms;" />
               <h2 class="text-xl font-semibold mb-2 text-center ${
                 document.body.classList.contains("night") ? "text-white" : ""
-              } group-hover:text-amber-700">${recipe.name}</h2>
-              <p class="mb-2 text-center" style="color: ${
+              } group-hover:text-amber-700 animate-fade-in">${recipe.name}</h2>
+              <p class="mb-2 text-center animate-fade-in" style="color: ${
                 document.body.classList.contains("night") ? "#fff" : "#000"
               };"></p>
               <div class="flex gap-2 text-xs ${
                 document.body.classList.contains("night")
                   ? "text-gray-300"
                   : "text-gray-500"
-              } mb-4 items-center justify-center flex-wrap">
+              } mb-4 items-center justify-center flex-wrap animate-fade-in">
                 <span class="px-2 py-1 rounded bg-amber-100 text-amber-800 font-semibold">${
-                  recipe.type || ""
+                  recipe.type ? `☕ ${recipe.type}` : ""
                 }</span>
                 ${
                   recipe.tags
-                    ?.map(
-                      (tag) =>
-                        `<span class='${
-                          document.body.classList.contains("night")
-                            ? "bg-green-900 text-green-200"
-                            : "bg-green-100 text-green-800"
-                        } rounded px-2 py-1 font-semibold group-hover:bg-amber-200 group-hover:text-amber-900'>${tag}</span>`
-                    )
+                    ?.map((tag) => {
+                      let icon = "";
+                      if (tag.toLowerCase().includes("coffee")) icon = "☕";
+                      else if (tag.toLowerCase().includes("bean")) icon = "🌱";
+                      else if (tag.toLowerCase().includes("cake")) icon = "🍰";
+                      else if (tag.toLowerCase().includes("cookie"))
+                        icon = "🍪";
+                      else if (tag.toLowerCase().includes("pastry"))
+                        icon = "🥐";
+                      else if (tag.toLowerCase().includes("frozen"))
+                        icon = "🍨";
+                      else if (tag.toLowerCase().includes("fruit")) icon = "🍓";
+                      else if (tag.toLowerCase().includes("milk")) icon = "🥛";
+                      else if (tag.toLowerCase().includes("alcohol"))
+                        icon = "🍸";
+                      return `<span class='${
+                        document.body.classList.contains("night")
+                          ? "bg-green-900 text-green-200"
+                          : "bg-green-100 text-green-800"
+                      } rounded px-2 py-1 font-semibold group-hover:bg-amber-200 group-hover:text-amber-900 animate-fade-in'>${icon} ${tag}</span>`;
+                    })
                     .join("") || ""
                 }
               </div>
               <button 
-                class="bg-amber-500 hover:bg-amber-600 text-white px-4 py-2 rounded whitespace-nowrap mx-auto mt-auto w-full max-w-xs group-hover:bg-amber-700" 
+                class="bg-amber-500 hover:bg-amber-600 text-white px-4 py-2 rounded whitespace-nowrap mx-auto mt-auto w-full max-w-xs group-hover:bg-amber-700 animate-slide-in" style="animation-delay:${
+                  i * 60
+                }ms;" 
                 onclick="viewRecipe(${i})">
                 View Recipe
               </button>
@@ -444,16 +541,16 @@ function render() {
       ${
         selectedRecipe
           ? `
-        <div class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-60">
+        <div class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-60 animate-fade-in">
           <div class="${
             document.body.classList.contains("night")
               ? "bg-gray-800"
               : "bg-white"
-          } rounded-xl shadow-xl p-6 max-w-md w-full text-center animate-fade-in relative">
-            <button class="absolute top-2 right-4 text-xl text-gray-400 hover:text-gray-700" onclick="closeRecipe()">x</button>
+          } rounded-xl shadow-xl p-6 max-w-md w-full text-center animate-slide-in relative">
+            <button class="absolute top-2 right-4 text-xl text-gray-400 hover:text-gray-700 animate-fade-in" onclick="closeRecipe()">x</button>
             <img src="${selectedRecipe.image}" alt="${
               selectedRecipe.name
-            }" class="w-64 h-64 object-cover rounded-full mx-auto border-4 border-amber-500 shadow mb-4">
+            }" class="w-64 h-64 object-cover rounded-full mx-auto border-4 border-amber-500 shadow mb-4 animate-slide-in">
             <h2 class="text-2xl font-bold mb-2">${selectedRecipe.name}</h2>
             <p class="mb-3" style="color: ${
               document.body.classList.contains("night") ? "#fff" : "#000"
@@ -466,7 +563,7 @@ function render() {
               selectedRecipe.time || "Unknown"
             }</p>
             <button 
-              class="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded w-full"
+              class="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded w-full animate-fade-in"
               onclick="closeRecipe()">
               Close
             </button>
