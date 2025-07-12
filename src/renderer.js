@@ -5,19 +5,15 @@ window.updateDessertFilter = function (type) {
   render();
 };
 
-// Dessert search bar state and handler (must be before render)
 window.dessertSearchQuery = "";
 window.updateDessertSearch = function (value) {
-  // Only update and re-render if the value actually changed
   if (window.dessertSearchQuery !== value) {
-    // Save caret position
     const input = document.querySelector(
       'input[placeholder="Search desserts..."]'
     );
     let caretPos = input ? input.selectionStart : null;
     window.dessertSearchQuery = value;
     render();
-    // Restore focus and caret position after render
     setTimeout(() => {
       const newInput = document.querySelector(
         'input[placeholder="Search desserts..."]'
@@ -249,6 +245,29 @@ function render() {
                   } border rounded-lg shadow-lg transition-all duration-200 p-6 flex flex-col items-center group hover:scale-105 hover:shadow-2xl hover:border-amber-500 animate-fade-in" style="cursor:pointer; animation-delay:${
                         idx * 60
                       }ms;">
+                    ${(() => {
+                      let badge = "";
+                      if (recipe.tags?.includes("New")) badge = "New";
+                      else if (recipe.tags?.includes("Classic"))
+                        badge = "Classic";
+                      else if (recipe.tags?.includes("Trending"))
+                        badge = "Trending";
+                      else if (
+                        recipe.tags?.includes("Barista’s Choice") ||
+                        recipe.tags?.includes("Barista's Choice")
+                      )
+                        badge = "Barista’s Choice";
+                      if (!badge && Math.random() < 0.1)
+                        badge = [
+                          "New",
+                          "Classic",
+                          "Trending",
+                          "Barista’s Choice",
+                        ][Math.floor(Math.random() * 4)];
+                      return badge
+                        ? `<span class='absolute -top-4 left-1/2 -translate-x-1/2 px-3 py-1 rounded-full text-xs font-bold shadow bg-amber-500 text-white z-10 animate-fade-in' style='letter-spacing:0.04em;'>${badge}</span>`
+                        : "";
+                    })()}
                     <img src="${recipe.image}" alt="${
                         recipe.name
                       }" class="w-32 h-32 object-cover rounded-full border-2 border-amber-400 shadow mb-4 group-hover:border-amber-600 group-hover:scale-110 transition-all duration-200 animate-slide-in" style="animation-delay:${
@@ -474,6 +493,24 @@ function render() {
               >
                 ♥
               </button>
+              ${(() => {
+                let badge = "";
+                if (recipe.tags?.includes("New")) badge = "New";
+                else if (recipe.tags?.includes("Classic")) badge = "Classic";
+                else if (recipe.tags?.includes("Trending")) badge = "Trending";
+                else if (
+                  recipe.tags?.includes("Barista’s Choice") ||
+                  recipe.tags?.includes("Barista's Choice")
+                )
+                  badge = "Barista’s Choice";
+                if (!badge && Math.random() < 0.1)
+                  badge = ["New", "Classic", "Trending", "Barista’s Choice"][
+                    Math.floor(Math.random() * 4)
+                  ];
+                return badge
+                  ? `<span class='absolute -top-4 left-1/2 -translate-x-1/2 px-3 py-1 rounded-full text-xs font-bold shadow bg-amber-500 text-white z-10 animate-fade-in' style='letter-spacing:0.04em;'>${badge}</span>`
+                  : "";
+              })()}
               <img src="${recipe.image}" alt="${
                 recipe.name
               }" class="w-28 h-28 object-cover rounded-full mx-auto border-2 border-amber-400 shadow mb-4 group-hover:border-amber-600 group-hover:scale-110 transition-all duration-200 animate-slide-in" style="animation-delay:${
