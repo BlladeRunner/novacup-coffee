@@ -251,7 +251,7 @@ function render() {
                       }ms;">
                     <img src="${recipe.image}" alt="${
                         recipe.name
-                      }" class="w-32 h-32 object-cover rounded-full border-2 border-amber-400 shadow mb-4 group-hover:border-amber-600 group-hover:scale-110 transition-all duration-200 animate-slide-in" style="animation-delay:${
+                      } dessert image" class="w-32 h-32 object-cover rounded-full border-2 border-amber-400 shadow mb-4 group-hover:border-amber-600 group-hover:scale-110 transition-all duration-200 animate-slide-in" style="animation-delay:${
                         idx * 60
                       }ms;" />
                     <h2 class="text-xl font-semibold mb-2 text-center ${
@@ -303,7 +303,14 @@ function render() {
                       onclick="viewDessertRecipe('${recipe.name.replace(
                         /'/g,
                         "\\'"
-                      )}')">
+                      )}')"
+                      aria-label="View recipe for ${recipe.name}"
+                      tabindex="0"
+                      onkeydown="if(event.key==='Enter'){viewDessertRecipe('${recipe.name.replace(
+                        /'/g,
+                        "\\'"
+                      )}')}"
+                    >
                       View Recipe
                     </button>
                   </div>
@@ -326,7 +333,7 @@ function render() {
             <button class="absolute top-2 right-4 text-xl text-gray-400 hover:text-gray-700 animate-fade-in" onclick="closeDessertRecipe()">×</button>
             <img src="${selectedDessert.image}" alt="${
         selectedDessert.name
-      }" class="w-64 h-64 object-cover rounded-full mx-auto border-4 border-amber-500 shadow mb-4 animate-slide-in">
+      } dessert image" class="w-64 h-64 object-cover rounded-full mx-auto border-4 border-amber-500 shadow mb-4 animate-slide-in">
             <h2 class="text-2xl font-bold mb-2">${selectedDessert.name}</h2>
             <p class="mb-3" style="color: ${
               document.body.classList.contains("night") ? "#fff" : "#000"
@@ -345,7 +352,7 @@ function render() {
                   .join("") || ""
               }
             </div>
-            <button class="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded w-full animate-fade-in" onclick="closeDessertRecipe()">Close</button>
+            <button class="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded w-full animate-fade-in" onclick="closeDessertRecipe()" aria-label="Close dessert modal" tabindex="0" onkeydown="if(event.key==='Enter'){closeDessertRecipe()}" >Close</button>
           </div>
         </div>
       `;
@@ -476,7 +483,7 @@ function render() {
               </button>
               <img src="${recipe.image}" alt="${
                 recipe.name
-              }" class="w-28 h-28 object-cover rounded-full mx-auto border-2 border-amber-400 shadow mb-4 group-hover:border-amber-600 group-hover:scale-110 transition-all duration-200 animate-slide-in" style="animation-delay:${
+              } coffee image" class="w-28 h-28 object-cover rounded-full mx-auto border-2 border-amber-400 shadow mb-4 group-hover:border-amber-600 group-hover:scale-110 transition-all duration-200 animate-slide-in" style="animation-delay:${
                 i * 60
               }ms;" />
               <h2 class="text-xl font-semibold mb-2 text-center ${
@@ -523,7 +530,11 @@ function render() {
                 class="bg-amber-500 hover:bg-amber-600 text-white px-4 py-2 rounded whitespace-nowrap mx-auto mt-auto w-full max-w-xs group-hover:bg-amber-700 animate-slide-in" style="animation-delay:${
                   i * 60
                 }ms;" 
-                onclick="viewRecipe(${i})">
+                onclick="viewRecipe(${i})"
+                aria-label="View recipe for ${recipe.name}"
+                tabindex="0"
+                onkeydown="if(event.key==='Enter'){viewRecipe(${i})}"
+              >
                 View Recipe
               </button>
             </div>
@@ -550,7 +561,7 @@ function render() {
             <button class="absolute top-2 right-4 text-xl text-gray-400 hover:text-gray-700 animate-fade-in" onclick="closeRecipe()">x</button>
             <img src="${selectedRecipe.image}" alt="${
               selectedRecipe.name
-            }" class="w-64 h-64 object-cover rounded-full mx-auto border-4 border-amber-500 shadow mb-4 animate-slide-in">
+            } coffee image" class="w-64 h-64 object-cover rounded-full mx-auto border-4 border-amber-500 shadow mb-4 animate-slide-in">
             <h2 class="text-2xl font-bold mb-2">${selectedRecipe.name}</h2>
             <p class="mb-3" style="color: ${
               document.body.classList.contains("night") ? "#fff" : "#000"
@@ -564,7 +575,11 @@ function render() {
             }</p>
             <button 
               class="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded w-full animate-fade-in"
-              onclick="closeRecipe()">
+              onclick="closeRecipe()"
+              aria-label="Close recipe modal"
+              tabindex="0"
+              onkeydown="if(event.key==='Enter'){closeRecipe()}"
+            >
               Close
             </button>
           </div>
