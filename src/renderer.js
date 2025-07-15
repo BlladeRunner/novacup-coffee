@@ -171,6 +171,7 @@ function render() {
         </div>
         <div class="flex gap-4 items-center">
           <button class="px-4 py-2 rounded bg-amber-500 text-white font-bold shadow hover:bg-amber-600 transition" onclick="goToMainPage()">Main Page</button>
+          <button class="px-4 py-2 rounded bg-amber-500 text-white font-bold shadow hover:bg-amber-600 transition" onclick="goToStoryPage()">Our Story</button>
           <button id="toggle-dark" class="text-gray-600 hover:text-black px-3 py-1 rounded transition" onclick="toggleNightMode()">${
             document.body.classList.contains("night") ? "☀️" : "🌙"
           }</button>
@@ -377,6 +378,64 @@ function render() {
       selectedDessert = null;
       render();
     };
+  }
+  if (currentPage === "story") {
+    app.innerHTML = `
+      <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Pacifico&display=swap" rel="stylesheet">
+      <style>
+        body, input, select, button, h1, h2, h3, h4, h5, h6, p, span, label, .font-main {
+          font-family: 'Roboto', Arial, sans-serif !important;
+        }
+        .font-logo {
+          font-family: 'Pacifico', cursive !important;
+          letter-spacing: 0.04em;
+        }
+        .animate-fade-in {
+          animation: fadeIn 0.7s cubic-bezier(0.4,0,0.2,1);
+        }
+        @keyframes fadeIn {
+          from { opacity: 0; }
+          to { opacity: 1; }
+        }
+      </style>
+      <header class="sticky top-0 z-40 ${
+        document.body.classList.contains("night")
+          ? "bg-gray-900/90"
+          : "bg-white/90"
+      } backdrop-blur shadow flex items-center justify-between px-6 py-3 mb-8">
+        <div class="flex items-center gap-3">
+          <img src="/images/cupidoncoffee.png" alt="NovaCup Cherub Logo" class="w-14 h-14 object-contain" style="background:transparent; border:none; box-shadow:none;" />
+          <span class="text-2xl font-bold tracking-wide drop-shadow-[0_2px_8px_rgba(0,0,0,0.5)] font-logo flex items-center gap-2" style="color: #c2410c !important;">
+            NovaCup Coffee ☕
+          </span>
+        </div>
+        <div class="flex gap-4 items-center">
+          <button class="px-4 py-2 rounded bg-amber-500 text-white font-bold shadow hover:bg-amber-600 transition" onclick="goToMainPage()">Main Page</button>
+          <button class="px-4 py-2 rounded bg-amber-500 text-white font-bold shadow hover:bg-amber-600 transition" onclick="goToSecondPage()">Desserts</button>
+          <button id="toggle-dark" class="text-gray-600 hover:text-black px-3 py-1 rounded transition" onclick="toggleNightMode()">${
+            document.body.classList.contains("night") ? "☀️" : "🌙"
+          }</button>
+        </div>
+      </header>
+      <main class="min-h-screen px-4 py-8">
+        <div class="max-w-3xl mx-auto text-center animate-fade-in">
+          <h1 class="text-4xl font-bold mb-6 font-logo" style="color:#c2410c">Our Story</h1>
+          <img src="/images/cupidoncoffee.png" alt="NovaCup Cherub Logo" class="w-32 h-32 object-contain mx-auto mb-6" />
+          <p class="text-lg mb-6 text-gray-700 ${
+            document.body.classList.contains("night") ? "text-gray-200" : ""
+          }">
+            Welcome to NovaCup Coffee!<br><br>
+            NovaCup was founded with a simple mission: to bring joy, warmth, and a touch of magic to every cup. Our journey began in a small kitchen, where passion for coffee and desserts blossomed into a community of enthusiasts. <br><br>
+            We believe in quality, creativity, and sharing stories over a perfect brew. Whether you're here for a classic espresso, a decadent dessert, or just a cozy moment, NovaCup is your home.<br><br>
+            Thank you for being part of our story!
+          </p>
+        </div>
+      </main>
+      <footer class="mt-12 py-6 text-center text-gray-500 text-sm bg-white/80 backdrop-blur shadow-inner">
+        &copy; 2025 NovaCup Coffee. Made with ☕ by Bladerunner
+      </footer>
+    `;
+    return;
   }
   const filteredRecipes = recipes.filter((recipe) => {
     const matchesSearch = recipe.name
@@ -616,6 +675,10 @@ window.goToMainPage = function () {
   currentPage = "main";
   render();
 };
+window.goToStoryPage = function () {
+  currentPage = "story";
+  render();
+};
 
 window.viewRecipe = function (index) {
   selectedRecipe = recipes[index];
@@ -674,11 +737,42 @@ window.showFavorites = function () {
 
 function renderFavoritesView(favRecipes) {
   window._prevState = { searchQuery, selectedType };
+  // Use the same navbar/header as main page
   app.innerHTML = `
-    <header class="sticky top-0 z-40 bg-white/90 backdrop-blur shadow flex items-center justify-between px-6 py-3 mb-8">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Pacifico&display=swap" rel="stylesheet">
+    <style>
+      body, input, select, button, h1, h2, h3, h4, h5, h6, p, span, label, .font-main {
+        font-family: 'Roboto', Arial, sans-serif !important;
+      }
+      .font-logo {
+        font-family: 'Pacifico', cursive !important;
+        letter-spacing: 0.04em;
+      }
+      .animate-fade-in {
+        animation: fadeIn 0.7s cubic-bezier(0.4,0,0.2,1);
+      }
+      .animate-slide-in {
+        animation: slideIn 0.7s cubic-bezier(0.4,0,0.2,1);
+      }
+      @keyframes fadeIn {
+        from { opacity: 0; }
+        to { opacity: 1; }
+      }
+      @keyframes slideIn {
+        from { opacity: 0; transform: translateY(40px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+    </style>
+    <header class="sticky top-0 z-40 ${
+      document.body.classList.contains("night")
+        ? "bg-gray-900/90"
+        : "bg-white/90"
+    } backdrop-blur shadow flex items-center justify-between px-6 py-3 mb-8">
       <div class="flex items-center gap-3">
-        <img src="/images/espresso.jpg" alt="NovaCup Logo" class="w-10 h-10 rounded-full border-2 border-amber-500 shadow" />
-        <span class="text-2xl font-bold tracking-wide drop-shadow-[0_2px_8px_rgba(0,0,0,0.5)]" style="color: #c2410c !important;">NovaCup Coffee</span>
+        <img src="/images/cupidoncoffee.png" alt="NovaCup Cherub Logo" class="w-14 h-14 object-contain" style="background:transparent; border:none; box-shadow:none;" />
+        <span class="text-2xl font-bold tracking-wide drop-shadow-[0_2px_8px_rgba(0,0,0,0.5)] font-logo flex items-center gap-2" style="color: #c2410c !important;">
+          NovaCup Coffee ☕
+        </span>
       </div>
       <button id="toggle-dark" class="text-gray-600 hover:text-black px-3 py-1 rounded transition" onclick="toggleNightMode()">${
         document.body.classList.contains("night") ? "☀️" : "🌙"
@@ -693,7 +787,11 @@ function renderFavoritesView(favRecipes) {
           ${favRecipes
             .map(
               (recipe) => `
-            <div class="bg-white border rounded-lg shadow-lg hover:scale-105 hover:shadow-2xl transition-all duration-200 p-6 relative flex flex-col">
+            <div class="${
+              document.body.classList.contains("night")
+                ? "bg-gray-800 border-gray-700"
+                : "bg-white border"
+            } border rounded-lg shadow-lg hover:scale-105 hover:shadow-2xl transition-all duration-200 p-6 relative flex flex-col">
               <img src="${recipe.image}" alt="${
                 recipe.name
               }" class="w-20 h-20 object-cover rounded-full mx-auto border-2 border-amber-400 shadow mb-3" />
@@ -703,7 +801,11 @@ function renderFavoritesView(favRecipes) {
               <p class="mb-2 text-center" style="color: ${
                 document.body.classList.contains("night") ? "#fff" : "#000"
               };">${recipe.description}</p>
-              <div class="flex gap-2 text-xs text-gray-500 mb-4 items-center justify-center flex-wrap">
+              <div class="flex gap-2 text-xs ${
+                document.body.classList.contains("night")
+                  ? "text-gray-300"
+                  : "text-gray-500"
+              } mb-4 items-center justify-center flex-wrap">
                 <span class="px-2 py-1 rounded bg-amber-100 text-amber-800 font-semibold">${
                   recipe.type || ""
                 }</span>
@@ -711,7 +813,11 @@ function renderFavoritesView(favRecipes) {
                   recipe.tags
                     ?.map(
                       (tag) =>
-                        `<span class="bg-green-100 text-green-800 rounded px-2 py-1 font-semibold">${tag}</span>`
+                        `<span class="${
+                          document.body.classList.contains("night")
+                            ? "bg-green-900 text-green-200"
+                            : "bg-green-100 text-green-800"
+                        } rounded px-2 py-1 font-semibold">${tag}</span>`
                     )
                     .join("") || ""
                 }
