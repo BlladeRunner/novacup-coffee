@@ -100,6 +100,18 @@ if (localStorage.getItem("night")) {
 }
 
 function render() {
+  // Helper to highlight search matches
+  function highlightMatch(text, query) {
+    if (!query) return text;
+    const regex = new RegExp(
+      `(${query.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")})`,
+      "gi"
+    );
+    return text.replace(
+      regex,
+      '<mark class="bg-yellow-200 text-black rounded px-1">$1</mark>'
+    );
+  }
   if (currentPage === "second") {
     let dessertRecipes = recipes.filter(
       (r) => r.type === "Dessert" && r.name.toLowerCase() !== "affogato"
@@ -258,7 +270,10 @@ function render() {
                       document.body.classList.contains("night")
                         ? "text-white"
                         : ""
-                    } group-hover:text-amber-700">${recipe.name}</h2>
+                    } group-hover:text-amber-700">${highlightMatch(
+                        recipe.name,
+                        window.dessertSearchQuery
+                      )}</h2>
                     <!-- Description removed from card, only shown in modal -->
                     <div class="flex gap-2 text-xs ${
                       document.body.classList.contains("night")
@@ -488,7 +503,10 @@ function render() {
               }ms;" />
               <h2 class="text-xl font-semibold mb-2 text-center ${
                 document.body.classList.contains("night") ? "text-white" : ""
-              } group-hover:text-amber-700 animate-fade-in">${recipe.name}</h2>
+              } group-hover:text-amber-700 animate-fade-in">${highlightMatch(
+                recipe.name,
+                searchQuery
+              )}</h2>
               <p class="mb-2 text-center animate-fade-in" style="color: ${
                 document.body.classList.contains("night") ? "#fff" : "#000"
               };"></p>
@@ -610,8 +628,28 @@ window.closeRecipe = function () {
 };
 
 window.updateSearch = function (value) {
-  searchQuery = value;
-  render();
+  // Only update and re-render if the value actually changed
+  if (searchQuery !== value) {
+    // Save caret position
+    const input = document.querySelector(
+      'input[placeholder="Search coffee..."]'
+    );
+    let caretPos = input ? input.selectionStart : null;
+    searchQuery = value;
+    render();
+    // Restore focus and caret position after render
+    setTimeout(() => {
+      const newInput = document.querySelector(
+        'input[placeholder="Search coffee..."]'
+      );
+      if (newInput) {
+        newInput.focus();
+        if (caretPos !== null) {
+          newInput.setSelectionRange(caretPos, caretPos);
+        }
+      }
+    }, 0);
+  }
 };
 
 window.updateFilter = function (value) {
