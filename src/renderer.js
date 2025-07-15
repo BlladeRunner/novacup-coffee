@@ -421,9 +421,11 @@ function render() {
         <div class="max-w-3xl mx-auto text-center animate-fade-in">
           <h1 class="text-4xl font-bold mb-6 font-logo" style="color:#c2410c">Our Story</h1>
           <img src="/images/cupidoncoffee.png" alt="NovaCup Cherub Logo" class="w-32 h-32 object-contain mx-auto mb-6" />
-          <p class="text-lg mb-6 text-gray-700 ${
-            document.body.classList.contains("night") ? "text-gray-200" : ""
-          }">
+          <p class="text-lg mb-6 ${
+            document.body.classList.contains("night")
+              ? "text-gray-300"
+              : "text-gray-500"
+          }" style="font-weight: 400;">
             Welcome to NovaCup Coffee!<br><br>
             NovaCup was founded with a simple mission: to bring joy, warmth, and a touch of magic to every cup. Our journey began in a small kitchen, where passion for coffee and desserts blossomed into a community of enthusiasts. <br><br>
             We believe in quality, creativity, and sharing stories over a perfect brew. Whether you're here for a classic espresso, a decadent dessert, or just a cozy moment, NovaCup is your home.<br><br>
