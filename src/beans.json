@@ -1,0 +1,34 @@
+[
+  {
+    "name": "Arabica",
+    "origin": "Ethiopia, Latin America, Asia",
+    "flavor": "Sweet, soft, hints of fruit and sugar",
+    "roast": "Light to medium",
+    "image": "/images/arabica.jpg",
+    "description": "Arabica beans are the most popular coffee beans worldwide, known for their smooth, mild flavor and aromatic qualities. They thrive at high altitudes and are prized for specialty coffees."
+  },
+  {
+    "name": "Robusta",
+    "origin": "Africa, Indonesia, Vietnam",
+    "flavor": "Strong, bitter, earthy, nutty",
+    "roast": "Medium to dark",
+    "image": "/images/robusta.png",
+    "description": "Robusta beans have a bold, intense flavor and higher caffeine content. They are often used in espresso blends for their crema and strength."
+  },
+  {
+    "name": "Liberica",
+    "origin": "Philippines, Malaysia, Indonesia",
+    "flavor": "Smoky, floral, fruity, woody",
+    "roast": "Medium",
+    "image": "/images/liberica.png",
+    "description": "Liberica beans are rare and unique, with a distinctive aroma and flavor profile. They are cherished in Southeast Asia for their bold taste."
+  },
+  {
+    "name": "Excelsa",
+    "origin": "Southeast Asia",
+    "flavor": "Tart, fruity, dark, mysterious",
+    "roast": "Medium to dark",
+    "image": "/images/excelsa.png",
+    "description": "Excelsa beans add complexity to blends, offering tart and fruity notes. They are often used to enhance the depth of dark roasts."
+  }
+]

@@ -1,23 +1,18 @@
-// Dessert filter state and handler (must be before render)
 window.selectedDessertType = "All";
 window.updateDessertFilter = function (type) {
   window.selectedDessertType = type;
   render();
 };
 
-// Dessert search bar state and handler (must be before render)
 window.dessertSearchQuery = "";
 window.updateDessertSearch = function (value) {
-  // Only update and re-render if the value actually changed
   if (window.dessertSearchQuery !== value) {
-    // Save caret position
     const input = document.querySelector(
       'input[placeholder="Search desserts..."]'
     );
     let caretPos = input ? input.selectionStart : null;
     window.dessertSearchQuery = value;
     render();
-    // Restore focus and caret position after render
     setTimeout(() => {
       const newInput = document.querySelector(
         'input[placeholder="Search desserts..."]'
@@ -99,8 +94,22 @@ if (localStorage.getItem("night")) {
   document.body.classList.add("night");
 }
 
+let beans = null;
+fetch("/beans.json")
+  .then((res) => {
+    if (!res.ok) throw new Error("Not found");
+    return res.json();
+  })
+  .then((data) => {
+    beans = data;
+    render();
+  })
+  .catch(() => {
+    beans = [];
+    render();
+  });
+
 function render() {
-  // Helper to highlight search matches
   function highlightMatch(text, query) {
     if (!query) return text;
     const regex = new RegExp(
@@ -171,6 +180,8 @@ function render() {
         </div>
         <div class="flex gap-4 items-center">
           <button class="px-4 py-2 rounded bg-amber-500 text-white font-bold shadow hover:bg-amber-600 transition" onclick="goToMainPage()">Main Page</button>
+          <button class="px-4 py-2 rounded bg-amber-500 text-white font-bold shadow hover:bg-amber-600 transition" onclick="goToSecondPage()">Desserts</button>
+          <button class="px-4 py-2 rounded bg-amber-500 text-white font-bold shadow hover:bg-amber-600 transition" onclick="goToBeansPage()">Beans</button>
           <button class="px-4 py-2 rounded bg-amber-500 text-white font-bold shadow hover:bg-amber-600 transition" onclick="goToStoryPage()">Our Story</button>
           <button id="toggle-dark" class="text-gray-600 hover:text-black px-3 py-1 rounded transition" onclick="toggleNightMode()">${
             document.body.classList.contains("night") ? "☀️" : "🌙"
@@ -412,6 +423,8 @@ function render() {
         <div class="flex gap-4 items-center">
           <button class="px-4 py-2 rounded bg-amber-500 text-white font-bold shadow hover:bg-amber-600 transition" onclick="goToMainPage()">Main Page</button>
           <button class="px-4 py-2 rounded bg-amber-500 text-white font-bold shadow hover:bg-amber-600 transition" onclick="goToSecondPage()">Desserts</button>
+          <button class="px-4 py-2 rounded bg-amber-500 text-white font-bold shadow hover:bg-amber-600 transition" onclick="goToBeansPage()">Beans</button>
+          <button class="px-4 py-2 rounded bg-amber-500 text-white font-bold shadow hover:bg-amber-600 transition" onclick="goToStoryPage()">Our Story</button>
           <button id="toggle-dark" class="text-gray-600 hover:text-black px-3 py-1 rounded transition" onclick="toggleNightMode()">${
             document.body.classList.contains("night") ? "☀️" : "🌙"
           }</button>
@@ -431,6 +444,128 @@ function render() {
             We believe in quality, creativity, and sharing stories over a perfect brew. Whether you're here for a classic espresso, a decadent dessert, or just a cozy moment, NovaCup is your home.<br><br>
             Thank you for being part of our story!
           </p>
+        </div>
+      </main>
+      <footer class="mt-12 py-6 text-center text-gray-500 text-sm bg-white/80 backdrop-blur shadow-inner">
+        &copy; 2025 NovaCup Coffee. Made with ☕ by Bladerunner
+      </footer>
+    `;
+    return;
+  }
+  if (currentPage === "beans") {
+    if (beans === null) {
+      app.innerHTML = `<div class='text-center text-lg text-gray-500 py-12'>Loading beans...</div>`;
+      return;
+    }
+    app.innerHTML = `
+      <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Pacifico&display=swap" rel="stylesheet">
+      <style>
+        body, input, select, button, h1, h2, h3, h4, h5, h6, p, span, label, .font-main {
+          font-family: 'Roboto', Arial, sans-serif !important;
+        }
+        .font-logo {
+          font-family: 'Pacifico', cursive !important;
+          letter-spacing: 0.04em;
+        }
+        .animate-fade-in {
+          animation: fadeIn 0.7s cubic-bezier(0.4,0,0.2,1);
+        }
+        .animate-slide-in {
+          animation: slideIn 0.7s cubic-bezier(0.4,0,0.2,1);
+        }
+        @keyframes fadeIn {
+          from { opacity: 0; }
+          to { opacity: 1; }
+        }
+        @keyframes slideIn {
+          from { opacity: 0; transform: translateY(40px); }
+          to { opacity: 1; transform: translateY(0); }
+        }
+      </style>
+      <header class="sticky top-0 z-40 ${
+        document.body.classList.contains("night")
+          ? "bg-gray-900/90"
+          : "bg-white/90"
+      } backdrop-blur shadow flex items-center justify-between px-6 py-3 mb-8">
+        <div class="flex items-center gap-3">
+          <img src="/images/cupidoncoffee.png" alt="NovaCup Cherub Logo" class="w-14 h-14 object-contain" style="background:transparent; border:none; box-shadow:none;" />
+          <span class="text-2xl font-bold tracking-wide drop-shadow-[0_2px_8px_rgba(0,0,0,0.5)] font-logo flex items-center gap-2" style="color: #c2410c !important;">
+            NovaCup Coffee ☕
+          </span>
+        </div>
+        <div class="flex gap-4 items-center">
+          <button class="px-4 py-2 rounded bg-amber-500 text-white font-bold shadow hover:bg-amber-600 transition" onclick="goToMainPage()">Main Page</button>
+          <button class="px-4 py-2 rounded bg-amber-500 text-white font-bold shadow hover:bg-amber-600 transition" onclick="goToSecondPage()">Desserts</button>
+          <button class="px-4 py-2 rounded bg-amber-500 text-white font-bold shadow hover:bg-amber-600 transition" onclick="goToBeansPage()">Beans</button>
+          <button class="px-4 py-2 rounded bg-amber-500 text-white font-bold shadow hover:bg-amber-600 transition" onclick="goToStoryPage()">Our Story</button>
+          <button id="toggle-dark" class="text-gray-600 hover:text-black px-3 py-1 rounded transition" onclick="toggleNightMode()">${
+            document.body.classList.contains("night") ? "☀️" : "🌙"
+          }</button>
+        </div>
+      </header>
+      <main class="min-h-screen px-4 py-8">
+        <div class="max-w-5xl mx-auto">
+          <h1 class="text-4xl font-bold mb-6 font-logo" style="color:#c2410c">Beans</h1>
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 w-full mb-8">
+            ${
+              beans.length === 0
+                ? `<p class='col-span-full text-center ${
+                    document.body.classList.contains("night")
+                      ? "text-gray-300"
+                      : "text-gray-500"
+                  }'>No beans found.</p>`
+                : beans
+                    .map(
+                      (bean, idx) => `
+                <div class="${
+                  document.body.classList.contains("night")
+                    ? "bg-gray-800 border-gray-700"
+                    : "bg-white border"
+                } border rounded-lg shadow-lg transition-all duration-200 p-6 flex flex-col items-center group hover:scale-105 hover:shadow-2xl hover:border-amber-500 animate-fade-in" style="cursor:pointer; animation-delay:${
+                        idx * 60
+                      }ms;">
+                  <img src="${bean.image}" alt="${
+                        bean.name
+                      } bean image" class="w-24 h-24 object-cover rounded-full border-2 border-amber-400 shadow mb-4 group-hover:border-amber-600 group-hover:scale-110 transition-all duration-200 animate-slide-in" style="animation-delay:${
+                        idx * 60
+                      }ms;" />
+                  <h2 class="text-xl font-semibold mb-2 text-center ${
+                    document.body.classList.contains("night")
+                      ? "text-white"
+                      : ""
+                  } group-hover:text-amber-700">${bean.name}</h2>
+                  <div class="mb-2 text-sm ${
+                    document.body.classList.contains("night")
+                      ? "text-gray-300"
+                      : "text-gray-500"
+                  }">Origin: <span class="font-semibold">${
+                        bean.origin
+                      }</span></div>
+                  <div class="mb-2 text-sm ${
+                    document.body.classList.contains("night")
+                      ? "text-gray-300"
+                      : "text-gray-500"
+                  }">Flavor: <span class="font-semibold">${
+                        bean.flavor
+                      }</span></div>
+                  <div class="mb-2 text-sm ${
+                    document.body.classList.contains("night")
+                      ? "text-gray-300"
+                      : "text-gray-500"
+                  }">Roast: <span class="font-semibold">${
+                        bean.roast
+                      }</span></div>
+                  <p class="mb-2 text-center ${
+                    document.body.classList.contains("night")
+                      ? "text-gray-200"
+                      : "text-gray-700"
+                  }">${bean.description}</p>
+                </div>
+              `
+                    )
+                    .join("")
+            }
+          </div>
         </div>
       </main>
       <footer class="mt-12 py-6 text-center text-gray-500 text-sm bg-white/80 backdrop-blur shadow-inner">
@@ -484,7 +619,10 @@ function render() {
         </span>
       </div>
       <div class="flex gap-4 items-center">
+        <button class="px-4 py-2 rounded bg-amber-500 text-white font-bold shadow hover:bg-amber-600 transition" onclick="goToMainPage()">Main Page</button>
         <button class="px-4 py-2 rounded bg-amber-500 text-white font-bold shadow hover:bg-amber-600 transition" onclick="goToSecondPage()">Desserts</button>
+        <button class="px-4 py-2 rounded bg-amber-500 text-white font-bold shadow hover:bg-amber-600 transition" onclick="goToBeansPage()">Beans</button>
+        <button class="px-4 py-2 rounded bg-amber-500 text-white font-bold shadow hover:bg-amber-600 transition" onclick="goToStoryPage()">Our Story</button>
         <button id="toggle-dark" class="text-gray-600 hover:text-black px-3 py-1 rounded transition" onclick="toggleNightMode()">${
           document.body.classList.contains("night") ? "☀️" : "🌙"
         }</button>
@@ -679,6 +817,10 @@ window.goToMainPage = function () {
 };
 window.goToStoryPage = function () {
   currentPage = "story";
+  render();
+};
+window.goToBeansPage = function () {
+  currentPage = "beans";
   render();
 };
 
