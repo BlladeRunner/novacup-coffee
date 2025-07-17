@@ -1,6 +1,7 @@
 const CopyWebpackPlugin = require("copy-webpack-plugin");
 
 module.exports = {
+  entry: "./src/renderer.js",
   module: {
     rules: [
       {
@@ -24,6 +25,7 @@ module.exports = {
       patterns: [
         { from: "public", to: "." },
         { from: "src/desserts.json", to: "desserts.json" },
+        { from: "src/beans.json", to: "beans.json" },
       ],
     }),
   ],

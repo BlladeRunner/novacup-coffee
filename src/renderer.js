@@ -275,9 +275,7 @@ function render() {
                       }ms;">
                     <img src="${recipe.image}" alt="${
                         recipe.name
-                      } dessert image" class="w-32 h-32 object-cover rounded-full border-2 border-amber-400 shadow mb-4 group-hover:border-amber-600 group-hover:scale-110 transition-all duration-200 animate-slide-in" style="animation-delay:${
-                        idx * 60
-                      }ms;" />
+                      } dessert image" class="w-32 h-32 object-cover rounded-full border-2 border-amber-400 shadow mb-4 group-hover:border-amber-600 group-hover:scale-110 transition-all duration-200" />
                     <h2 class="text-xl font-semibold mb-2 text-center ${
                       document.body.classList.contains("night")
                         ? "text-white"
@@ -526,9 +524,7 @@ function render() {
                       }ms;">
                   <img src="${bean.image}" alt="${
                         bean.name
-                      } bean image" class="w-24 h-24 object-cover rounded-full border-2 border-amber-400 shadow mb-4 group-hover:border-amber-600 group-hover:scale-110 transition-all duration-200 animate-slide-in" style="animation-delay:${
-                        idx * 60
-                      }ms;" />
+                      } bean image" class="w-24 h-24 object-cover rounded-full border-2 border-amber-400 shadow mb-4 group-hover:border-amber-600 group-hover:scale-110 transition-all duration-200" />
                   <h2 class="text-xl font-semibold mb-2 text-center ${
                     document.body.classList.contains("night")
                       ? "text-white"
