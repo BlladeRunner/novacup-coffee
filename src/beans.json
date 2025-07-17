@@ -12,7 +12,7 @@
     "origin": "Africa, Indonesia, Vietnam",
     "flavor": "Strong, bitter, earthy, nutty",
     "roast": "Medium to dark",
-    "image": "/images/robusta.png",
+    "image": "/images/robusta.jpg",
     "description": "Robusta beans have a bold, intense flavor and higher caffeine content. They are often used in espresso blends for their crema and strength."
   },
   {
@@ -20,7 +20,7 @@
     "origin": "Philippines, Malaysia, Indonesia",
     "flavor": "Smoky, floral, fruity, woody",
     "roast": "Medium",
-    "image": "/images/liberica.png",
+    "image": "/images/liberica.jpg",
     "description": "Liberica beans are rare and unique, with a distinctive aroma and flavor profile. They are cherished in Southeast Asia for their bold taste."
   },
   {
@@ -28,7 +28,7 @@
     "origin": "Southeast Asia",
     "flavor": "Tart, fruity, dark, mysterious",
     "roast": "Medium to dark",
-    "image": "/images/excelsa.png",
+    "image": "/images/excelsa.jpg",
     "description": "Excelsa beans add complexity to blends, offering tart and fruity notes. They are often used to enhance the depth of dark roasts."
   }
 ]
