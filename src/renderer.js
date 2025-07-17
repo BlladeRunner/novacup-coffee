@@ -109,6 +109,13 @@ fetch("/beans.json")
     render();
   });
 
+window.toggleNavMenu = function () {
+  const menu = document.getElementById("nav-menu");
+  if (menu) {
+    menu.classList.toggle("hidden");
+  }
+};
+
 function render() {
   function highlightMatch(text, query) {
     if (!query) return text;
@@ -178,14 +185,24 @@ function render() {
             NovaCup Coffee ☕
           </span>
         </div>
-        <div class="flex gap-4 items-center">
-          <button class="px-4 py-2 rounded bg-amber-500 text-white font-bold shadow hover:bg-amber-600 transition" onclick="goToMainPage()">Main Page</button>
-          <button class="px-4 py-2 rounded bg-amber-500 text-white font-bold shadow hover:bg-amber-600 transition" onclick="goToSecondPage()">Desserts</button>
-          <button class="px-4 py-2 rounded bg-amber-500 text-white font-bold shadow hover:bg-amber-600 transition" onclick="goToBeansPage()">Beans</button>
-          <button class="px-4 py-2 rounded bg-amber-500 text-white font-bold shadow hover:bg-amber-600 transition" onclick="goToStoryPage()">Our Story</button>
-          <button id="toggle-dark" class="text-gray-600 hover:text-black px-3 py-1 rounded transition" onclick="toggleNightMode()">${
-            document.body.classList.contains("night") ? "☀️" : "🌙"
-          }</button>
+        <div class="flex items-center gap-3">
+          <div class="relative w-full">
+            <!-- Hamburger menu button for mobile -->
+            <button id="nav-toggle" class="md:hidden px-4 py-2 rounded bg-amber-500 text-white font-bold shadow hover:bg-amber-600 transition w-full flex justify-center items-center" onclick="window.toggleNavMenu()" aria-label="Open navigation menu">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+            </button>
+            <div id="nav-menu" class="absolute left-0 top-full w-full bg-white shadow-lg rounded z-50 mt-2 hidden md:block md:static md:bg-transparent md:shadow-none md:rounded-none md:mt-0">
+              <div class="flex flex-col md:flex-row gap-2 md:gap-4 items-center">
+                <button class="px-4 py-2 rounded bg-amber-500 text-white font-bold shadow hover:bg-amber-600 transition" onclick="goToMainPage()">Main</button>
+                <button class="px-4 py-2 rounded bg-amber-500 text-white font-bold shadow hover:bg-amber-600 transition" onclick="goToBeansPage()">Beans</button>
+                <button class="px-4 py-2 rounded bg-amber-500 text-white font-bold shadow hover:bg-amber-600 transition" onclick="goToCraftPage()">Craft Your Cup</button>
+                <button class="px-4 py-2 rounded bg-amber-500 text-white font-bold shadow hover:bg-amber-600 transition" onclick="goToStoryPage()">Our Story</button>
+                <button id="toggle-dark" class="text-gray-600 hover:text-black px-3 py-1 rounded transition" onclick="toggleNightMode()">${
+                  document.body.classList.contains("night") ? "☀️" : "🌙"
+                }</button>
+              </div>
+            </div>
+          </div>
         </div>
       </header>
       <main class="min-h-screen px-4 py-8">
@@ -418,14 +435,24 @@ function render() {
             NovaCup Coffee ☕
           </span>
         </div>
-        <div class="flex gap-4 items-center">
-          <button class="px-4 py-2 rounded bg-amber-500 text-white font-bold shadow hover:bg-amber-600 transition" onclick="goToMainPage()">Main Page</button>
-          <button class="px-4 py-2 rounded bg-amber-500 text-white font-bold shadow hover:bg-amber-600 transition" onclick="goToSecondPage()">Desserts</button>
-          <button class="px-4 py-2 rounded bg-amber-500 text-white font-bold shadow hover:bg-amber-600 transition" onclick="goToBeansPage()">Beans</button>
-          <button class="px-4 py-2 rounded bg-amber-500 text-white font-bold shadow hover:bg-amber-600 transition" onclick="goToStoryPage()">Our Story</button>
-          <button id="toggle-dark" class="text-gray-600 hover:text-black px-3 py-1 rounded transition" onclick="toggleNightMode()">${
-            document.body.classList.contains("night") ? "☀️" : "🌙"
-          }</button>
+        <div class="flex items-center gap-3">
+          <div class="relative w-full">
+            <!-- Hamburger menu button for mobile/tablet -->
+            <button id="nav-toggle" class="md:hidden px-4 py-2 rounded bg-amber-500 text-white font-bold shadow hover:bg-amber-600 transition w-full flex justify-center items-center" onclick="window.toggleNavMenu()" aria-label="Open navigation menu">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+            </button>
+            <div id="nav-menu" class="absolute left-0 top-full w-full bg-white shadow-lg rounded z-50 mt-2 hidden md:block md:static md:bg-transparent md:shadow-none md:rounded-none md:mt-0">
+              <div class="flex flex-col md:flex-row gap-2 md:gap-4 items-center">
+                <button class="px-4 py-2 rounded bg-amber-500 text-white font-bold shadow hover:bg-amber-600 transition" onclick="goToMainPage()">Main</button>
+                <button class="px-4 py-2 rounded bg-amber-500 text-white font-bold shadow hover:bg-amber-600 transition" onclick="goToSecondPage()">Desserts</button>
+                <button class="px-4 py-2 rounded bg-amber-500 text-white font-bold shadow hover:bg-amber-600 transition" onclick="goToBeansPage()">Beans</button>
+                <button class="px-4 py-2 rounded bg-amber-500 text-white font-bold shadow hover:bg-amber-600 transition" onclick="goToCraftPage()">Craft Your Cup</button>
+                <button id="toggle-dark" class="text-gray-600 hover:text-black px-3 py-1 rounded transition" onclick="toggleNightMode()">${
+                  document.body.classList.contains("night") ? "☀️" : "🌙"
+                }</button>
+              </div>
+            </div>
+          </div>
         </div>
       </header>
       <main class="min-h-screen px-4 py-8">
@@ -491,14 +518,24 @@ function render() {
             NovaCup Coffee ☕
           </span>
         </div>
-        <div class="flex gap-4 items-center">
-          <button class="px-4 py-2 rounded bg-amber-500 text-white font-bold shadow hover:bg-amber-600 transition" onclick="goToMainPage()">Main Page</button>
-          <button class="px-4 py-2 rounded bg-amber-500 text-white font-bold shadow hover:bg-amber-600 transition" onclick="goToSecondPage()">Desserts</button>
-          <button class="px-4 py-2 rounded bg-amber-500 text-white font-bold shadow hover:bg-amber-600 transition" onclick="goToBeansPage()">Beans</button>
-          <button class="px-4 py-2 rounded bg-amber-500 text-white font-bold shadow hover:bg-amber-600 transition" onclick="goToStoryPage()">Our Story</button>
-          <button id="toggle-dark" class="text-gray-600 hover:text-black px-3 py-1 rounded transition" onclick="toggleNightMode()">${
-            document.body.classList.contains("night") ? "☀️" : "🌙"
-          }</button>
+        <div class="flex items-center gap-3">
+          <div class="relative w-full">
+            <!-- Hamburger menu button for mobile/tablet -->
+            <button id="nav-toggle" class="md:hidden px-4 py-2 rounded bg-amber-500 text-white font-bold shadow hover:bg-amber-600 transition w-full flex justify-center items-center" onclick="window.toggleNavMenu()" aria-label="Open navigation menu">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+            </button>
+            <div id="nav-menu" class="absolute left-0 top-full w-full bg-white shadow-lg rounded z-50 mt-2 hidden md:block md:static md:bg-transparent md:shadow-none md:rounded-none md:mt-0">
+              <div class="flex flex-col md:flex-row gap-2 md:gap-4 items-center">
+                <button class="px-4 py-2 rounded bg-amber-500 text-white font-bold shadow hover:bg-amber-600 transition" onclick="goToMainPage()">Main</button>
+                <button class="px-4 py-2 rounded bg-amber-500 text-white font-bold shadow hover:bg-amber-600 transition" onclick="goToSecondPage()">Desserts</button>
+                <button class="px-4 py-2 rounded bg-amber-500 text-white font-bold shadow hover:bg-amber-600 transition" onclick="goToBeansPage()">Beans</button>
+                <button class="px-4 py-2 rounded bg-amber-500 text-white font-bold shadow hover:bg-amber-600 transition" onclick="goToCraftPage()">Craft Your Cup</button>
+                <button id="toggle-dark" class="text-gray-600 hover:text-black px-3 py-1 rounded transition" onclick="toggleNightMode()">${
+                  document.body.classList.contains("night") ? "☀️" : "🌙"
+                }</button>
+              </div>
+            </div>
+          </div>
         </div>
       </header>
       <main class="min-h-screen px-4 py-8">
@@ -570,6 +607,87 @@ function render() {
     `;
     return;
   }
+  if (currentPage === "craft") {
+    app.innerHTML = `
+      <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Pacifico&display=swap" rel="stylesheet">
+      <style>
+        body, input, select, button, h1, h2, h3, h4, h5, h6, p, span, label, .font-main {
+          font-family: 'Roboto', Arial, sans-serif !important;
+        }
+        .font-logo {
+          font-family: 'Pacifico', cursive !important;
+          letter-spacing: 0.04em;
+        }
+        .animate-fade-in {
+          animation: fadeIn 0.7s cubic-bezier(0.4,0,0.2,1);
+        }
+        @keyframes fadeIn {
+          from { opacity: 0; }
+          to { opacity: 1; }
+        }
+      </style>
+      <header class="sticky top-0 z-40 ${
+        document.body.classList.contains("night")
+          ? "bg-gray-900/90"
+          : "bg-white/90"
+      } backdrop-blur shadow flex items-center justify-between px-6 py-3 mb-8">
+        <div class="flex items-center gap-3">
+          <img src="/images/cupidoncoffee.png" alt="NovaCup Cherub Logo" class="w-14 h-14 object-contain" style="background:transparent; border:none; box-shadow:none;" />
+          <span class="text-2xl font-bold tracking-wide drop-shadow-[0_2px_8px_rgba(0,0,0,0.5)] font-logo flex items-center gap-2" style="color: #c2410c !important;">
+            NovaCup Coffee ☕
+          </span>
+        </div>
+        <div class="flex items-center gap-3">
+          <div class="relative w-full">
+            <!-- Hamburger menu button for mobile/tablet -->
+            <button id="nav-toggle" class="md:hidden px-4 py-2 rounded bg-amber-500 text-white font-bold shadow hover:bg-amber-600 transition w-full flex justify-center items-center" onclick="window.toggleNavMenu()" aria-label="Open navigation menu">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+            </button>
+            <div id="nav-menu" class="absolute left-0 top-full w-full bg-white shadow-lg rounded z-50 mt-2 hidden md:block md:static md:bg-transparent md:shadow-none md:rounded-none md:mt-0">
+              <div class="flex flex-col md:flex-row gap-2 md:gap-4 items-center">
+                <button class="px-4 py-2 rounded bg-amber-500 text-white font-bold shadow hover:bg-amber-600 transition" onclick="goToMainPage()">Main</button>
+                <button class="px-4 py-2 rounded bg-amber-500 text-white font-bold shadow hover:bg-amber-600 transition" onclick="goToSecondPage()">Desserts</button>
+                <button class="px-4 py-2 rounded bg-amber-500 text-white font-bold shadow hover:bg-amber-600 transition" onclick="goToBeansPage()">Beans</button>
+                <button class="px-4 py-2 rounded bg-amber-500 text-white font-bold shadow hover:bg-amber-600 transition" onclick="goToCraftPage()">Craft Your Cup</button>
+                <button id="toggle-dark" class="text-gray-600 hover:text-black px-3 py-1 rounded transition" onclick="toggleNightMode()">${
+                  document.body.classList.contains("night") ? "☀️" : "🌙"
+                }</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </header>
+      <main class="min-h-screen px-4 py-8">
+        <div class="max-w-3xl mx-auto text-center animate-fade-in">
+          <h1 class="text-4xl font-bold mb-6 font-logo" style="color:#c2410c">Craft Your Cup</h1>
+          <img src="/images/cupidoncoffee.png" alt="NovaCup Cherub Logo" class="w-32 h-32 object-contain mx-auto mb-6" />
+          <p class="text-lg mb-6 ${
+            document.body.classList.contains("night")
+              ? "text-gray-300"
+              : "text-gray-500"
+          }" style="font-weight: 400;">
+            Discover coffee brewing methods and craft your perfect cup!<br><br>
+            <b>Popular Brewing Methods:</b><br>
+            <ul class="text-left mx-auto max-w-md mb-6" style="display:inline-block;">
+              <li><b>Pour Over</b> – Clean, bright flavors using a filter cone.</li>
+              <li><b>French Press</b> – Rich, full-bodied coffee with immersion brewing.</li>
+              <li><b>AeroPress</b> – Versatile, quick, and easy single-cup brewing.</li>
+              <li><b>Espresso Machine</b> – Intense, concentrated coffee shots.</li>
+              <li><b>Cold Brew</b> – Smooth, low-acid coffee brewed with cold water.</li>
+              <li><b>Moka Pot</b> – Stovetop espresso-style coffee.</li>
+              <li><b>Turkish Coffee</b> – Traditional, unfiltered coffee with a thick texture.</li>
+            </ul>
+            <br>
+            <span class="block mt-4">More brewing guides coming soon!</span>
+          </p>
+        </div>
+      </main>
+      <footer class="mt-12 py-6 text-center text-gray-500 text-sm bg-white/80 backdrop-blur shadow-inner">
+        &copy; 2025 NovaCup Coffee. Made with ☕ by Bladerunner
+      </footer>
+    `;
+    return;
+  }
   const filteredRecipes = recipes.filter((recipe) => {
     const matchesSearch = recipe.name
       .toLowerCase()
@@ -614,14 +732,24 @@ function render() {
           NovaCup Coffee ☕
         </span>
       </div>
-      <div class="flex gap-4 items-center">
-        <button class="px-4 py-2 rounded bg-amber-500 text-white font-bold shadow hover:bg-amber-600 transition" onclick="goToMainPage()">Main Page</button>
-        <button class="px-4 py-2 rounded bg-amber-500 text-white font-bold shadow hover:bg-amber-600 transition" onclick="goToSecondPage()">Desserts</button>
-        <button class="px-4 py-2 rounded bg-amber-500 text-white font-bold shadow hover:bg-amber-600 transition" onclick="goToBeansPage()">Beans</button>
-        <button class="px-4 py-2 rounded bg-amber-500 text-white font-bold shadow hover:bg-amber-600 transition" onclick="goToStoryPage()">Our Story</button>
-        <button id="toggle-dark" class="text-gray-600 hover:text-black px-3 py-1 rounded transition" onclick="toggleNightMode()">${
-          document.body.classList.contains("night") ? "☀️" : "🌙"
-        }</button>
+      <div class="flex items-center gap-3">
+        <div class="relative w-full">
+          <!-- Hamburger menu button for mobile/tablet -->
+          <button id="nav-toggle" class="md:hidden px-4 py-2 rounded bg-amber-500 text-white font-bold shadow hover:bg-amber-600 transition w-full flex justify-center items-center" onclick="window.toggleNavMenu()" aria-label="Open navigation menu">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+          </button>
+          <div id="nav-menu" class="absolute left-0 top-full w-full bg-white shadow-lg rounded z-50 mt-2 hidden md:block md:static md:bg-transparent md:shadow-none md:rounded-none md:mt-0">
+            <div class="flex flex-col md:flex-row gap-2 md:gap-4 items-center">
+              <button class="px-4 py-2 rounded bg-amber-500 text-white font-bold shadow hover:bg-amber-600 transition" onclick="goToMainPage()">Main</button>
+              <button class="px-4 py-2 rounded bg-amber-500 text-white font-bold shadow hover:bg-amber-600 transition" onclick="goToSecondPage()">Desserts</button>
+              <button class="px-4 py-2 rounded bg-amber-500 text-white font-bold shadow hover:bg-amber-600 transition" onclick="goToBeansPage()">Beans</button>
+              <button class="px-4 py-2 rounded bg-amber-500 text-white font-bold shadow hover:bg-amber-600 transition" onclick="goToCraftPage()">Craft Your Cup</button>
+              <button id="toggle-dark" class="text-gray-600 hover:text-black px-3 py-1 rounded transition" onclick="toggleNightMode()">${
+                document.body.classList.contains("night") ? "☀️" : "🌙"
+              }</button>
+            </div>
+          </div>
+        </div>
       </div>
     </header>
     <main class="min-h-screen px-4 py-8">
@@ -817,6 +945,10 @@ window.goToStoryPage = function () {
 };
 window.goToBeansPage = function () {
   currentPage = "beans";
+  render();
+};
+window.goToCraftPage = function () {
+  currentPage = "craft";
   render();
 };
 
