@@ -682,18 +682,60 @@ function render() {
               : "text-gray-500"
           }" style="font-weight: 400;">
             Discover coffee brewing methods and craft your perfect cup!<br><br>
-            <b>Popular Brewing Methods:</b><br>
-            <ul class="text-left mx-auto max-w-md mb-6" style="display:inline-block;">
-              <li><b>Pour Over</b> – Clean, bright flavors using a filter cone.</li>
-              <li><b>French Press</b> – Rich, full-bodied coffee with immersion brewing.</li>
-              <li><b>AeroPress</b> – Versatile, quick, and easy single-cup brewing.</li>
-              <li><b>Espresso Machine</b> – Intense, concentrated coffee shots.</li>
-              <li><b>Cold Brew</b> – Smooth, low-acid coffee brewed with cold water.</li>
-              <li><b>Moka Pot</b> – Stovetop espresso-style coffee.</li>
-              <li><b>Turkish Coffee</b> – Traditional, unfiltered coffee with a thick texture.</li>
-            </ul>
-            <br>
-            <span class="block mt-4">More brewing guides coming soon!</span>
+          <b>Popular Brewing Methods:</b><br>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-8 max-w-2xl mx-auto mb-6">
+            <div class="flex flex-col items-center">
+              <img src="/images/brewing/pourover.png" alt="Pour Over" class="w-24 h-24 object-contain mb-2 rounded shadow">
+              <b>Pour Over</b>
+              <p class="text-sm mt-2">Clean, bright flavors using a filter cone.<br><span class="text-xs text-gray-500">Guide: Heat water to 200°F, use medium grind, pour slowly in circles over grounds, total brew 2-3 min.</span></p>
+            </div>
+            <div class="flex flex-col items-center">
+              <img src="/images/brewing/frenchpress.png" alt="French Press" class="w-24 h-24 object-contain mb-2 rounded shadow">
+              <b>French Press</b>
+              <p class="text-sm mt-2">Rich, full-bodied coffee with immersion brewing.<br><span class="text-xs text-gray-500">Guide: Coarse grind, steep 4 min, press slowly, enjoy immediately.</span></p>
+            </div>
+            <div class="flex flex-col items-center">
+              <img src="/images/brewing/aeropress.png" alt="AeroPress" class="w-24 h-24 object-contain mb-2 rounded shadow">
+              <b>AeroPress</b>
+              <p class="text-sm mt-2">Versatile, quick, and easy single-cup brewing.<br><span class="text-xs text-gray-500">Guide: Fine grind, 1 min steep, press gently, experiment with ratios.</span></p>
+            </div>
+            <div class="flex flex-col items-center">
+              <img src="/images/brewing/espresso.png" alt="Espresso Machine" class="w-24 h-24 object-contain mb-2 rounded shadow">
+              <b>Espresso Machine</b>
+              <p class="text-sm mt-2">Intense, concentrated coffee shots.<br><span class="text-xs text-gray-500">Guide: Fine grind, tamp firmly, 25-30 sec extraction, enjoy as shot or base for drinks.</span></p>
+            </div>
+            <div class="flex flex-col items-center">
+              <img src="/images/brewing/coldbrew.png" alt="Cold Brew" class="w-24 h-24 object-contain mb-2 rounded shadow">
+              <b>Cold Brew</b>
+              <p class="text-sm mt-2">Smooth, low-acid coffee brewed with cold water.<br><span class="text-xs text-gray-500">Guide: Coarse grind, steep 12-18 hrs in fridge, strain and serve over ice.</span></p>
+            </div>
+            <div class="flex flex-col items-center">
+              <img src="/images/brewing/mokapot.png" alt="Moka Pot" class="w-24 h-24 object-contain mb-2 rounded shadow">
+              <b>Moka Pot</b>
+              <p class="text-sm mt-2">Stovetop espresso-style coffee.<br><span class="text-xs text-gray-500">Guide: Fine grind, fill base with water, add grounds, heat until bubbling, serve.</span></p>
+            </div>
+            <div class="flex flex-col items-center">
+              <img src="/images/brewing/turkish.png" alt="Turkish Coffee" class="w-24 h-24 object-contain mb-2 rounded shadow">
+              <b>Turkish Coffee</b>
+              <p class="text-sm mt-2">Traditional, unfiltered coffee with a thick texture.<br><span class="text-xs text-gray-500">Guide: Extra fine grind, simmer with sugar, do not stir, pour gently.</span></p>
+            </div>
+            <div class="flex flex-col items-center">
+              <img src="/images/brewing/siphon.png" alt="Siphon" class="w-24 h-24 object-contain mb-2 rounded shadow">
+              <b>Siphon</b>
+              <p class="text-sm mt-2">Vacuum brewing for a theatrical and clean cup.<br><span class="text-xs text-gray-500">Guide: Medium grind, heat water, add grounds, stir, watch vacuum action, serve.</span></p>
+            </div>
+            <div class="flex flex-col items-center">
+              <img src="/images/brewing/percolator.png" alt="Percolator" class="w-24 h-24 object-contain mb-2 rounded shadow">
+              <b>Percolator</b>
+              <p class="text-sm mt-2">Classic method for strong, robust coffee.<br><span class="text-xs text-gray-500">Guide: Medium grind, fill with water, add grounds, heat until perking, avoid over-extraction.</span></p>
+            </div>
+            <div class="flex flex-col items-center">
+              <img src="/images/brewing/drip.png" alt="Drip Coffee Maker" class="w-24 h-24 object-contain mb-2 rounded shadow">
+              <b>Drip Coffee Maker</b>
+              <p class="text-sm mt-2">Convenient, consistent brewing for multiple cups.<br><span class="text-xs text-gray-500">Guide: Medium grind, add filter and grounds, fill with water, start machine, enjoy.</span></p>
+            </div>
+          </div>
+          <span class="block mt-4">More brewing guides coming soon!</span>
           </p>
         </div>
       </main>
