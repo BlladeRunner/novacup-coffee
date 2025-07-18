@@ -619,6 +619,7 @@ function render() {
     return;
   }
   if (currentPage === "craft") {
+    let enlargedImage = window.enlargedBrewingImage || null;
     app.innerHTML = `
       <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Pacifico&display=swap" rel="stylesheet">
       <style>
@@ -684,59 +685,113 @@ function render() {
             Discover coffee brewing methods and craft your perfect cup!<br><br>
           <b>Popular Brewing Methods:</b><br>
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-8 max-w-2xl mx-auto mb-6">
-            <div class="flex flex-col items-center">
-              <img src="/images/pourover.jpg" alt="Pour Over" class="w-24 h-24 object-contain mb-2 rounded shadow">
-              <b>Pour Over</b>
-              <p class="text-sm mt-2">Clean, bright flavors using a filter cone.<br><span class="text-xs text-gray-500">Guide: Heat water to 200°F, use medium grind, pour slowly in circles over grounds, total brew 2-3 min.</span></p>
-            </div>
-            <div class="flex flex-col items-center">
-              <img src="/images/frenchpress.jpg" alt="French Press" class="w-24 h-24 object-contain mb-2 rounded shadow">
-              <b>French Press</b>
-              <p class="text-sm mt-2">Rich, full-bodied coffee with immersion brewing.<br><span class="text-xs text-gray-500">Guide: Coarse grind, steep 4 min, press slowly, enjoy immediately.</span></p>
-            </div>
-            <div class="flex flex-col items-center">
-              <img src="/images/aeropress.jpg" alt="AeroPress" class="w-24 h-24 object-contain mb-2 rounded shadow">
-              <b>AeroPress</b>
-              <p class="text-sm mt-2">Versatile, quick, and easy single-cup brewing.<br><span class="text-xs text-gray-500">Guide: Fine grind, 1 min steep, press gently, experiment with ratios.</span></p>
-            </div>
-            <div class="flex flex-col items-center">
-              <img src="/images/espresso-machine.jpg" alt="Espresso Machine" class="w-24 h-24 object-contain mb-2 rounded shadow">
-              <b>Espresso Machine</b>
-              <p class="text-sm mt-2">Intense, concentrated coffee shots.<br><span class="text-xs text-gray-500">Guide: Fine grind, tamp firmly, 25-30 sec extraction, enjoy as shot or base for drinks.</span></p>
-            </div>
-            <div class="flex flex-col items-center">
-              <img src="/images/coldbrew.jpg" alt="Cold Brew" class="w-24 h-24 object-contain mb-2 rounded shadow">
-              <b>Cold Brew</b>
-              <p class="text-sm mt-2">Smooth, low-acid coffee brewed with cold water.<br><span class="text-xs text-gray-500">Guide: Coarse grind, steep 12-18 hrs in fridge, strain and serve over ice.</span></p>
-            </div>
-            <div class="flex flex-col items-center">
-              <img src="/images/mokapot.jpg" alt="Moka Pot" class="w-24 h-24 object-contain mb-2 rounded shadow">
-              <b>Moka Pot</b>
-              <p class="text-sm mt-2">Stovetop espresso-style coffee.<br><span class="text-xs text-gray-500">Guide: Fine grind, fill base with water, add grounds, heat until bubbling, serve.</span></p>
-            </div>
-            <div class="flex flex-col items-center">
-              <img src="/images/turkish.jpg" alt="Turkish Coffee" class="w-24 h-24 object-contain mb-2 rounded shadow">
-              <b>Turkish Coffee</b>
-              <p class="text-sm mt-2">Traditional, unfiltered coffee with a thick texture.<br><span class="text-xs text-gray-500">Guide: Extra fine grind, simmer with sugar, do not stir, pour gently.</span></p>
-            </div>
-            <div class="flex flex-col items-center">
-              <img src="/images/siphon.jpg" alt="Siphon" class="w-24 h-24 object-contain mb-2 rounded shadow">
-              <b>Siphon</b>
-              <p class="text-sm mt-2">Vacuum brewing for a theatrical and clean cup.<br><span class="text-xs text-gray-500">Guide: Medium grind, heat water, add grounds, stir, watch vacuum action, serve.</span></p>
-            </div>
-            <div class="flex flex-col items-center">
-              <img src="/images/percolator.jpg" alt="Percolator" class="w-24 h-24 object-contain mb-2 rounded shadow">
-              <b>Percolator</b>
-              <p class="text-sm mt-2">Classic method for strong, robust coffee.<br><span class="text-xs text-gray-500">Guide: Medium grind, fill with water, add grounds, heat until perking, avoid over-extraction.</span></p>
-            </div>
-            <div class="flex flex-col items-center">
-              <img src="/images/drip.jpg" alt="Drip Coffee Maker" class="w-24 h-24 object-contain mb-2 rounded shadow">
-              <b>Drip Coffee Maker</b>
-              <p class="text-sm mt-2">Convenient, consistent brewing for multiple cups.<br><span class="text-xs text-gray-500">Guide: Medium grind, add filter and grounds, fill with water, start machine, enjoy.</span></p>
-            </div>
+            ${[
+              {
+                src: "/images/pourover.jpg",
+                alt: "Pour Over",
+                title: "Pour Over",
+                desc: "Clean, bright flavors using a filter cone.",
+                guide:
+                  "Guide: Heat water to 200°F, use medium grind, pour slowly in circles over grounds, total brew 2-3 min.",
+              },
+              {
+                src: "/images/frenchpress.jpg",
+                alt: "French Press",
+                title: "French Press",
+                desc: "Rich, full-bodied coffee with immersion brewing.",
+                guide:
+                  "Guide: Coarse grind, steep 4 min, press slowly, enjoy immediately.",
+              },
+              {
+                src: "/images/aeropress.jpg",
+                alt: "AeroPress",
+                title: "AeroPress",
+                desc: "Versatile, quick, and easy single-cup brewing.",
+                guide:
+                  "Guide: Fine grind, 1 min steep, press gently, experiment with ratios.",
+              },
+              {
+                src: "/images/espresso-machine.jpg",
+                alt: "Espresso Machine",
+                title: "Espresso Machine",
+                desc: "Intense, concentrated coffee shots.",
+                guide:
+                  "Guide: Fine grind, tamp firmly, 25-30 sec extraction, enjoy as shot or base for drinks.",
+              },
+              {
+                src: "/images/coldbrew.jpg",
+                alt: "Cold Brew",
+                title: "Cold Brew",
+                desc: "Smooth, low-acid coffee brewed with cold water.",
+                guide:
+                  "Guide: Coarse grind, steep 12-18 hrs in fridge, strain and serve over ice.",
+              },
+              {
+                src: "/images/mokapot.jpg",
+                alt: "Moka Pot",
+                title: "Moka Pot",
+                desc: "Stovetop espresso-style coffee.",
+                guide:
+                  "Guide: Fine grind, fill base with water, add grounds, heat until bubbling, serve.",
+              },
+              {
+                src: "/images/turkish.jpg",
+                alt: "Turkish Coffee",
+                title: "Turkish Coffee",
+                desc: "Traditional, unfiltered coffee with a thick texture.",
+                guide:
+                  "Guide: Extra fine grind, simmer with sugar, do not stir, pour gently.",
+              },
+              {
+                src: "/images/siphon.jpg",
+                alt: "Siphon",
+                title: "Siphon",
+                desc: "Vacuum brewing for a theatrical and clean cup.",
+                guide:
+                  "Guide: Medium grind, heat water, add grounds, stir, watch vacuum action, serve.",
+              },
+              {
+                src: "/images/percolator.jpg",
+                alt: "Percolator",
+                title: "Percolator",
+                desc: "Classic method for strong, robust coffee.",
+                guide:
+                  "Guide: Medium grind, fill with water, add grounds, heat until perking, avoid over-extraction.",
+              },
+              {
+                src: "/images/drip.jpg",
+                alt: "Drip Coffee Maker",
+                title: "Drip Coffee Maker",
+                desc: "Convenient, consistent brewing for multiple cups.",
+                guide:
+                  "Guide: Medium grind, add filter and grounds, fill with water, start machine, enjoy.",
+              },
+            ]
+              .map(
+                (m, idx) => `
+              <div class="flex flex-col items-center">
+                <img src="${m.src}" alt="${m.alt}" class="w-48 h-48 object-contain mb-3 rounded shadow cursor-zoom-in hover:scale-105 transition-all duration-200" onclick="window.enlargeBrewingImage('${m.src}', '${m.alt}')" tabindex="0" aria-label="Enlarge ${m.title} image" onkeydown="if(event.key==='Enter'){window.enlargeBrewingImage('${m.src}', '${m.alt}')}" />
+                <b class="text-lg">${m.title}</b>
+                <p class="text-base mt-3">${m.desc}<br><span class="text-sm text-gray-500">${m.guide}</span></p>
+              </div>
+            `
+              )
+              .join("")}
           </div>
           <span class="block mt-4">More brewing guides coming soon!</span>
           </p>
+          ${
+            enlargedImage
+              ? `
+            <div class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-70 animate-fade-in" onclick="window.closeEnlargedBrewingImage()">
+              <div class="relative bg-white rounded-lg shadow-2xl p-4 max-w-2xl w-full flex flex-col items-center" style="animation: fadeIn 0.5s;" onclick="event.stopPropagation()">
+                <button class="absolute top-2 right-4 text-2xl text-gray-400 hover:text-gray-700" onclick="window.closeEnlargedBrewingImage()">×</button>
+                <img src="${enlargedImage.src}" alt="${enlargedImage.alt}" class="w-full max-w-xl h-auto object-contain rounded mb-4" />
+              </div>
+            </div>
+          `
+              : ""
+          }
         </div>
       </main>
       <footer class="mt-12 py-6 text-center text-gray-500 text-sm bg-white/80 backdrop-blur shadow-inner">
@@ -993,6 +1048,14 @@ function render() {
     </div>
   `;
 }
+window.enlargeBrewingImage = function (src, alt) {
+  window.enlargedBrewingImage = { src, alt };
+  render();
+};
+window.closeEnlargedBrewingImage = function () {
+  window.enlargedBrewingImage = null;
+  render();
+};
 window.goToSecondPage = function () {
   currentPage = "second";
   render();
