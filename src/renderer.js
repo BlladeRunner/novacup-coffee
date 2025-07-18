@@ -676,7 +676,6 @@ function render() {
       <main class="min-h-screen px-4 py-8">
         <div class="max-w-3xl mx-auto text-center animate-fade-in">
           <h1 class="text-4xl font-bold mb-6 font-logo" style="color:#c2410c">Craft Your Cup</h1>
-          <img src="/images/cupidoncoffee.png" alt="NovaCup Cherub Logo" class="w-32 h-32 object-contain mx-auto mb-6" />
           <p class="text-lg mb-6 ${
             document.body.classList.contains("night")
               ? "text-gray-300"
