@@ -191,10 +191,10 @@ function render() {
             <button id="nav-toggle" class="md:hidden px-4 py-2 rounded bg-amber-500 text-white font-bold shadow hover:bg-amber-600 transition w-full flex justify-center items-center" onclick="window.toggleNavMenu()" aria-label="Open navigation menu">
               <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
             </button>
-            <div id="nav-menu" class="absolute left-0 top-full w-full ${
+            <div id="nav-menu" class="fixed left-0 right-0 top-full w-full ${
               document.body.classList.contains("night")
-                ? "bg-gray-900/95 z-50 mt-2 hidden md:block md:static md:bg-transparent md:shadow-none md:rounded-none md:mt-0"
-                : "bg-white shadow-lg z-50 mt-2 hidden md:block md:static md:bg-transparent md:shadow-none md:rounded-none md:mt-0"
+                ? "bg-gray-900/95 z-50 absolute left-0 top-full w-full hidden md:block md:static md:bg-transparent md:shadow-none md:rounded-none md:mt-0"
+                : "bg-white shadow-lg z-50 absolute left-0 top-full w-full hidden md:block md:static md:bg-transparent md:shadow-none md:rounded-none md:mt-0"
             }">
               <div class="flex flex-col md:flex-row gap-2 md:gap-4 items-center">
                 <!-- Main button removed on Main page -->
@@ -202,9 +202,9 @@ function render() {
                 <button class="px-4 py-2 rounded bg-amber-500 text-white font-bold shadow hover:bg-amber-600 transition" onclick="goToBeansPage()">Beans</button>
                 <button class="px-4 py-2 rounded bg-amber-500 text-white font-bold shadow hover:bg-amber-600 transition" onclick="goToCraftPage()">Craft Your Cup</button>
                 <button class="px-4 py-2 rounded bg-amber-500 text-white font-bold shadow hover:bg-amber-600 transition" onclick="goToStoryPage()">Our Story</button>
-                <button id="toggle-dark" class="text-gray-600 hover:text-black px-3 py-1 rounded transition" onclick="toggleNightMode()">${
-                  document.body.classList.contains("night") ? "☀️" : "🌙"
-                }</button>
+                <button id="toggle-dark" class="text-gray-600 hover:text-black px-3 py-1 rounded transition" onclick="toggleNightMode()">
+                  ${document.body.classList.contains("night") ? "☀️" : "🌙"}
+                </button>
               </div>
             </div>
           </div>
@@ -531,19 +531,19 @@ function render() {
             <button id="nav-toggle" class="md:hidden px-4 py-2 rounded bg-amber-500 text-white font-bold shadow hover:bg-amber-600 transition w-full flex justify-center items-center" onclick="window.toggleNavMenu()" aria-label="Open navigation menu">
               <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
             </button>
-            <div id="nav-menu" class="absolute left-0 top-full w-full ${
+            <div id="nav-menu" class="fixed left-0 right-0 top-full w-full ${
               document.body.classList.contains("night")
-                ? "bg-transparent z-50 mt-2 hidden md:block md:static md:bg-transparent md:shadow-none md:rounded-none md:mt-0"
-                : "bg-white shadow-lg rounded z-50 mt-2 hidden md:block md:static md:bg-transparent md:shadow-none md:rounded-none md:mt-0"
+                ? "bg-gray-900/95 z-50 absolute left-0 top-full w-full hidden md:block md:static md:bg-transparent md:shadow-none md:rounded-none md:mt-0"
+                : "bg-white shadow-lg z-50 absolute left-0 top-full w-full hidden md:block md:static md:bg-transparent md:shadow-none md:rounded-none md:mt-0"
             }">
               <div class="flex flex-col md:flex-row gap-2 md:gap-4 items-center">
                 <button class="px-4 py-2 rounded bg-amber-500 text-white font-bold shadow hover:bg-amber-600 transition" onclick="goToMainPage()">Main</button>
                 <button class="px-4 py-2 rounded bg-amber-500 text-white font-bold shadow hover:bg-amber-600 transition" onclick="goToSecondPage()">Desserts</button>
                 <button class="px-4 py-2 rounded bg-amber-500 text-white font-bold shadow hover:bg-amber-600 transition" onclick="goToCraftPage()">Craft Your Cup</button>
                 <button class="px-4 py-2 rounded bg-amber-500 text-white font-bold shadow hover:bg-amber-600 transition" onclick="goToStoryPage()">Our Story</button>
-                <button id="toggle-dark" class="text-gray-600 hover:text-black px-3 py-1 rounded transition" onclick="toggleNightMode()">${
-                  document.body.classList.contains("night") ? "☀️" : "🌙"
-                }</button>
+                <button id="toggle-dark" class="text-gray-600 hover:text-black px-3 py-1 rounded transition" onclick="toggleNightMode()">
+                  ${document.body.classList.contains("night") ? "☀️" : "🌙"}
+                </button>
               </div>
             </div>
           </div>
@@ -655,10 +655,10 @@ function render() {
             <button id="nav-toggle" class="md:hidden px-4 py-2 rounded bg-amber-500 text-white font-bold shadow hover:bg-amber-600 transition w-full flex justify-center items-center" onclick="window.toggleNavMenu()" aria-label="Open navigation menu">
               <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
             </button>
-            <div id="nav-menu" class="absolute left-0 top-full w-full ${
+            <div id="nav-menu" class="fixed left-0 right-0 top-full w-full ${
               document.body.classList.contains("night")
-                ? "bg-transparent z-50 mt-2 hidden md:block md:static md:bg-transparent md:shadow-none md:rounded-none md:mt-0"
-                : "bg-white shadow-lg rounded z-50 mt-2 hidden md:block md:static md:bg-transparent md:shadow-none md:rounded-none md:mt-0"
+                ? "bg-gray-900/95 z-50 absolute left-0 top-full w-full hidden md:block md:static md:bg-transparent md:shadow-none md:rounded-none md:mt-0"
+                : "bg-white shadow-lg z-50 absolute left-0 top-full w-full hidden md:block md:static md:bg-transparent md:shadow-none md:rounded-none md:mt-0"
             }">
               <div class="flex flex-col md:flex-row gap-2 md:gap-4 items-center">
                 <button class="px-4 py-2 rounded bg-amber-500 text-white font-bold shadow hover:bg-amber-600 transition" onclick="goToMainPage()">Main</button>
@@ -832,42 +832,42 @@ function render() {
         to { opacity: 1; transform: translateY(0); }
       }
     </style>
-    <header class="sticky top-0 z-40 ${
-      document.body.classList.contains("night")
-        ? "bg-gray-900/90"
-        : "bg-white/90"
-    } backdrop-blur shadow flex items-center justify-between px-6 py-3 mb-8">
-      <div class="flex items-center gap-3">
-        <img src="/images/cupidoncoffee.png" alt="NovaCup Cherub Logo" class="w-14 h-14 object-contain" style="background:transparent; border:none; box-shadow:none;" />
-        <span class="text-2xl font-bold tracking-wide drop-shadow-[0_2px_8px_rgba(0,0,0,0.5)] font-logo flex items-center gap-2" style="color: #c2410c !important;">
-          NovaCup Coffee ☕
-        </span>
-      </div>
-      <div class="flex items-center gap-3">
-        <div class="relative w-full">
-          <!-- Hamburger menu button for mobile/tablet -->
-          <button id="nav-toggle" class="md:hidden px-4 py-2 rounded bg-amber-500 text-white font-bold shadow hover:bg-amber-600 transition w-full flex justify-center items-center" onclick="window.toggleNavMenu()" aria-label="Open navigation menu">
-            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
-          </button>
-          <div id="nav-menu" class="absolute left-0 top-full w-full ${
-            document.body.classList.contains("night")
-              ? "bg-transparent z-50 mt-2 hidden md:block md:static md:bg-transparent md:shadow-none md:rounded-none md:mt-0"
-              : "bg-white shadow-lg rounded z-50 mt-2 hidden md:block md:static md:bg-transparent md:shadow-none md:rounded-none md:mt-0"
-          }">
-            <div class="flex flex-col md:flex-row gap-2 md:gap-4 items-center">
-              <!-- Main button removed on Main page -->
-              <button class="px-4 py-2 rounded bg-amber-500 text-white font-bold shadow hover:bg-amber-600 transition" onclick="goToSecondPage()">Desserts</button>
-              <button class="px-4 py-2 rounded bg-amber-500 text-white font-bold shadow hover:bg-amber-600 transition" onclick="goToBeansPage()">Beans</button>
-              <button class="px-4 py-2 rounded bg-amber-500 text-white font-bold shadow hover:bg-amber-600 transition" onclick="goToCraftPage()">Craft Your Cup</button>
-              <button class="px-4 py-2 rounded bg-amber-500 text-white font-bold shadow hover:bg-amber-600 transition" onclick="goToStoryPage()">Our Story</button>
-              <button id="toggle-dark" class="text-gray-600 hover:text-black px-3 py-1 rounded transition" onclick="toggleNightMode()">${
-                document.body.classList.contains("night") ? "☀️" : "🌙"
-              }</button>
+      <header class="sticky top-0 z-40 ${
+        document.body.classList.contains("night")
+          ? "bg-gray-900/90"
+          : "bg-white/90"
+      } backdrop-blur shadow flex items-center justify-between px-6 py-3 mb-8">
+        <div class="flex items-center gap-3">
+          <img src="/images/cupidoncoffee.png" alt="NovaCup Cherub Logo" class="w-14 h-14 object-contain" style="background:transparent; border:none; box-shadow:none;" />
+          <span class="text-2xl font-bold tracking-wide drop-shadow-[0_2px_8px_rgba(0,0,0,0.5)] font-logo flex items-center gap-2" style="color: #c2410c !important;">
+            NovaCup Coffee ☕
+          </span>
+        </div>
+        <div class="flex items-center gap-3">
+          <div class="relative w-full">
+            <!-- Hamburger menu button for mobile/tablet -->
+            <button id="nav-toggle" class="md:hidden px-4 py-2 rounded bg-amber-500 text-white font-bold shadow hover:bg-amber-600 transition w-full flex justify-center items-center" onclick="window.toggleNavMenu()" aria-label="Open navigation menu">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+            </button>
+            <div id="nav-menu" class="fixed left-0 right-0 top-full w-full ${
+              document.body.classList.contains("night")
+                ? "bg-gray-900/95 z-50 absolute left-0 top-full w-full hidden md:block md:static md:bg-transparent md:shadow-none md:rounded-none md:mt-0"
+                : "bg-white shadow-lg z-50 absolute left-0 top-full w-full hidden md:block md:static md:bg-transparent md:shadow-none md:rounded-none md:mt-0"
+            }">
+              <div class="flex flex-col md:flex-row gap-2 md:gap-4 items-center">
+                <!-- Main button removed on Main page -->
+                <button class="px-4 py-2 rounded bg-amber-500 text-white font-bold shadow hover:bg-amber-600 transition" onclick="goToSecondPage()">Desserts</button>
+                <button class="px-4 py-2 rounded bg-amber-500 text-white font-bold shadow hover:bg-amber-600 transition" onclick="goToBeansPage()">Beans</button>
+                <button class="px-4 py-2 rounded bg-amber-500 text-white font-bold shadow hover:bg-amber-600 transition" onclick="goToCraftPage()">Craft Your Cup</button>
+                <button class="px-4 py-2 rounded bg-amber-500 text-white font-bold shadow hover:bg-amber-600 transition" onclick="goToStoryPage()">Our Story</button>
+                <button id="toggle-dark" class="text-gray-600 hover:text-black px-3 py-1 rounded transition" onclick="toggleNightMode()">
+                  ${document.body.classList.contains("night") ? "☀️" : "🌙"}
+                </button>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-    </header>
+      </header>
     <main class="min-h-screen px-4 py-8">
       <div class="max-w-6xl mx-auto">
         <!-- Search and Filter -->
