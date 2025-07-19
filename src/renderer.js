@@ -196,12 +196,12 @@ function render() {
                 ? "bg-gray-900/95 z-50 absolute left-0 top-full w-full hidden md:block md:static md:bg-transparent md:shadow-none md:rounded-none md:mt-0"
                 : "bg-white shadow-lg z-50 absolute left-0 top-full w-full hidden md:block md:static md:bg-transparent md:shadow-none md:rounded-none md:mt-0"
             }">
-              <div class="flex flex-col md:flex-row gap-2 md:gap-4 items-center">
+              <div class="flex flex-col gap-3 mt-5 md:flex-row md:gap-4 md:mt-0 items-center">
                 <button class="px-4 py-2 rounded bg-amber-500 text-white font-bold shadow hover:bg-amber-600 transition" onclick="goToMainPage()">Main</button>
                 <button class="px-4 py-2 rounded bg-amber-500 text-white font-bold shadow hover:bg-amber-600 transition" onclick="goToBeansPage()">Beans</button>
                 <button class="px-4 py-2 rounded bg-amber-500 text-white font-bold shadow hover:bg-amber-600 transition" onclick="goToCraftPage()">Craft Your Cup</button>
                 <button class="px-4 py-2 rounded bg-amber-500 text-white font-bold shadow hover:bg-amber-600 transition" onclick="goToStoryPage()">Our Story</button>
-                <button id="toggle-dark" class="text-gray-600 hover:text-black px-3 py-1 rounded transition" onclick="toggleNightMode()">
+                <button id="toggle-dark" class="text-gray-600 hover:text-black px-3 py-1 rounded transition mb-3 md:mb-0" onclick="toggleNightMode()">
                   ${document.body.classList.contains("night") ? "☀️" : "🌙"}
                 </button>
               </div>
@@ -448,12 +448,12 @@ function render() {
                 ? "bg-gray-900/95 z-50 absolute left-0 top-full w-full hidden md:block md:static md:bg-transparent md:shadow-none md:rounded-none md:mt-0"
                 : "bg-white shadow-lg z-50 absolute left-0 top-full w-full hidden md:block md:static md:bg-transparent md:shadow-none md:rounded-none md:mt-0"
             }">
-              <div class="flex flex-col md:flex-row gap-2 md:gap-4 items-center">
+              <div class="flex flex-col gap-3 mt-5 md:flex-row md:gap-4 md:mt-0 items-center">
                 <button class="px-4 py-2 rounded bg-amber-500 text-white font-bold shadow hover:bg-amber-600 transition" onclick="goToMainPage()">Main</button>
                 <button class="px-4 py-2 rounded bg-amber-500 text-white font-bold shadow hover:bg-amber-600 transition" onclick="goToSecondPage()">Desserts</button>
                 <button class="px-4 py-2 rounded bg-amber-500 text-white font-bold shadow hover:bg-amber-600 transition" onclick="goToBeansPage()">Beans</button>
                 <button class="px-4 py-2 rounded bg-amber-500 text-white font-bold shadow hover:bg-amber-600 transition" onclick="goToCraftPage()">Craft Your Cup</button>
-                <button id="toggle-dark" class="text-gray-600 hover:text-black px-3 py-1 rounded transition" onclick="toggleNightMode()">${
+                <button id="toggle-dark" class="text-gray-600 hover:text-black px-3 py-1 rounded transition mb-3 md:mb-0" onclick="toggleNightMode()">${
                   document.body.classList.contains("night") ? "☀️" : "🌙"
                 }</button>
               </div>
@@ -535,12 +535,12 @@ function render() {
                 ? "bg-gray-900/95 z-50 absolute left-0 top-full w-full hidden md:block md:static md:bg-transparent md:shadow-none md:rounded-none md:mt-0"
                 : "bg-white shadow-lg z-50 absolute left-0 top-full w-full hidden md:block md:static md:bg-transparent md:shadow-none md:rounded-none md:mt-0"
             }">
-              <div class="flex flex-col md:flex-row gap-2 md:gap-4 items-center">
+              <div class="flex flex-col gap-3 mt-5 md:flex-row md:gap-4 md:mt-0 items-center">
                 <button class="px-4 py-2 rounded bg-amber-500 text-white font-bold shadow hover:bg-amber-600 transition" onclick="goToMainPage()">Main</button>
                 <button class="px-4 py-2 rounded bg-amber-500 text-white font-bold shadow hover:bg-amber-600 transition" onclick="goToSecondPage()">Desserts</button>
                 <button class="px-4 py-2 rounded bg-amber-500 text-white font-bold shadow hover:bg-amber-600 transition" onclick="goToCraftPage()">Craft Your Cup</button>
                 <button class="px-4 py-2 rounded bg-amber-500 text-white font-bold shadow hover:bg-amber-600 transition" onclick="goToStoryPage()">Our Story</button>
-                <button id="toggle-dark" class="text-gray-600 hover:text-black px-3 py-1 rounded transition" onclick="toggleNightMode()">
+                <button id="toggle-dark" class="text-gray-600 hover:text-black px-3 py-1 rounded transition mb-3 md:mb-0" onclick="toggleNightMode()">
                   ${document.body.classList.contains("night") ? "☀️" : "🌙"}
                 </button>
               </div>
@@ -659,7 +659,7 @@ function render() {
                 ? "bg-gray-900/95 z-50 absolute left-0 top-full w-full hidden md:block md:static md:bg-transparent md:shadow-none md:rounded-none md:mt-0"
                 : "bg-white shadow-lg z-50 absolute left-0 top-full w-full hidden md:block md:static md:bg-transparent md:shadow-none md:rounded-none md:mt-0"
             }">
-              <div class="flex flex-col md:flex-row gap-2 md:gap-4 items-center">
+              <div class="flex flex-col gap-3 mt-5 md:flex-row md:gap-4 md:mt-0 items-center">
                 <button class="px-4 py-2 rounded bg-amber-500 text-white font-bold shadow hover:bg-amber-600 transition" onclick="goToMainPage()">Main</button>
                 <button class="px-4 py-2 rounded bg-amber-500 text-white font-bold shadow hover:bg-amber-600 transition" onclick="goToSecondPage()">Desserts</button>
                 <button class="px-4 py-2 rounded bg-amber-500 text-white font-bold shadow hover:bg-amber-600 transition" onclick="goToBeansPage()">Beans</button>
@@ -853,13 +853,13 @@ function render() {
                 ? "bg-gray-900/95 z-50 absolute left-0 top-full w-full hidden md:block md:static md:bg-transparent md:shadow-none md:rounded-none md:mt-0"
                 : "bg-white shadow-lg z-50 absolute left-0 top-full w-full hidden md:block md:static md:bg-transparent md:shadow-none md:rounded-none md:mt-0"
             }">
-              <div class="flex flex-col md:flex-row gap-2 md:gap-4 items-center">
+              <div class="flex flex-col gap-3 mt-5 md:flex-row md:gap-4 md:mt-0 items-center">
                 <!-- Main button removed on Main page -->
                 <button class="px-4 py-2 rounded bg-amber-500 text-white font-bold shadow hover:bg-amber-600 transition" onclick="goToSecondPage()">Desserts</button>
                 <button class="px-4 py-2 rounded bg-amber-500 text-white font-bold shadow hover:bg-amber-600 transition" onclick="goToBeansPage()">Beans</button>
                 <button class="px-4 py-2 rounded bg-amber-500 text-white font-bold shadow hover:bg-amber-600 transition" onclick="goToCraftPage()">Craft Your Cup</button>
                 <button class="px-4 py-2 rounded bg-amber-500 text-white font-bold shadow hover:bg-amber-600 transition" onclick="goToStoryPage()">Our Story</button>
-                <button id="toggle-dark" class="text-gray-600 hover:text-black px-3 py-1 rounded transition" onclick="toggleNightMode()">
+                <button id="toggle-dark" class="text-gray-600 hover:text-black px-3 py-1 rounded transition mb-3 md:mb-0" onclick="toggleNightMode()">
                   ${document.body.classList.contains("night") ? "☀️" : "🌙"}
                 </button>
               </div>
@@ -1181,7 +1181,13 @@ function renderFavoritesView(favRecipes) {
               : "bg-white"
           } shadow-lg rounded z-50 mt-2 hidden md:block md:static md:bg-transparent md:shadow-none md:rounded-none md:mt-0">
             <div class="flex flex-col md:flex-row gap-2 md:gap-4 items-center">
-              <!-- ...existing code... -->
+              <button class="px-4 py-2 rounded bg-amber-500 text-white font-bold shadow hover:bg-amber-600 transition" onclick="goToMainPage()">Main</button>
+              <button class="px-4 py-2 rounded bg-amber-500 text-white font-bold shadow hover:bg-amber-600 transition" onclick="goToSecondPage()">Desserts</button>
+              <button class="px-4 py-2 rounded bg-amber-500 text-white font-bold shadow hover:bg-amber-600 transition" onclick="goToBeansPage()">Beans</button>
+              <button class="px-4 py-2 rounded bg-amber-500 text-white font-bold shadow hover:bg-amber-600 transition" onclick="goToCraftPage()">Craft Your Cup</button>
+              <button id="toggle-dark" class="text-gray-600 hover:text-black px-3 py-1 rounded transition" onclick="toggleNightMode()">${
+                document.body.classList.contains("night") ? "☀️" : "🌙"
+              }</button>
             </div>
           </div>
         </div>
