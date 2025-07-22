@@ -1,3 +1,7 @@
+window.goToCartPage = function () {
+  currentPage = "cart";
+  render();
+};
 window.selectedDessertType = "All";
 window.updateDessertFilter = function (type) {
   window.selectedDessertType = type;
@@ -117,6 +121,80 @@ window.toggleNavMenu = function () {
 };
 
 function render() {
+  if (currentPage === "cart") {
+    app.innerHTML = `
+      <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Pacifico&display=swap" rel="stylesheet">
+      <style>
+        body, input, select, button, h1, h2, h3, h4, h5, h6, p, span, label, .font-main {
+          font-family: 'Roboto', Arial, sans-serif !important;
+        }
+        .font-logo {
+          font-family: 'Pacifico', cursive !important;
+          letter-spacing: 0.04em;
+        }
+        .animate-fade-in {
+          animation: fadeIn 0.7s cubic-bezier(0.4,0,0.2,1);
+        }
+        @keyframes fadeIn {
+          from { opacity: 0; }
+          to { opacity: 1; }
+        }
+      </style>
+      <header class="sticky top-0 z-40 ${
+        document.body.classList.contains("night")
+          ? "bg-gray-900/90"
+          : "bg-white/90"
+      } backdrop-blur shadow flex items-center justify-between px-6 py-3 mb-8">
+        <div class="flex items-center gap-3">
+          <img src="/images/cupidoncoffee.png" alt="NovaCup Cherub Logo" class="w-14 h-14 object-contain" style="background:transparent; border:none; box-shadow:none;" />
+          <span class="text-2xl font-bold tracking-wide drop-shadow-[0_2px_8px_rgba(0,0,0,0.5)] font-logo flex items-center gap-2" style="color: #c2410c !important;">
+            NovaCup Coffee ☕
+          </span>
+        </div>
+        <div class="flex items-center gap-3">
+          <div class="relative w-full">
+            <button id="nav-toggle" class="md:hidden px-4 py-2 rounded bg-amber-500 text-white font-bold shadow hover:bg-amber-600 transition w-full flex justify-center items-center" onclick="window.toggleNavMenu()" aria-label="Open navigation menu">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+            </button>
+            <div id="nav-menu" class="fixed left-0 right-0 top-full w-full ${
+              document.body.classList.contains("night")
+                ? "bg-gray-900/95 z-50 absolute left-0 top-full w-full hidden md:block md:static md:bg-transparent md:shadow-none md:rounded-none md:mt-0"
+                : "bg-white shadow-lg z-50 absolute left-0 top-full w-full hidden md:block md:static md:bg-transparent md:shadow-none md:rounded-none md:mt-0"
+            }">
+              <div class="flex flex-col gap-3 mt-5 md:flex-row md:gap-4 md:mt-0 items-center">
+                <button class="px-4 py-2 rounded bg-amber-500 text-white font-bold shadow hover:bg-amber-600 transition" onclick="goToMainPage()">Main</button>
+                <button class="px-4 py-2 rounded bg-amber-500 text-white font-bold shadow hover:bg-amber-600 transition" onclick="goToSecondPage()">Desserts</button>
+                <button class="px-4 py-2 rounded bg-amber-500 text-white font-bold shadow hover:bg-amber-600 transition" onclick="goToBeansPage()">Beans</button>
+                <button class="px-4 py-2 rounded bg-amber-500 text-white font-bold shadow hover:bg-amber-600 transition" onclick="goToCraftPage()">Craft Your Cup</button>
+                <button class="px-4 py-2 rounded bg-amber-500 text-white font-bold shadow hover:bg-amber-600 transition" onclick="goToStoryPage()">Our Story</button>
+                <button id="toggle-dark" class="text-gray-600 hover:text-black px-3 py-1 rounded transition mb-3 md:mb-0" onclick="toggleNightMode()">${
+                  document.body.classList.contains("night") ? "☀️" : "🌙"
+                }</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </header>
+      <main class="min-h-screen px-4 py-8">
+        <div class="max-w-3xl mx-auto text-center animate-fade-in">
+          <h1 class="text-4xl font-bold mb-12 font-logo" style="color:#c2410c">Shopping Cart</h1>
+          <img src="/images/cart.png" alt="Shopping Cart" class="w-24 h-24 object-contain mx-auto mb-10" />
+          <p class="text-lg mb-6 ${
+            document.body.classList.contains("night")
+              ? "text-gray-300"
+              : "text-gray-500"
+          }" style="font-weight: 400;">
+            Your cart is currently empty.<br><br>
+            (Cart functionality coming soon!)
+          </p>
+        </div>
+      </main>
+      <footer class="mt-12 py-6 text-center text-gray-500 text-sm bg-white/80 backdrop-blur shadow-inner">
+        &copy; 2025 NovaCup Coffee. Made with ☕ by Bladerunner
+      </footer>
+    `;
+    return;
+  }
   function highlightMatch(text, query) {
     if (!query) return text;
     const regex = new RegExp(
@@ -201,6 +279,7 @@ function render() {
                 <button class="px-4 py-2 rounded bg-amber-500 text-white font-bold shadow hover:bg-amber-600 transition" onclick="goToBeansPage()">Beans</button>
                 <button class="px-4 py-2 rounded bg-amber-500 text-white font-bold shadow hover:bg-amber-600 transition" onclick="goToCraftPage()">Craft Your Cup</button>
                 <button class="px-4 py-2 rounded bg-amber-500 text-white font-bold shadow hover:bg-amber-600 transition" onclick="goToStoryPage()">Our Story</button>
+                <button class="px-4 py-2 rounded bg-green-600 text-white font-bold shadow hover:bg-green-700 transition flex items-center gap-2" onclick="goToCartPage()">🛒 Cart</button>
                 <button id="toggle-dark" class="text-gray-600 hover:text-black px-3 py-1 rounded transition mb-3 md:mb-0" onclick="toggleNightMode()">
                   ${document.body.classList.contains("night") ? "☀️" : "🌙"}
                 </button>
@@ -453,6 +532,7 @@ function render() {
                 <button class="px-4 py-2 rounded bg-amber-500 text-white font-bold shadow hover:bg-amber-600 transition" onclick="goToSecondPage()">Desserts</button>
                 <button class="px-4 py-2 rounded bg-amber-500 text-white font-bold shadow hover:bg-amber-600 transition" onclick="goToBeansPage()">Beans</button>
                 <button class="px-4 py-2 rounded bg-amber-500 text-white font-bold shadow hover:bg-amber-600 transition" onclick="goToCraftPage()">Craft Your Cup</button>
+<button class="px-4 py-2 rounded bg-green-600 text-white font-bold shadow hover:bg-green-700 transition flex items-center gap-2" onclick="goToCartPage()">🛒 Cart</button>
                 <button id="toggle-dark" class="text-gray-600 hover:text-black px-3 py-1 rounded transition mb-3 md:mb-0" onclick="toggleNightMode()">${
                   document.body.classList.contains("night") ? "☀️" : "🌙"
                 }</button>
@@ -540,6 +620,7 @@ function render() {
                 <button class="px-4 py-2 rounded bg-amber-500 text-white font-bold shadow hover:bg-amber-600 transition" onclick="goToSecondPage()">Desserts</button>
                 <button class="px-4 py-2 rounded bg-amber-500 text-white font-bold shadow hover:bg-amber-600 transition" onclick="goToCraftPage()">Craft Your Cup</button>
                 <button class="px-4 py-2 rounded bg-amber-500 text-white font-bold shadow hover:bg-amber-600 transition" onclick="goToStoryPage()">Our Story</button>
+<button class="px-4 py-2 rounded bg-green-600 text-white font-bold shadow hover:bg-green-700 transition flex items-center gap-2" onclick="goToCartPage()">🛒 Cart</button>
                 <button id="toggle-dark" class="text-gray-600 hover:text-black px-3 py-1 rounded transition mb-3 md:mb-0" onclick="toggleNightMode()">
                   ${document.body.classList.contains("night") ? "☀️" : "🌙"}
                 </button>
@@ -664,7 +745,8 @@ function render() {
                 <button class="px-4 py-2 rounded bg-amber-500 text-white font-bold shadow hover:bg-amber-600 transition" onclick="goToSecondPage()">Desserts</button>
                 <button class="px-4 py-2 rounded bg-amber-500 text-white font-bold shadow hover:bg-amber-600 transition" onclick="goToBeansPage()">Beans</button>
                 <button class="px-4 py-2 rounded bg-amber-500 text-white font-bold shadow hover:bg-amber-600 transition" onclick="goToStoryPage()">Our Story</button>
-                <button id="toggle-dark" class="text-gray-600 hover:text-black px-3 py-1 rounded transition" onclick="toggleNightMode()">${
+                <button class="px-4 py-2 rounded bg-green-600 text-white font-bold shadow hover:bg-green-700 transition" onclick="goToCartPage()">🛒 Cart</button>
+                <button id="toggle-dark" class="text-gray-600 hover:text-black px-3 py-1 rounded transition mb-3 md:mb-0" onclick="toggleNightMode()">${
                   document.body.classList.contains("night") ? "☀️" : "🌙"
                 }</button>
               </div>
@@ -859,6 +941,7 @@ function render() {
                 <button class="px-4 py-2 rounded bg-amber-500 text-white font-bold shadow hover:bg-amber-600 transition" onclick="goToBeansPage()">Beans</button>
                 <button class="px-4 py-2 rounded bg-amber-500 text-white font-bold shadow hover:bg-amber-600 transition" onclick="goToCraftPage()">Craft Your Cup</button>
                 <button class="px-4 py-2 rounded bg-amber-500 text-white font-bold shadow hover:bg-amber-600 transition" onclick="goToStoryPage()">Our Story</button>
+                <button class="px-4 py-2 rounded bg-green-600 text-white font-bold shadow hover:bg-green-700 transition" onclick="goToCartPage()">🛒 Cart</button>
                 <button id="toggle-dark" class="text-gray-600 hover:text-black px-3 py-1 rounded transition mb-3 md:mb-0" onclick="toggleNightMode()">
                   ${document.body.classList.contains("night") ? "☀️" : "🌙"}
                 </button>
@@ -1086,16 +1169,13 @@ window.closeRecipe = function () {
 };
 
 window.updateSearch = function (value) {
-  // Only update and re-render if the value actually changed
   if (searchQuery !== value) {
-    // Save caret position
     const input = document.querySelector(
       'input[placeholder="Search coffee..."]'
     );
     let caretPos = input ? input.selectionStart : null;
     searchQuery = value;
     render();
-    // Restore focus and caret position after render
     setTimeout(() => {
       const newInput = document.querySelector(
         'input[placeholder="Search coffee..."]'
@@ -1132,7 +1212,6 @@ window.showFavorites = function () {
 
 function renderFavoritesView(favRecipes) {
   window._prevState = { searchQuery, selectedType };
-  // Use the same navbar/header as main page, now with Our Story button
   app.innerHTML = `
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Pacifico&display=swap" rel="stylesheet">
     <style>
