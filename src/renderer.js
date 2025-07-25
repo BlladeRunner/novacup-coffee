@@ -42,6 +42,22 @@ let searchQuery = "";
 let selectedType = "All";
 let currentPage = "main";
 let selectedDessert = null;
+function getCoffeePrice(type) {
+  switch (type) {
+    case "Espresso":
+      return "9 PLN";
+    case "Milk":
+      return "12 PLN";
+    case "Cold":
+      return "14 PLN";
+    case "Dessert":
+      return "16 PLN";
+    case "Alcoholic":
+      return "18 PLN";
+    default:
+      return "10 PLN";
+  }
+}
 window.closeDessertRecipe = function () {
   selectedDessert = null;
   render();
@@ -1028,6 +1044,9 @@ function render() {
                 recipe.name,
                 searchQuery
               )}</h2>
+              <div class="mb-2 text-center text-green-700 font-bold text-base">${getCoffeePrice(
+                recipe.type
+              )}</div>
               <p class="mb-2 text-center animate-fade-in" style="color: ${
                 document.body.classList.contains("night") ? "#fff" : "#000"
               };"></p>
