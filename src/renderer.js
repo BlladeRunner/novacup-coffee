@@ -42,6 +42,15 @@ let searchQuery = "";
 let selectedType = "All";
 let currentPage = "main";
 let selectedDessert = null;
+function getDessertPrice(tags) {
+  if (!tags || !tags.length) return "12 PLN";
+  if (tags.includes("Cake")) return "16 PLN";
+  if (tags.includes("Cookie")) return "10 PLN";
+  if (tags.includes("Pastry")) return "14 PLN";
+  if (tags.includes("Frozen")) return "13 PLN";
+  if (tags.includes("Fruit")) return "15 PLN";
+  return "12 PLN";
+}
 function getCoffeePrice(type) {
   switch (type) {
     case "Espresso":
@@ -400,6 +409,9 @@ function render() {
                         recipe.name,
                         window.dessertSearchQuery
                       )}</h2>
+                    <div class="mb-2 text-center text-green-700 font-bold text-base">${getDessertPrice(
+                      recipe.tags
+                    )}</div>
                     <!-- Description removed from card, only shown in modal -->
                     <div class="flex gap-2 text-xs ${
                       document.body.classList.contains("night")
