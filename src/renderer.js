@@ -388,11 +388,11 @@ function render() {
                 <button class="px-4 py-2 rounded bg-amber-500 text-white font-bold shadow hover:bg-amber-600 transition" onclick="goToMainPage()">Main</button>
                 <button class="px-4 py-2 rounded bg-amber-500 text-white font-bold shadow hover:bg-amber-600 transition" onclick="goToBeansPage()">Beans</button>
                 <button class="px-4 py-2 rounded bg-amber-500 text-white font-bold shadow hover:bg-amber-600 transition" onclick="goToCraftPage()">Craft Your Cup</button>
-                <button class="px-4 py-2 rounded bg-amber-500 text-white font-bold shadow hover:bg-amber-600 transition" onclick="goToStoryPage()">Our Story</button>
-                <button class="px-4 py-2 rounded bg-green-600 text-white font-bold shadow hover:bg-green-700 transition flex items-center gap-2" onclick="goToCartPage()">🛒 Cart</button>
+                <button class="px-4 py-2 rounded bg-amber-500 text-white font-bold shadow hover:bg-amber-600 transition" onclick="goToStoryPage()">Our Story</button>                
                 <button id="user-icon" class="transition flex items-center justify-center w-10 h-10" onclick="window.showLoginModal()" aria-label="User login">
-                  <img src="/images/user2.png" alt="User" style="width:24px; height:24px;" />
+                  <img src="/images/user.png" alt="User" style="width:24px; height:24px;" />
                 </button>
+                <button class="px-4 py-2 rounded text-white font-bold transition flex items-center gap-2" onclick="goToCartPage()"><img src="/images/cart.png" alt="User" style="width:24px; height:24px;" /></button>
                 <button id="toggle-dark" class="text-gray-600 hover:text-black px-3 py-1 rounded transition mb-3 md:mb-0" onclick="toggleNightMode()">
                   ${document.body.classList.contains("night") ? "☀️" : "🌙"}
                 </button>
@@ -647,11 +647,11 @@ function render() {
                 <button class="px-4 py-2 rounded bg-amber-500 text-white font-bold shadow hover:bg-amber-600 transition" onclick="goToMainPage()">Main</button>
                 <button class="px-4 py-2 rounded bg-amber-500 text-white font-bold shadow hover:bg-amber-600 transition" onclick="goToSecondPage()">Desserts</button>
                 <button class="px-4 py-2 rounded bg-amber-500 text-white font-bold shadow hover:bg-amber-600 transition" onclick="goToBeansPage()">Beans</button>
-                <button class="px-4 py-2 rounded bg-amber-500 text-white font-bold shadow hover:bg-amber-600 transition" onclick="goToCraftPage()">Craft Your Cup</button>
-                <button class="px-4 py-2 rounded bg-green-600 text-white font-bold shadow hover:bg-green-700 transition flex items-center gap-2" onclick="goToCartPage()">🛒 Cart</button>
+                <button class="px-4 py-2 rounded bg-amber-500 text-white font-bold shadow hover:bg-amber-600 transition" onclick="goToCraftPage()">Craft Your Cup</button>                
                 <button id="user-icon" class="transition flex items-center justify-center w-10 h-10" onclick="window.showLoginModal()" aria-label="User login">
-                  <img src="/images/user2.png" alt="User" style="width:24px; height:24px;" />
+                  <img src="/images/user.png" alt="User" style="width:24px; height:24px;" />
                 </button>
+                <button class="px-4 py-2 transition flex items-center gap-2" onclick="goToCartPage()"><img src="/images/cart.png" alt="User" style="width:24px; height:24px;" /></button>
                 <button id="toggle-dark" class="text-gray-600 hover:text-black px-3 py-1 rounded transition mb-3 md:mb-0" onclick="toggleNightMode()">${
                   document.body.classList.contains("night") ? "☀️" : "🌙"
                 }</button>
@@ -739,10 +739,10 @@ function render() {
                 <button class="px-4 py-2 rounded bg-amber-500 text-white font-bold shadow hover:bg-amber-600 transition" onclick="goToSecondPage()">Desserts</button>
                 <button class="px-4 py-2 rounded bg-amber-500 text-white font-bold shadow hover:bg-amber-600 transition" onclick="goToCraftPage()">Craft Your Cup</button>
                 <button class="px-4 py-2 rounded bg-amber-500 text-white font-bold shadow hover:bg-amber-600 transition" onclick="goToStoryPage()">Our Story</button>
-                <button class="px-4 py-2 rounded bg-green-600 text-white font-bold shadow hover:bg-green-700 transition flex items-center gap-2" onclick="goToCartPage()">🛒 Cart</button>
                 <button id="user-icon" class="transition flex items-center justify-center w-10 h-10" onclick="window.showLoginModal()" aria-label="User login">
-                  <img src="/images/user2.png" alt="User" style="width:24px; height:24px;" />
+                  <img src="/images/user.png" alt="User" style="width:24px; height:24px;" />
                 </button>
+                <button class="px-4 py-2 transition flex items-center gap-2" onclick="goToCartPage()"><img src="/images/cart.png" alt="User" style="width:24px; height:24px;" /></button>
                 <button id="toggle-dark" class="text-gray-600 hover:text-black px-3 py-1 rounded transition mb-3 md:mb-0" onclick="toggleNightMode()">
                   ${document.body.classList.contains("night") ? "☀️" : "🌙"}
                 </button>
@@ -867,10 +867,10 @@ function render() {
                 <button class="px-4 py-2 rounded bg-amber-500 text-white font-bold shadow hover:bg-amber-600 transition" onclick="goToSecondPage()">Desserts</button>
                 <button class="px-4 py-2 rounded bg-amber-500 text-white font-bold shadow hover:bg-amber-600 transition" onclick="goToBeansPage()">Beans</button>
                 <button class="px-4 py-2 rounded bg-amber-500 text-white font-bold shadow hover:bg-amber-600 transition" onclick="goToStoryPage()">Our Story</button>
-                <button class="px-4 py-2 rounded bg-green-600 text-white font-bold shadow hover:bg-green-700 transition" onclick="goToCartPage()">🛒 Cart</button>
                 <button id="user-icon" class="transition flex items-center justify-center w-10 h-10" onclick="window.showLoginModal()" aria-label="User login">
-                  <img src="/images/user2.png" alt="User" style="width:24px; height:24px;" />
+                  <img src="/images/user.png" alt="User" style="width:24px; height:24px;" />
                 </button>
+                <button class="px-4 py-2 transition flex items-center gap-2" onclick="goToCartPage()"><img src="/images/cart.png" alt="User" style="width:24px; height:24px;" /></button>
                 <button id="toggle-dark" class="text-gray-600 hover:text-black px-3 py-1 rounded transition mb-3 md:mb-0" onclick="toggleNightMode()">
                   ${document.body.classList.contains("night") ? "☀️" : "🌙"}
                 </button>
@@ -1066,10 +1066,10 @@ function render() {
                 <button class="px-4 py-2 rounded bg-amber-500 text-white font-bold shadow hover:bg-amber-600 transition" onclick="goToBeansPage()">Beans</button>
                 <button class="px-4 py-2 rounded bg-amber-500 text-white font-bold shadow hover:bg-amber-600 transition" onclick="goToCraftPage()">Craft Your Cup</button>
                 <button class="px-4 py-2 rounded bg-amber-500 text-white font-bold shadow hover:bg-amber-600 transition" onclick="goToStoryPage()">Our Story</button>
-                <button class="px-4 py-2 rounded bg-green-600 text-white font-bold shadow hover:bg-green-700 transition" onclick="goToCartPage()">🛒 Cart</button>
                 <button id="user-icon" class="transition flex items-center justify-center w-10 h-10" onclick="window.showLoginModal()" aria-label="User login">
-                  <img src="/images/user2.png" alt="User" style="width:24px; height:24px;" />
+                  <img src="/images/user.png" alt="User" style="width:24px; height:24px;" />
                 </button>
+                <button class="px-4 py-2 transition flex items-center gap-2" onclick="goToCartPage()"><img src="/images/cart.png" alt="User" style="width:24px; height:24px;" /></button>
                 <button id="toggle-dark" class="text-gray-600 hover:text-black px-3 py-1 rounded transition mb-3 md:mb-0" onclick="toggleNightMode()">
                   ${document.body.classList.contains("night") ? "☀️" : "🌙"}
                 </button>
