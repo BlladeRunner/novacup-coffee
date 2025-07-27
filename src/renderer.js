@@ -1,3 +1,85 @@
+window.showLoginModal = function () {
+  window.showingLogin = true;
+  window.showingSignup = false;
+  render();
+};
+window.showSignupModal = function () {
+  window.showingSignup = true;
+  window.showingLogin = false;
+  render();
+};
+window.closeLoginModal = function () {
+  window.showingLogin = false;
+  render();
+};
+window.closeSignupModal = function () {
+  window.showingSignup = false;
+  render();
+};
+window.switchToSignup = function () {
+  window.showingLogin = false;
+  window.showingSignup = true;
+  render();
+};
+window.switchToLogin = function () {
+  window.showingSignup = false;
+  window.showingLogin = true;
+  render();
+};
+// Modal logic
+if (window.showingLogin) {
+  app.innerHTML += `
+      <div class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-60 animate-fade-in">
+        <div class="bg-white rounded-xl shadow-xl p-6 max-w-sm w-full text-center animate-slide-in relative">
+          <button class="absolute top-2 right-4 text-xl text-gray-400 hover:text-gray-700 animate-fade-in" onclick="closeLoginModal()">×</button>
+          <h2 class="text-2xl font-bold mb-4">Log In</h2>
+          <input type="text" placeholder="Email" class="w-full px-4 py-2 mb-3 border rounded" />
+          <input type="password" placeholder="Password" class="w-full px-4 py-2 mb-4 border rounded" />
+          <button class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded w-full font-bold mb-2">Log In</button>
+          <p class="text-sm mt-2">Don't have an account? <a href="#" class="text-green-600 font-bold" onclick="switchToSignup()">Sign Up</a></p>
+        </div>
+      </div>
+    `;
+}
+if (window.showingSignup) {
+  app.innerHTML += `
+      <div class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-70 animate-fade-in">
+        <div class="bg-gray-900 rounded-2xl shadow-2xl p-8 max-w-md w-full text-left animate-slide-in relative border border-gray-800">
+          <button class="absolute top-4 right-6 text-2xl text-gray-400 hover:text-gray-200 transition" onclick="closeSignupModal()">×</button>
+          <div class="flex justify-center mb-8">
+            <div class="flex rounded-full bg-gray-800 border border-gray-700 overflow-hidden shadow-md" style="min-width:180px;">
+              <button class="px-5 py-2 font-semibold focus:outline-none transition-all duration-150 bg-gray-900 text-white" style="border-right:1px solid #222;" onclick="showSignupModal()">Sign up</button>
+              <button class="px-5 py-2 font-semibold focus:outline-none transition-all duration-150 text-gray-400 bg-transparent" onclick="showLoginModal()">Sign in</button>
+            </div>
+          </div>
+          <h2 class="text-2xl font-bold mb-6 text-white">Create an account</h2>
+          <div class="flex gap-3 mb-4">
+            <input type="text" placeholder="John" class="w-1/2 px-4 py-2 rounded bg-gray-800 text-white border border-gray-700 focus:border-blue-500 focus:outline-none" />
+            <input type="text" placeholder="Last name" class="w-1/2 px-4 py-2 rounded bg-gray-800 text-white border border-gray-700 focus:border-blue-500 focus:outline-none" />
+          </div>
+          <div class="mb-4 flex items-center gap-2">
+            <span class="text-gray-400"><svg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24'><path fill='currentColor' d='M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z'/></svg></span>
+            <input type="email" placeholder="Enter your email" class="w-full px-4 py-2 rounded bg-gray-800 text-white border border-gray-700 focus:border-blue-500 focus:outline-none" />
+          </div>
+          <div class="mb-4 flex items-center gap-2">
+            <span class="text-gray-400"><svg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24'><path fill='currentColor' d='M17 10.5V7c0-2.76-2.24-5-5-5S7 4.24 7 7v3.5C5.62 11.36 5 12.62 5 14v5c0 1.1.9 2 2 2h10c1.1 0 2-.9 2-2v-5c0-1.38-.62-2.64-2-3.5zM12 2c2.21 0 4 1.79 4 4v3.5c0 .83-.67 1.5-1.5 1.5h-5c-.83 0-1.5-.67-1.5-1.5V6c0-2.21 1.79-4 4-4zm6 17c0 .55-.45 1-1 1H7c-.55 0-1-.45-1-1v-5c0-.55.45-1 1-1h10c.55 0 1 .45 1 1v5z'/></svg></span>
+            <input type="tel" placeholder="(775) 351-6501" class="w-full px-4 py-2 rounded bg-gray-800 text-white border border-gray-700 focus:border-blue-500 focus:outline-none" />
+          </div>
+          <button class="w-full py-3 rounded bg-blue-600 hover:bg-blue-700 text-white font-bold text-lg mb-4 transition">Create an account</button>
+          <div class="flex items-center my-4">
+            <div class="flex-grow h-px bg-gray-700"></div>
+            <span class="mx-3 text-gray-400 text-sm">OR SIGN IN WITH</span>
+            <div class="flex-grow h-px bg-gray-700"></div>
+          </div>
+          <div class="flex gap-4 mb-6">
+            <button class="flex-1 py-2 rounded bg-gray-800 border border-gray-700 flex items-center justify-center gap-2 hover:bg-gray-700 transition"><img src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg" alt="Google" class="w-5 h-5" /> <span class="text-white font-semibold">Google</span></button>
+            <button class="flex-1 py-2 rounded bg-gray-800 border border-gray-700 flex items-center justify-center gap-2 hover:bg-gray-700 transition"><svg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24'><path fill='white' d='M16.365 1.43c-.982.045-2.19.68-2.9 1.48-.63.7-1.23 1.85-1.01 2.89.99.04 2.22-.64 2.92-1.47.65-.74 1.19-1.89.99-2.9zm4.13 4.13c-1.13-1.13-2.97-1.17-4.13-.04-1.13 1.13-1.09 2.97.04 4.13 1.13 1.13 2.97 1.17 4.13.04 1.13-1.13 1.09-2.97-.04-4.13zm-4.13 13.44c-2.13 2.13-5.59 2.13-7.72 0-2.13-2.13-2.13-5.59 0-7.72 2.13-2.13 5.59-2.13 7.72 0 2.13 2.13 2.13 5.59 0 7.72zm-7.72-13.44c-1.13-1.13-2.97-1.17-4.13-.04-1.13 1.13-1.09 2.97.04 4.13 1.13 1.13 2.97 1.17 4.13.04 1.13-1.13 1.09-2.97-.04-4.13zm-4.13 4.13c-.98.98-1.02 2.56-.04 3.54.98.98 2.56.94 3.54-.04.98-.98 1.02-2.56.04-3.54-.98-.98-2.56-.94-3.54.04zm13.44 13.44c-.98.98-2.56 1.02-3.54.04-.98-.98-.94-2.56.04-3.54.98-.98 2.56-1.02 3.54-.04.98.98.94 2.56-.04 3.54z'/></svg> <span class="text-white font-semibold">Apple</span></button>
+          </div>
+          <p class="text-xs text-gray-500 text-center">By creating an account, you agree to our <a href="#" class="underline text-gray-400">Terms & Service</a></p>
+        </div>
+      </div>
+    `;
+}
 window.goToCartPage = function () {
   currentPage = "cart";
   render();
@@ -192,6 +274,9 @@ function render() {
                 <button class="px-4 py-2 rounded bg-amber-500 text-white font-bold shadow hover:bg-amber-600 transition" onclick="goToBeansPage()">Beans</button>
                 <button class="px-4 py-2 rounded bg-amber-500 text-white font-bold shadow hover:bg-amber-600 transition" onclick="goToCraftPage()">Craft Your Cup</button>
                 <button class="px-4 py-2 rounded bg-amber-500 text-white font-bold shadow hover:bg-amber-600 transition" onclick="goToStoryPage()">Our Story</button>
+                <button id="user-icon" class="transition flex items-center justify-center w-10 h-10" onclick="window.showLoginModal()" aria-label="User login">
+                  <img src="/images/user.png" alt="User" style="width:24px; height:24px;" />
+                </button>
                 <button id="toggle-dark" class="text-gray-600 hover:text-black px-3 py-1 rounded transition mb-3 md:mb-0" onclick="toggleNightMode()">${
                   document.body.classList.contains("night") ? "☀️" : "🌙"
                 }</button>
@@ -305,6 +390,9 @@ function render() {
                 <button class="px-4 py-2 rounded bg-amber-500 text-white font-bold shadow hover:bg-amber-600 transition" onclick="goToCraftPage()">Craft Your Cup</button>
                 <button class="px-4 py-2 rounded bg-amber-500 text-white font-bold shadow hover:bg-amber-600 transition" onclick="goToStoryPage()">Our Story</button>
                 <button class="px-4 py-2 rounded bg-green-600 text-white font-bold shadow hover:bg-green-700 transition flex items-center gap-2" onclick="goToCartPage()">🛒 Cart</button>
+                <button id="user-icon" class="transition flex items-center justify-center w-10 h-10" onclick="window.showLoginModal()" aria-label="User login">
+                  <img src="/images/user2.png" alt="User" style="width:24px; height:24px;" />
+                </button>
                 <button id="toggle-dark" class="text-gray-600 hover:text-black px-3 py-1 rounded transition mb-3 md:mb-0" onclick="toggleNightMode()">
                   ${document.body.classList.contains("night") ? "☀️" : "🌙"}
                 </button>
@@ -560,7 +648,10 @@ function render() {
                 <button class="px-4 py-2 rounded bg-amber-500 text-white font-bold shadow hover:bg-amber-600 transition" onclick="goToSecondPage()">Desserts</button>
                 <button class="px-4 py-2 rounded bg-amber-500 text-white font-bold shadow hover:bg-amber-600 transition" onclick="goToBeansPage()">Beans</button>
                 <button class="px-4 py-2 rounded bg-amber-500 text-white font-bold shadow hover:bg-amber-600 transition" onclick="goToCraftPage()">Craft Your Cup</button>
-<button class="px-4 py-2 rounded bg-green-600 text-white font-bold shadow hover:bg-green-700 transition flex items-center gap-2" onclick="goToCartPage()">🛒 Cart</button>
+                <button class="px-4 py-2 rounded bg-green-600 text-white font-bold shadow hover:bg-green-700 transition flex items-center gap-2" onclick="goToCartPage()">🛒 Cart</button>
+                <button id="user-icon" class="transition flex items-center justify-center w-10 h-10" onclick="window.showLoginModal()" aria-label="User login">
+                  <img src="/images/user2.png" alt="User" style="width:24px; height:24px;" />
+                </button>
                 <button id="toggle-dark" class="text-gray-600 hover:text-black px-3 py-1 rounded transition mb-3 md:mb-0" onclick="toggleNightMode()">${
                   document.body.classList.contains("night") ? "☀️" : "🌙"
                 }</button>
@@ -648,7 +739,10 @@ function render() {
                 <button class="px-4 py-2 rounded bg-amber-500 text-white font-bold shadow hover:bg-amber-600 transition" onclick="goToSecondPage()">Desserts</button>
                 <button class="px-4 py-2 rounded bg-amber-500 text-white font-bold shadow hover:bg-amber-600 transition" onclick="goToCraftPage()">Craft Your Cup</button>
                 <button class="px-4 py-2 rounded bg-amber-500 text-white font-bold shadow hover:bg-amber-600 transition" onclick="goToStoryPage()">Our Story</button>
-<button class="px-4 py-2 rounded bg-green-600 text-white font-bold shadow hover:bg-green-700 transition flex items-center gap-2" onclick="goToCartPage()">🛒 Cart</button>
+                <button class="px-4 py-2 rounded bg-green-600 text-white font-bold shadow hover:bg-green-700 transition flex items-center gap-2" onclick="goToCartPage()">🛒 Cart</button>
+                <button id="user-icon" class="transition flex items-center justify-center w-10 h-10" onclick="window.showLoginModal()" aria-label="User login">
+                  <img src="/images/user2.png" alt="User" style="width:24px; height:24px;" />
+                </button>
                 <button id="toggle-dark" class="text-gray-600 hover:text-black px-3 py-1 rounded transition mb-3 md:mb-0" onclick="toggleNightMode()">
                   ${document.body.classList.contains("night") ? "☀️" : "🌙"}
                 </button>
@@ -774,9 +868,12 @@ function render() {
                 <button class="px-4 py-2 rounded bg-amber-500 text-white font-bold shadow hover:bg-amber-600 transition" onclick="goToBeansPage()">Beans</button>
                 <button class="px-4 py-2 rounded bg-amber-500 text-white font-bold shadow hover:bg-amber-600 transition" onclick="goToStoryPage()">Our Story</button>
                 <button class="px-4 py-2 rounded bg-green-600 text-white font-bold shadow hover:bg-green-700 transition" onclick="goToCartPage()">🛒 Cart</button>
-                <button id="toggle-dark" class="text-gray-600 hover:text-black px-3 py-1 rounded transition mb-3 md:mb-0" onclick="toggleNightMode()">${
-                  document.body.classList.contains("night") ? "☀️" : "🌙"
-                }</button>
+                <button id="user-icon" class="transition flex items-center justify-center w-10 h-10" onclick="window.showLoginModal()" aria-label="User login">
+                  <img src="/images/user2.png" alt="User" style="width:24px; height:24px;" />
+                </button>
+                <button id="toggle-dark" class="text-gray-600 hover:text-black px-3 py-1 rounded transition mb-3 md:mb-0" onclick="toggleNightMode()">
+                  ${document.body.classList.contains("night") ? "☀️" : "🌙"}
+                </button>
               </div>
             </div>
           </div>
@@ -970,6 +1067,9 @@ function render() {
                 <button class="px-4 py-2 rounded bg-amber-500 text-white font-bold shadow hover:bg-amber-600 transition" onclick="goToCraftPage()">Craft Your Cup</button>
                 <button class="px-4 py-2 rounded bg-amber-500 text-white font-bold shadow hover:bg-amber-600 transition" onclick="goToStoryPage()">Our Story</button>
                 <button class="px-4 py-2 rounded bg-green-600 text-white font-bold shadow hover:bg-green-700 transition" onclick="goToCartPage()">🛒 Cart</button>
+                <button id="user-icon" class="transition flex items-center justify-center w-10 h-10" onclick="window.showLoginModal()" aria-label="User login">
+                  <img src="/images/user2.png" alt="User" style="width:24px; height:24px;" />
+                </button>
                 <button id="toggle-dark" class="text-gray-600 hover:text-black px-3 py-1 rounded transition mb-3 md:mb-0" onclick="toggleNightMode()">
                   ${document.body.classList.contains("night") ? "☀️" : "🌙"}
                 </button>
