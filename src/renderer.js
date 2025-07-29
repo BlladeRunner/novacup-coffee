@@ -228,6 +228,153 @@ window.toggleNavMenu = function () {
 };
 
 function render() {
+  // Helper function to get calories for coffee types
+  function getCoffeeCalories(tags) {
+    if (!tags) return "";
+    // Expanded calorie map for all common coffee types
+    const coffeeCaloriesMap = {
+      "Egg Coffee": "150 KCAL (120ml, egg & condensed milk)",
+      Bicerin: "200 KCAL (espresso, chocolate & cream)",
+      Yuanyang: "120 KCAL (240ml, coffee, tea & milk)",
+      Espresso: "2 KCAL (30ml, black)",
+      Americano: "5 KCAL (240ml, black)",
+      Latte: "120 KCAL (240ml, whole milk)",
+      Cappuccino: "80 KCAL (180ml, whole milk)",
+      Mocha: "180 KCAL (240ml, chocolate & milk)",
+      Macchiato: "15 KCAL (60ml, milk foam)",
+      "Flat White": "90 KCAL (160ml, whole milk)",
+      Affogato: "210 KCAL (with ice cream)",
+      "Cold Brew": "3 KCAL (240ml, black)",
+      Drip: "2 KCAL (240ml, black)",
+      Turkish: "15 KCAL (100ml, sugar)",
+      Irish: "150 KCAL (with whiskey/cream)",
+      Lungo: "4 KCAL (120ml, black)",
+      Ristretto: "1 KCAL (20ml, black)",
+      Doppio: "4 KCAL (60ml, black)",
+      Cortado: "50 KCAL (60ml, milk)",
+      Redeye: "8 KCAL (240ml, black)",
+      Romano: "2 KCAL (30ml, lemon)",
+      Piccolo: "40 KCAL (90ml, milk)",
+      "Vienna Coffee": "120 KCAL (120ml, cream)",
+      "Black Eye": "8 KCAL (240ml, black)",
+      "White Coffee": "60 KCAL (240ml, milk)",
+      "Iced Coffee": "5 KCAL (240ml, black)",
+      "Nitro Cold Brew": "3 KCAL (240ml, black)",
+      Bulletproof: "230 KCAL (240ml, butter/MCT)",
+      "Café au Lait": "90 KCAL (240ml, milk)",
+      "Café Bombón": "160 KCAL (60ml, condensed milk)",
+      "Café Cubano": "20 KCAL (30ml, sugar)",
+      "Café de Olla": "60 KCAL (240ml, piloncillo)",
+      "Café con Leche": "110 KCAL (240ml, milk)",
+      "Café Breve": "160 KCAL (240ml, half & half)",
+      "Café Marocchino": "70 KCAL (60ml, cocoa & milk)",
+      "Café Zorro": "4 KCAL (60ml, black)",
+      "Café Medici": "140 KCAL (240ml, chocolate & cream)",
+      "Café Viennois": "120 KCAL (120ml, cream)",
+      "Café Borgia": "180 KCAL (240ml, chocolate & orange)",
+      "Café Crème": "100 KCAL (240ml, cream)",
+      "Café Miel": "140 KCAL (240ml, honey & milk)",
+      "Café Mocha": "180 KCAL (240ml, chocolate & milk)",
+      "Café Rápido": "2 KCAL (30ml, black)",
+      "Café Dalgona": "120 KCAL (240ml, milk & sugar)",
+      "Café Frappe": "80 KCAL (240ml, ice & milk)",
+      "Café Freddo": "5 KCAL (240ml, black)",
+      "Café Lungo": "4 KCAL (120ml, black)",
+      "Café Shakerato": "5 KCAL (60ml, black)",
+      "Café Affogato": "210 KCAL (with ice cream)",
+      "Café Corretto": "100 KCAL (30ml, grappa)",
+      "Café Brûlot": "120 KCAL (120ml, brandy)",
+      "Café Touba": "5 KCAL (240ml, black)",
+      "Café Phin": "10 KCAL (120ml, condensed milk)",
+      "Café Sua Da": "120 KCAL (240ml, condensed milk)",
+      "Café Tonic": "30 KCAL (240ml, tonic)",
+      "Café Mazagran": "35 KCAL (240ml, lemon)",
+      Mazagran: "35 KCAL (240ml, lemon)",
+      "Café Bonbon": "160 KCAL (60ml, condensed milk)",
+      "Café Con Panna": "100 KCAL (60ml, whipped cream)",
+      "Café Leche Y Leche": "140 KCAL (120ml, milk & condensed milk)",
+      "Café Bombon": "160 KCAL (60ml, condensed milk)",
+    };
+
+    // Modal: always match by name (case-insensitive, trimmed)
+    if (
+      window.selectedRecipe &&
+      window.selectedRecipe.name &&
+      tags.length === 1 &&
+      tags[0] === window.selectedRecipe.name
+    ) {
+      const name = window.selectedRecipe.name.trim().toLowerCase();
+      for (const key in coffeeCaloriesMap) {
+        if (key.trim().toLowerCase() === name) {
+          return coffeeCaloriesMap[key];
+        }
+      }
+      // Warn if missing
+      console.warn(
+        "No calories match for modal name:",
+        window.selectedRecipe.name
+      );
+      return "? KCAL (unknown)";
+    }
+    // Cards: match by tags (case-insensitive, substring)
+    for (const key in coffeeCaloriesMap) {
+      for (const tag of tags) {
+        if (
+          tag &&
+          tag.trim().toLowerCase().includes(key.trim().toLowerCase())
+        ) {
+          return coffeeCaloriesMap[key];
+        }
+      }
+    }
+    // Warn if missing
+    console.warn("No calories match for card tags:", tags);
+    return "2 KCAL (240ml, black)";
+  }
+  // Add calories to coffee modal window rendering (Main page)
+  if (currentPage === "main" && selectedRecipe) {
+    app.innerHTML += `
+      <div class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-60 animate-fade-in">
+        <div class="${
+          document.body.classList.contains("night")
+            ? "bg-gray-800 text-white"
+            : "bg-white"
+        } rounded-xl shadow-xl p-6 max-w-md w-full text-center animate-slide-in relative">
+          <button class="absolute top-2 right-4 text-xl text-gray-400 hover:text-gray-700 animate-fade-in" onclick="closeCoffeeRecipe()">×</button>
+          <img src="${selectedRecipe.image}" alt="${
+      selectedRecipe.name
+    } coffee image" class="w-64 h-64 object-cover rounded-full mx-auto border-4 border-amber-500 shadow mb-4 animate-slide-in">
+          <h2 class="text-2xl font-bold mb-2">${selectedRecipe.name}</h2>
+          <div class="mb-2 text-center text-amber-700 font-semibold text-base">${getCoffeeCalories(
+            [selectedRecipe.name]
+          )}</div>
+          <p class="mb-3" style="color: ${
+            document.body.classList.contains("night") ? "#fff" : "#000"
+          }">${selectedRecipe.description || "No description provided."}</p>
+          <div class="flex gap-2 text-xs mb-4 items-center justify-center flex-wrap">
+            ${
+              selectedRecipe.tags
+                ?.map(
+                  (tag) =>
+                    `<span class='${
+                      document.body.classList.contains("night")
+                        ? "bg-green-900 text-green-200"
+                        : "bg-green-100 text-green-800"
+                    } rounded px-2 py-1 font-semibold animate-fade-in'>${tag}</span>`
+                )
+                .join("") || ""
+            }
+          </div>
+          <button class="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded w-full animate-fade-in" onclick="closeCoffeeRecipe()" aria-label="Close coffee modal" tabindex="0" onkeydown="if(event.key==='Enter'){closeCoffeeRecipe()}" >Close</button>
+        </div>
+      </div>
+    `;
+    window.closeCoffeeRecipe = function () {
+      selectedRecipe = null;
+      render();
+    };
+    return;
+  }
   if (currentPage === "cart") {
     app.innerHTML = `
       <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Pacifico&display=swap" rel="stylesheet">
