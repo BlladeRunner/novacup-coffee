@@ -174,7 +174,7 @@
     "tags": ["Italian", "Almond", "Cookie"]
   },
   {
-    "name": "Eclair",
+    "name": "Éclair",
     "image": "/images/eclair.jpg",
     "description": "Choux pastry filled with cream and topped with chocolate icing.",
     "tags": ["French", "Choux", "Chocolate"]
@@ -184,5 +184,17 @@
     "image": "/images/zeppole.jpg",
     "description": "Italian fried dough balls, sometimes filled with custard or cream.",
     "tags": ["Italian", "Fried", "Custard"]
+  },
+  {
+    "name": "Panna Cotta",
+    "image": "/images/panna-cotta.jpg",
+    "description": "Silky Italian dessert made from sweetened cream and gelatin, often served with berries or caramel.",
+    "tags": ["Italian", "Creamy", "Chilled"]
+  },
+  {
+    "name": "Crème Brûlée",
+    "image": "/images/creme-brulee.jpg",
+    "description": "Classic French custard dessert with a caramelized sugar crust.",
+    "tags": ["French", "Custard", "Caramelized"]
   }
 ]

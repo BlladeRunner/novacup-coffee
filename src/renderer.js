@@ -26,7 +26,6 @@ window.switchToLogin = function () {
   window.showingLogin = true;
   render();
 };
-// Modal logic
 if (window.showingLogin) {
   app.innerHTML += `
       <div class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-60 animate-fade-in">
@@ -227,11 +226,80 @@ window.toggleNavMenu = function () {
   }
 };
 
+function getDessertCalories(tags) {
+  if (!tags) return "";
+  const dessertCaloriesMap = {
+    "Coffee Cake": "340 KCAL (100g, cinnamon)",
+    Tiramisu: "410 KCAL (120g, classic)",
+    Cheesecake: "350 KCAL (100g, plain)",
+    "Chocolate Cake": "370 KCAL (100g, frosted)",
+    Brownie: "320 KCAL (60g, chocolate)",
+    Baklava: "290 KCAL (50g, nut & honey)",
+    Pavlova: "220 KCAL (80g, meringue)",
+    "Panna Cotta": "250 KCAL (120g, cream)",
+    "Crème Brûlée": "300 KCAL (100g, custard)",
+    Sachertorte: "450 KCAL (100g, chocolate)",
+    Ricciarelli: "150 KCAL (30g, almond)",
+    Macaron: "70 KCAL (20g, almond)",
+    "Pastel de Nata": "180 KCAL (40g, custard)",
+    "Dobos Torte": "400 KCAL (100g, chocolate)",
+    Kardinalschnitte: "180 KCAL (50g, meringue)",
+    Éclair: "260 KCAL (60g, chocolate)",
+    Sablé: "150 KCAL (30g, butter)",
+    Amaretti: "110 KCAL (20g, almond)",
+    Profiterole: "90 KCAL (30g, cream)",
+    Cannoli: "220 KCAL (50g, ricotta)",
+    "Lemon Tart": "250 KCAL (80g, lemon)",
+    "Opera Cake": "420 KCAL (100g, chocolate)",
+    Churros: "115 KCAL (30g, sugar)",
+    Donut: "250 KCAL (60g, glazed)",
+    "Pecan Pie": "430 KCAL (100g, nut)",
+    Strudel: "210 KCAL (70g, apple)",
+    Crêpe: "110 KCAL (40g, plain)",
+    Waffle: "220 KCAL (70g, plain)",
+    Pancake: "90 KCAL (30g, plain)",
+    Croissant: "230 KCAL (50g, butter)",
+    Biscotti: "90 KCAL (20g, almond)",
+    Madeleine: "100 KCAL (20g, butter)",
+    Financier: "110 KCAL (25g, almond)",
+    Galette: "180 KCAL (50g, fruit)",
+    Zeppole: "90 KCAL (20g, fried)",
+    Sfogliatella: "180 KCAL (50g, ricotta)",
+    Florentine: "90 KCAL (20g, nut)",
+    "Rum Baba": "250 KCAL (70g, soaked)",
+  };
+  if (
+    window.selectedDessert &&
+    window.selectedDessert.name &&
+    tags.length === 1 &&
+    tags[0] === window.selectedDessert.name
+  ) {
+    const name = window.selectedDessert.name.trim().toLowerCase();
+    for (const key in dessertCaloriesMap) {
+      if (key.trim().toLowerCase() === name) {
+        return dessertCaloriesMap[key];
+      }
+    }
+    console.warn(
+      "No calories match for dessert modal name:",
+      window.selectedDessert.name
+    );
+    return "? KCAL (unknown)";
+  }
+  for (const key in dessertCaloriesMap) {
+    for (const tag of tags) {
+      if (tag && tag.trim().toLowerCase().includes(key.trim().toLowerCase())) {
+        return dessertCaloriesMap[key];
+      }
+    }
+  }
+  console.warn("No calories match for dessert card tags:", tags);
+  return "? KCAL (unknown)";
+}
+
 function render() {
-  // Helper function to get calories for coffee types
   function getCoffeeCalories(tags) {
     if (!tags) return "";
-    // Expanded calorie map for all common coffee types
     const coffeeCaloriesMap = {
       "Egg Coffee": "150 KCAL (120ml, egg & condensed milk)",
       Bicerin: "200 KCAL (espresso, chocolate & cream)",
@@ -296,7 +364,6 @@ function render() {
       "Café Bombon": "160 KCAL (60ml, condensed milk)",
     };
 
-    // Modal: always match by name (case-insensitive, trimmed)
     if (
       window.selectedRecipe &&
       window.selectedRecipe.name &&
@@ -309,14 +376,12 @@ function render() {
           return coffeeCaloriesMap[key];
         }
       }
-      // Warn if missing
       console.warn(
         "No calories match for modal name:",
         window.selectedRecipe.name
       );
       return "? KCAL (unknown)";
     }
-    // Cards: match by tags (case-insensitive, substring)
     for (const key in coffeeCaloriesMap) {
       for (const tag of tags) {
         if (
@@ -327,11 +392,9 @@ function render() {
         }
       }
     }
-    // Warn if missing
     console.warn("No calories match for card tags:", tags);
     return "2 KCAL (240ml, black)";
   }
-  // Add calories to coffee modal window rendering (Main page)
   if (currentPage === "main" && selectedRecipe) {
     app.innerHTML += `
       <div class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-60 animate-fade-in">
@@ -544,9 +607,9 @@ function render() {
                 <button class="px-4 py-2 rounded bg-amber-500 text-white font-bold shadow hover:bg-amber-600 transition" onclick="goToCraftPage()">Craft Your Cup</button>
                 <button class="px-4 py-2 rounded bg-amber-500 text-white font-bold shadow hover:bg-amber-600 transition" onclick="goToStoryPage()">Our Story</button>                
                 <button id="user-icon" class="transition flex items-center justify-center w-10 h-10" onclick="window.showLoginModal()" aria-label="User login">
-                  <img src="/images/user.png" alt="User" style="width:24px; height:24px;" />
+                  <img class="hover:scale-120 transition" src="/images/user.png" alt="User" style="width:24px; height:24px;" />
                 </button>
-                <button class="px-4 py-2 rounded text-white font-bold transition flex items-center gap-2" onclick="goToCartPage()"><img class="hover:scale-120 transition" src="/images/cart.png" alt="User" style="width:24px; height:24px;" /></button>
+                <button class="px-4 py-2 transition flex items-center gap-2" onclick="goToCartPage()"><img class="hover:scale-120 transition" src="/images/cart.png" alt="User" style="width:24px; height:24px;" /></button>
                 <button id="toggle-dark" class="text-gray-600 hover:text-black px-3 py-1 rounded transition mb-3 md:mb-0" onclick="toggleNightMode()">
                   ${document.body.classList.contains("night") ? "☀️" : "🌙"}
                 </button>
@@ -651,9 +714,7 @@ function render() {
                         recipe.name,
                         window.dessertSearchQuery
                       )}</h2>
-                    <div class="mb-2 text-center text-green-700 font-bold text-base">${getDessertPrice(
-                      recipe.tags
-                    )}</div>
+                    <!-- KCAL intentionally shown only in modal, not in card -->
                     <!-- Description removed from card, only shown in modal -->
                     <div class="flex gap-2 text-xs ${
                       document.body.classList.contains("night")
@@ -730,6 +791,9 @@ function render() {
         selectedDessert.name
       } dessert image" class="w-64 h-64 object-cover rounded-full mx-auto border-4 border-amber-500 shadow mb-4 animate-slide-in">
             <h2 class="text-2xl font-bold mb-2">${selectedDessert.name}</h2>
+            <div class="mb-2 text-center text-amber-700 font-semibold text-base">${getDessertCalories(
+              [selectedDessert.name]
+            )}</div>
             <p class="mb-3" style="color: ${
               document.body.classList.contains("night") ? "#fff" : "#000"
             }">${selectedDessert.description || "No description provided."}</p>
@@ -1306,7 +1370,7 @@ function render() {
               }ms;" />
               <h2 class="text-xl font-semibold mb-2 text-center ${
                 document.body.classList.contains("night") ? "text-white" : ""
-              } group-hover:text-amber-700 animate-fade-in">${highlightMatch(
+              } group-hover:text-amber-700">${highlightMatch(
                 recipe.name,
                 searchQuery
               )}</h2>
